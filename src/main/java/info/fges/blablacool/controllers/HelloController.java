@@ -1,6 +1,8 @@
 package info.fges.blablacool.controllers;
 
+import info.fges.blablacool.models.Trip;
 import info.fges.blablacool.models.TripHasPlaces;
+import info.fges.blablacool.models.User;
 import info.fges.blablacool.services.TripService;
 import info.fges.blablacool.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +21,18 @@ public class HelloController
     @RequestMapping(method = RequestMethod.GET)
 	public String printWelcome(ModelMap model)
     {
-        System.out.println(tripService.findById(1).getTripHasPlaces());
-        for(TripHasPlaces thp : tripService.findById(1).getTripHasPlaces())
+        Trip trip = tripService.findById(1);
+
+        System.out.println(trip.getLeftSeats());
+
+        for (User pass : trip.getPassengers())
         {
-            System.out.println(thp.getPlace().getLatitude());
+            System.out.println(pass.getFirstname() + " " + pass.getLastname());
+        }
+
+        for (TripHasPlaces thp : trip.getTripHasPlaces())
+        {
+            System.out.println(thp.getEstimatedTime());
         }
 
         model.addAttribute("message", "Hello world!");

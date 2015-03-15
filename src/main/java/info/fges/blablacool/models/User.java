@@ -1,9 +1,7 @@
 package info.fges.blablacool.models;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Valentin on 15/03/15.
@@ -13,9 +11,11 @@ public class User {
     private int id;
     private String firstname;
     private String lastname;
+    private List<Trip> trips;
+    private List<Car> cars;
 
     @Id
-    @Column(name = "id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "id_user", nullable = false, insertable = true, updatable = true)
     public int getId() {
         return id;
     }
@@ -64,5 +64,23 @@ public class User {
         result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
         result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
         return result;
+    }
+
+    @ManyToMany(mappedBy = "passengers")
+    public List<Trip> getTrips() {
+        return trips;
+    }
+
+    public void setTrips(List<Trip> trips) {
+        this.trips = trips;
+    }
+
+    @OneToMany(mappedBy = "owner")
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
     }
 }

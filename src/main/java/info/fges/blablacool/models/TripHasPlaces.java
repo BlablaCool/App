@@ -1,8 +1,10 @@
 package info.fges.blablacool.models;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by Valentin on 15/03/15.
@@ -16,7 +18,7 @@ import java.util.Date;
 public class TripHasPlaces implements Serializable
 {
     private TripHasPlacesId pk = new TripHasPlacesId();
-    private Date estimated_time;
+    private DateTime estimated_time;
     private int position;
 
     public TripHasPlaces() {}
@@ -45,12 +47,12 @@ public class TripHasPlaces implements Serializable
         pk.setPlace(place);
     }
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "estimated_time")
-    public Date getEstimatedTime() {
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    public DateTime getEstimatedTime() {
         return this.estimated_time;
     }
-    public void setEstimatedTime(Date et) {
+    public void setEstimatedTime(DateTime et) {
         this.estimated_time = et;
     }
 
