@@ -6,6 +6,7 @@ import info.fges.blablacool.models.User;
 import info.fges.blablacool.services.TripService;
 import info.fges.blablacool.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,11 +23,12 @@ public class HelloController
     @RequestMapping(method = RequestMethod.GET)
 	public String printWelcome(ModelMap model)
     {
-        User user = uS.findById(1);
+        String password = "polopolo";
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(password);
+        System.out.println(hashedPassword);
 
-        System.out.println(user.getRoles());
-
-        model.addAttribute("message", "Hello world!");
+        model.addAttribute("message", hashedPassword);
 		return "hello";
 	}
 

@@ -20,26 +20,18 @@ import org.springframework.security.web.context.AbstractSecurityWebApplicationIn
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication().withUser("tom").password("123456").roles("USER");
-//        auth.inMemoryAuthentication().withUser("bill").password("123456").roles("ADMIN");
-//        auth.inMemoryAuthentication().withUser("james").password("123456").roles("SUPERADMIN");
-//    }
+    @Autowired
+    @Qualifier("customUserDetailsService")
+    private UserDetailsService userDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
         http.authorizeRequests()
-                .antMatchers("/test").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/test1").access("hasRole('ROLE_SUPERADMIN')")
+                .antMatchers("/test").access("hasRole('ADMIN')")
+                .antMatchers("/test1").access("hasRole('ADMIN')")
                 .and().formLogin();
     }
-
-
-	@Autowired
-	@Qualifier("customUserDetailsService")
-    private UserDetailsService userDetailsService;
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
