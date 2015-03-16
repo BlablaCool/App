@@ -38,10 +38,9 @@ public class HelloController
     }
 
     @RequestMapping({"login"})
-    @ResponseBody
     public String getLogin()
     {
-        return "<h2>Login</h2>";
+        return "auth/login";
     }
 
     @RequestMapping({"logout"})
