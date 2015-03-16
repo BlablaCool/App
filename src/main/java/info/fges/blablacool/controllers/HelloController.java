@@ -36,4 +36,18 @@ public class HelloController
     {
         return "<h2>Test</h2>";
     }
+
+    @RequestMapping({"login"})
+    @ResponseBody
+    public String getLogin()
+    {
+        return "<h2>Login</h2>";
+    }
+
+    @RequestMapping({"logout"})
+    @ResponseBody
+    public String getLogout()
+    {
+        return "<h2>Logout</h2>";
+    }
 }
