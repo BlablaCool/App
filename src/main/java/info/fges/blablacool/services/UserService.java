@@ -16,6 +16,11 @@ public class UserService extends ServiceInterface<User, Integer>
     @Autowired
     private UserDao userDao;
 
+    public User findByEmail(String email)
+    {
+        return userDao.findByEmail(email);
+    }
+
     @Override
     public User findById(Integer integer) {
         return userDao.findById(integer);

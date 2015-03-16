@@ -12,6 +12,23 @@ import java.util.List;
 @Repository
 public class UserDao extends DaoInterface<User, Integer>
 {
+    public User findByEmail(String email)
+    {
+        User user = null;
+
+        Query query = openCurrentSession()
+                .createQuery("from User where email = :email")
+                .setParameter("email", email)
+                .setMaxResults(1);
+
+        if (query.list().size() > 0)
+            user = (User) query.list().get(0);
+
+        closeCurrentSession();
+
+        return user;
+    }
+
     @Override
     public User findById(Integer integer)
     {

@@ -10,32 +10,30 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/")
 public class HelloController
 {
 	@Autowired
-    private TripService tripService;
+    private UserService uS;
 
     @RequestMapping(method = RequestMethod.GET)
 	public String printWelcome(ModelMap model)
     {
-        Trip trip = tripService.findById(1);
+        User user = uS.findById(1);
 
-        System.out.println(trip.getLeftSeats());
-
-        for (User pass : trip.getPassengers())
-        {
-            System.out.println(pass.getFirstname() + " " + pass.getLastname());
-        }
-
-        for (TripHasPlaces thp : trip.getTripHasPlaces())
-        {
-            System.out.println(thp.getEstimatedTime());
-        }
+        System.out.println(user.getRoles());
 
         model.addAttribute("message", "Hello world!");
 		return "hello";
 	}
+
+    @RequestMapping({"test", "test1", "test2"})
+    @ResponseBody
+    public String getTest()
+    {
+        return "<h2>Test</h2>";
+    }
 }

@@ -15,6 +15,7 @@
         <mapping class="info.fges.blablacool.models.TripHasPlaces"/>
         <mapping class="info.fges.blablacool.models.TripHasPlacesId"/>
         <mapping class="info.fges.blablacool.models.Car"/>
+        <mapping class="info.fges.blablacool.models.Role"/>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
     </session-factory>
