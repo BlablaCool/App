@@ -61,28 +61,6 @@
                 <h4><a href="index-7.html#" class="text-color">support@traveler.com</a></h4>
                 <p>24/7 Dedicated Customer Support</p>
             </div>
-
         </div>
     </div>
 </footer>
-
-<script src="/assets/js/jquery.js"></script>
-<script src="/assets/js/bootstrap.js"></script>
-<script src="/assets/js/slimmenu.js"></script>
-<script src="/assets/js/bootstrap-datepicker.js"></script>
-<script src="/assets/js/bootstrap-timepicker.js"></script>
-<script src="/assets/js/dropit.js"></script>
-<script src="/assets/js/ionrangeslider.js"></script>
-<script src="/assets/js/icheck.js"></script>
-<script src="/assets/js/fotorama.js"></script>
-<script src="//maps.googleapis.com/maps/api/js?v=3.exp"></script>
-<script src="/assets/js/typeahead.js"></script>
-<script src="/assets/js/card-payment.js"></script>
-<script src="/assets/js/magnific.js"></script>
-<script src="/assets/js/owl-carousel.js"></script>
-<script src="/assets/js/fitvids.js"></script>
-<script src="/assets/js/tweet.js"></script>
-<script src="/assets/js/countdown.js"></script>
-<script src="/assets/js/gridrotator.js"></script>
-<script src="/assets/js/custom.js"></script>
-<script src="/assets/js/switcher.js"></script>

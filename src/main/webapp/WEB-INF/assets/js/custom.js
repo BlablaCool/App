@@ -97,7 +97,7 @@ $('input.date-pick-years').datepicker({
 
 $('.booking-item-price-calc .checkbox label').click(function() {
     var checkbox = $(this).find('input'),
-        // checked = $(checkboxDiv).hasClass('checked'),
+    // checked = $(checkboxDiv).hasClass('checked'),
         checked = $(checkbox).prop('checked'),
         price = parseInt($(this).find('span.pull-right').html().replace('$', '')),
         eqPrice = $('#car-equipment-total'),
@@ -141,7 +141,7 @@ $('.booking-item-price-calc .checkbox label').click(function() {
 
 $('div.bg-parallax').each(function() {
     var $obj = $(this);
-    if($(window).width() > 992 ){
+    if ($(window).width() > 992) {
         $(window).scroll(function() {
             var animSpeed;
             if ($obj.hasClass('bg-blur')) {
@@ -187,14 +187,18 @@ $(document).ready(
         });
 
 
-    // footer always on bottom
-    var docHeight = $(window).height();
-   var footerHeight = $('#main-footer').height();
-   var footerTop = $('#main-footer').position().top + footerHeight;
-   
-   if (footerTop < docHeight) {
-    $('#main-footer').css('margin-top', (docHeight - footerTop) + 'px');
-   }
+        // footer always on bottom
+        if ($('#main-footer').length> 0)
+        {
+            var docHeight = $(window).height();
+            var footerHeight = $('#main-footer').height();
+            var footerTop = $('#main-footer').position().top + footerHeight;
+
+            if (footerTop < docHeight) {
+                $('#main-footer').css('margin-top', (docHeight - footerTop) + 'px');
+            }
+        }
+
     }
 
 

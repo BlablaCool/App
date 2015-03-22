@@ -6,7 +6,16 @@
 <tiles-definitions>
     <definition name="blablacoolTemplate" template="/WEB-INF/template/blablacool/template.jsp">
         <put-attribute name="header" value="/WEB-INF/template/blablacool/header.jsp" />
+        <put-attribute name="header-meta" value="/WEB-INF/template/blablacool/header-meta.jsp" />
         <put-attribute name="top-menu" value="/WEB-INF/template/blablacool/top-menu.jsp" />
         <put-attribute name="footer" value="/WEB-INF/template/blablacool/footer.jsp" />
+        <put-attribute name="footer-js" value="/WEB-INF/template/blablacool/footer-js.jsp" />
+    </definition>
+    <definition name="blablacoolTemplateFull" template="/WEB-INF/template/blablacool/template-full.jsp">
+        <put-attribute name="header" value="/WEB-INF/template/blablacool/header.jsp" />
+        <put-attribute name="header-meta" value="/WEB-INF/template/blablacool/header-meta.jsp" />
+        <put-attribute name="top-menu" value="/WEB-INF/template/blablacool/top-menu.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/template/blablacool/footer.jsp" />
+        <put-attribute name="footer-js" value="/WEB-INF/template/blablacool/footer-js.jsp" />
     </definition>
 </tiles-definitions>

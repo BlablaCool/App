@@ -28,20 +28,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     protected void configure(HttpSecurity http) throws Exception
     {
         http.authorizeRequests()
-                .antMatchers("/test").access("hasRole('ADMIN')")
-                .antMatchers("/test1").access("hasRole('ADMIN')")
-                .and().formLogin();
+                .antMatchers("/admin/**").access("hasRole('ADMIN')")
+                .and()
+                    .formLogin().loginPage("/auth/login-register")
+                    .failureUrl("/auth/login-register?error=login")
+                    .loginProcessingUrl("/j_spring_security_check")
+                    .usernameParameter("email")
+                    .passwordParameter("password")
+                .and()
+                    .logout().logoutUrl("/auth/logout").logoutSuccessUrl("/")
+                .and()
+                    .csrf().disable();
     }
 
 	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception
+    {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
 
 	@Bean
-	public PasswordEncoder passwordEncoder(){
+	public PasswordEncoder passwordEncoder()
+    {
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
-		return encoder;
+
+        return encoder;
 	}
 
 }
