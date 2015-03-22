@@ -1,5 +1,9 @@
 package info.fges.blablacool.models;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -9,14 +13,30 @@ import java.util.List;
 @Entity
 public class User {
     private int id;
+
+    @NotEmpty
     private String firstname;
+
+    @NotEmpty
     private String lastname;
+
+    @NotEmpty @Email
+    private String email;
+
+    @NotEmpty
+    private String nickname;
+
+    @NotEmpty @Length(min = 6, max = 42)
+    private String password;
+
+    @Transient
+    @NotEmpty @Length(min = 6, max = 42)
+    private String passwordConfirmation;
+
     private List<Trip> trips;
     private List<Car> cars;
     private List<Role> roles;
-    private String nickname;
-    private String email;
-    private String password;
+
     private Byte age;
 
     @Id
@@ -137,5 +157,14 @@ public class User {
 
     public void setAge(Byte age) {
         this.age = age;
+    }
+
+    @Transient
+    public String getPasswordConfirmation() {
+        return passwordConfirmation;
+    }
+
+    public void setPasswordConfirmation(String passwordConfirmation) {
+        this.passwordConfirmation = passwordConfirmation;
     }
 }
