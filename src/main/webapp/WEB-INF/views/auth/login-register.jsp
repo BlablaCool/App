@@ -9,6 +9,8 @@
         <style>
             .has-error .help-block {
                 color: white !important;
+                font-weight: 700 !important;
+                font-size: 14px !important;
             }
         </style>
     </tiles:putAttribute>
@@ -49,7 +51,7 @@
                                 <input class="form-control" type="password" id="password" name="password" />
                             </div>
                             <p style="margin-top: 26px;">
-                                <input class="btn btn-primary" type="submit" value="Se connecter" />
+                                <input class="btn btn-success" type="submit" value="Se connecter" />
                             </p>
                         </form>
                     </div>
@@ -104,7 +106,7 @@
                                 </div>
                             </div>
                             <p style="margin-top: 15px;">
-                                <input class="btn btn-primary" type="submit" value="Créer un compte" />
+                                <input class="btn btn-success" type="submit" value="Créer un compte" />
                             </p>
                         </form:form>
                     </div>
