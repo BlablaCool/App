@@ -29,7 +29,7 @@ public class HelloController
         System.out.println(hashedPassword);
 
         model.addAttribute("message", hashedPassword);
-		return "hello";
+		return "home";
 	}
 
     @RequestMapping({"test", "test1", "test2"})

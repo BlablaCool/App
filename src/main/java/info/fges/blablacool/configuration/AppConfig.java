@@ -11,6 +11,9 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
+import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
+import org.springframework.web.servlet.view.tiles3.TilesView;
 
 import java.util.Properties;
 
@@ -57,7 +60,6 @@ public class AppConfig
         return ds;
     }
 
-    //Create a transaction manager
     @Bean
     public HibernateTransactionManager txManager()
     {
@@ -68,9 +70,33 @@ public class AppConfig
     public InternalResourceViewResolver getInternalResourceViewResolver()
     {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/pages/");
+        resolver.setPrefix("/WEB-INF/views/");
         resolver.setSuffix(".jsp");
+        resolver.setOrder(2);
 
         return resolver;
+    }
+
+    @Bean
+    public UrlBasedViewResolver viewResolver()
+    {
+        UrlBasedViewResolver viewResolver = new UrlBasedViewResolver();
+        viewResolver.setViewClass(TilesView.class);
+        viewResolver.setOrder(1);
+
+        return viewResolver;
+    }
+
+    @Bean
+    public TilesConfigurer tilesConfigurer()
+    {
+        TilesConfigurer tilesConfigurer = new TilesConfigurer();
+        tilesConfigurer.setDefinitions(new String[]{
+                "/WEB-INF/tiles/tiles-definitions.xml",
+                "/WEB-INF/views/**/tiles.xml"
+        });
+        tilesConfigurer.setCheckRefresh(true);
+
+        return tilesConfigurer;
     }
 }
