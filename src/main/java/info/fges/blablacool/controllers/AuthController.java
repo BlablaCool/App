@@ -72,6 +72,12 @@ public class AuthController
          */
         userService.create(user);
 
-        return "redirect:/register.successful";
+        return "redirect:/auth/registered";
+    }
+
+    @RequestMapping("/registered")
+    public String getRegistered()
+    {
+        return "auth/registered";
     }
 }
