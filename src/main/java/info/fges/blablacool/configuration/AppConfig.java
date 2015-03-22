@@ -10,6 +10,9 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
@@ -26,7 +29,7 @@ import java.util.Properties;
 @ComponentScan({"info.fges.blablacool"})
 @EnableTransactionManagement
 @Import({ SecurityConfig.class })
-public class AppConfig
+public class AppConfig extends WebMvcConfigurerAdapter
 {
     @Bean
     public SessionFactory sessionFactory()
@@ -98,5 +101,11 @@ public class AppConfig
         tilesConfigurer.setCheckRefresh(true);
 
         return tilesConfigurer;
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry)
+    {
+        registry.addResourceHandler("/assets/**").addResourceLocations("/WEB-INF/assets/");
     }
 }
