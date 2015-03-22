@@ -58,4 +58,42 @@ public class UserDao extends DaoInterface<User, Integer>
         currentSession.delete(userToDelete);
         closeCurrentSessionWithTransaction();
     }
+
+    public boolean nicknameAlreadyExists(String nickname)
+    {
+        boolean nicknameExists = false;
+
+        Query query = openCurrentSession()
+                .createQuery("from User where nickname = :nickname")
+                .setParameter("nickname", nickname)
+                .setMaxResults(1);
+
+        if (query.list().size() > 0)
+        {
+            nicknameExists = true;
+        }
+
+        closeCurrentSession();
+
+        return nicknameExists;
+    }
+
+    public boolean emailAlreadyExists(String email)
+    {
+        boolean emailExists = false;
+
+        Query query = openCurrentSession()
+                .createQuery("from User where email = :email")
+                .setParameter("email", email)
+                .setMaxResults(1);
+
+        if (query.list().size() > 0)
+        {
+            emailExists = true;
+        }
+
+        closeCurrentSession();
+
+        return emailExists;
+    }
 }

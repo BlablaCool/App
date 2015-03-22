@@ -14,21 +14,45 @@ $(document).ready(function() {
         fields: {
             nickname: {
                 validators: {
-                    notEmpty: {},
+                    notEmpty: true,
                     stringLength: {
-                        min: 6,
-                        max: 30
+                        min: 4,
+                        max: 42
                     },
                     regexp: {
                         regexp: /^[a-zA-Z0-9_]+$/,
                         message: 'Le pseudo ne peut comporter que des caractères alphanumériques'
+                    },
+                    threshold: 4,
+                    remote: {
+                        url: '/ajax/auth/check-username',
+                        type: 'POST',
+                        delay: 1000,
+                        message: 'Ce nom d\'utilisateur est déjà pris !'
                     }
+                }
+            },
+            firstname: {
+                validators: {
+                    notEmpty: true
+                }
+            },
+            lastname: {
+                validators: {
+                    notEmpty: true
                 }
             },
             email: {
                 validators: {
-                    notEmpty: {},
-                    emailAddress: {}
+                    notEmpty: true,
+                    emailAddress: true,
+                    threshold: 4,
+                    remote: {
+                        url: '/ajax/auth/check-email',
+                        type: 'POST',
+                        delay: 420,
+                        message: 'Cette adresse email est déjà utilisée !'
+                    }
                 }
             },
             password: {
@@ -37,6 +61,18 @@ $(document).ready(function() {
                     different: {
                         field: 'nickname',
                         message: 'Le mot de passe ne peut pas être identique au nom d\'utilisateur'
+                    },
+                    idential: 'passwordConfirmation',
+                    stringLength: {
+                        min: 4,
+                        max: 42
+                    }
+                }
+            },
+            passwordConfirmation: {
+                validators: {
+                    identical: {
+                        field: 'password'
                     }
                 }
             }

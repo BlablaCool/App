@@ -45,4 +45,14 @@ public class UserService extends ServiceInterface<User, Integer>
     public void deleteById(Integer integer) {
         userDao.deleteById(integer);
     }
+
+    public boolean nicknameAlreadyExists(String nickname)
+    {
+        return userDao.nicknameAlreadyExists(nickname);
+    }
+
+    public boolean emailAlreadyExists(String email)
+    {
+        return userDao.emailAlreadyExists(email);
+    }
 }
