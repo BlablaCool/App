@@ -53,6 +53,12 @@ public abstract class DaoInterface<T, Id extends Serializable>
         closeCurrentSessionWithTransaction();
     }
 
+    public void update(T obj)
+    {
+        openCurrentSessionWithTransaction().update(obj);
+        closeCurrentSessionWithTransaction();
+    }
+
     public void delete(T obj)
     {
         openCurrentSessionWithTransaction().delete(obj);

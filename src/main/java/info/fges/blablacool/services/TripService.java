@@ -31,6 +31,11 @@ public class TripService extends ServiceInterface<Trip,Integer> {
     }
 
     @Override
+    public void update(Trip trip) {
+        tripDao.update(trip);
+    }
+
+    @Override
     public void delete(Trip trip) {
         tripDao.delete(trip);
     }

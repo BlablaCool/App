@@ -32,6 +32,11 @@ public class RoleService extends ServiceInterface<Role,Integer>
     }
 
     @Override
+    public void update(Role role) {
+        roleDao.update(role);
+    }
+
+    @Override
     public void delete(Role trip) {
         roleDao.delete(trip);
     }

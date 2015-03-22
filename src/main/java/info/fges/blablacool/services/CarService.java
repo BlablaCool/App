@@ -31,6 +31,12 @@ public class CarService extends ServiceInterface<Car,Integer> {
     }
 
     @Override
+    public void update(Car car)
+    {
+        carDao.update(car);
+    }
+
+    @Override
     public void delete(Car trip) {
         carDao.delete(trip);
     }

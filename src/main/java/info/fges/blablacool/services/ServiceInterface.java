@@ -14,6 +14,8 @@ public abstract class ServiceInterface<T, Id extends Serializable>
 
     public abstract void create(T t);
 
+    public abstract void update(T t);
+
     public abstract void delete(T t);
 
     public abstract void deleteById(Id id);

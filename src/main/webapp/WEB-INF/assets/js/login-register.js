@@ -16,8 +16,8 @@ $(document).ready(function() {
                 validators: {
                     notEmpty: true,
                     stringLength: {
-                        min: 4,
-                        max: 42
+                        min: 2,
+                        max: 20
                     },
                     regexp: {
                         regexp: /^[a-zA-Z0-9_]+$/,
@@ -64,7 +64,7 @@ $(document).ready(function() {
                     },
                     idential: 'passwordConfirmation',
                     stringLength: {
-                        min: 4,
+                        min: 6,
                         max: 42
                     }
                 }

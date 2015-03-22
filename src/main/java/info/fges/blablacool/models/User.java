@@ -5,13 +5,15 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
  * Created by Valentin on 15/03/15.
  */
 @Entity
-public class User {
+public class User
+{
     private int id;
 
     @NotEmpty
@@ -23,14 +25,14 @@ public class User {
     @NotEmpty @Email
     private String email;
 
-    @NotEmpty
+    @NotEmpty @Length(min = 2, max = 20)
     private String nickname;
 
-    @NotEmpty @Length(min = 6, max = 42)
+    @NotEmpty
     private String password;
 
     @Transient
-    @NotEmpty @Length(min = 6, max = 42)
+    @NotEmpty
     private String passwordConfirmation;
 
     private List<Trip> trips;
@@ -40,7 +42,8 @@ public class User {
     private Byte age;
 
     @Id
-    @Column(name = "id_user", nullable = false, insertable = true, updatable = true)
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id_user", nullable = false, insertable = false, updatable = false)
     public int getId() {
         return id;
     }

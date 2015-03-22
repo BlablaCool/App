@@ -11,12 +11,14 @@ import java.util.List;
  * Created by Valentin on 15/03/15.
  */
 @Service
-public class PlaceService extends ServiceInterface<Place,Integer> {
+public class PlaceService extends ServiceInterface<Place,Integer>
+{
     @Autowired
     private PlaceDao placeDao;
 
     @Override
-    public Place findById(Integer integer) {
+    public Place findById(Integer integer)
+    {
         return placeDao.findById(integer);
     }
 
@@ -28,6 +30,11 @@ public class PlaceService extends ServiceInterface<Place,Integer> {
     @Override
     public void create(Place trip) {
         placeDao.create(trip);
+    }
+
+    @Override
+    public void update(Place place) {
+        placeDao.update(place);
     }
 
     @Override
