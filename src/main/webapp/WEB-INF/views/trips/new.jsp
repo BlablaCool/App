@@ -48,8 +48,10 @@
                                 <input type="hidden" name="administrative_area_level_1">
                                 <input type="hidden" name="place_id">
                             </form>
+                            <i class="fa fa-plus box-icon-to-normal box-icon-center box-icon-gray box-icon-to-success box-icon-border-dashed animate-icon-border-rise round" style="cursor: pointer;"></i>
                         </div>
-                        <div class="col-md-12">
+
+                        <div class="col-md-12" style="margin-top: -18px;">
                             <h5><i class="fa fa-flag-checkered"></i> Point d'arrivée</h5>
                             <div class="form-group">
                                 <input class="form-control" type="text" id="arrivalAddress" name="arrivalAddress" placeholder="Avenue des Champs-Elysées, Paris">
@@ -72,7 +74,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <div class="row">
@@ -82,7 +83,7 @@
         </div>
 
         <div class="container">
-            <div id="globalMap" style="height: 460px;"></div>
+            <div id="globalMap" style="height: 520px;"></div>
             <div id="controls"></div>
         </div>
 
