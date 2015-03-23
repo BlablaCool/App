@@ -1,8 +1,19 @@
 $(function()
 {
-    var inputsToGeocompplete = ['#departureAddress', '#arrivalAddress'];
+    //var maPlace = new Maplace({
+    //    map_div: '#globalMap',
+    //    generate_controls: false,
+    //    show_markers: false,
+    //    type: 'directions',
+    //    draggable: true,
+    //    //directions_panel: '#route',
+    //    afterRoute: function(distance) {
+    //        // $('#km').text(': '+(distance/1000)+'km');
+    //    }
+    //});
 
-    inputsToGeocompplete.forEach(function(input)
+    var inputsToGeocomplete = ['#departureAddress', '#arrivalAddress'];
+    inputsToGeocomplete.forEach(function(input)
     {
         $(input).geocomplete({
             map: input + 'Map',
@@ -39,17 +50,11 @@ $(function()
     $(document).on('click', '#createTrip', function()
     {
         var placesToSend = [];
-
         $(".placeContainer").each(function()
         {
             placesToSend.push($(this).serializeObject());
-            // $('#result').text(JSON.stringify($('form').serializeObject()));
-
         });
 
-        // console.log(placesToSend);
-
-        console.log('okok');
         $.ajax({
             type: "POST",
             url: "/ajax/places/add",

@@ -1,6 +1,7 @@
 package info.fges.blablacool.controllers.ajax;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,13 @@ public class AjaxPlaceController
     public String postAdd(@RequestParam(value = "places", required = true) String stringifiedJsonPlaces)
     {
         JSONArray jsonPlaces = (JSONArray) JSONValue.parse(stringifiedJsonPlaces);
+
+        for (int i = 0; i < jsonPlaces.size(); i++)
+        {
+            JSONObject place = (JSONObject) jsonPlaces.get(i);
+            System.out.println(place.get("type"));
+        }
+
         System.out.println(jsonPlaces.size());
 
         return stringifiedJsonPlaces;
