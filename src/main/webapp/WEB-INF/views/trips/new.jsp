@@ -82,7 +82,7 @@
         </div>
 
         <div class="container">
-            <div id="globalMap" style="height: 420px;"></div>
+            <div id="globalMap" style="height: 460px;"></div>
             <div id="controls"></div>
         </div>
 
