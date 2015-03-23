@@ -44,17 +44,16 @@ public class CustomUserDetailsService implements UserDetailsService
                 true, true, true, true, authorities);
     }
 
-    private List<GrantedAuthority> buildUserAuthority(List<Role> userRoles) {
+    private List<GrantedAuthority> buildUserAuthority(List<Role> userRoles)
+    {
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
-        Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
-
-        for (Role userRole : userRoles) {
-            setAuths.add(new SimpleGrantedAuthority(userRole.getRole()));
+        for (Role userRole : userRoles)
+        {
+            authorities.add(new SimpleGrantedAuthority(userRole.getRole()));
         }
 
-        List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(setAuths);
-
-        return Result;
+        return authorities;
     }
 
 }

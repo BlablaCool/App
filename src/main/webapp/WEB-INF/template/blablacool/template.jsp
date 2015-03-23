@@ -5,6 +5,7 @@
     <head>
         <title>Traveler - Index 7</title>
         <tiles:insertAttribute name="header-meta" />
+        <tiles:insertAttribute name="header-custom-css" ignore="true" />
     </head>
     <body>
         <div class="global-wrap">
@@ -16,5 +17,6 @@
             <tiles:insertAttribute name="footer" />
         </div>
         <tiles:insertAttribute name="footer-js" />
+        <tiles:insertAttribute name="footer-custom-js" ignore="true" />
     </body>
 </html>
