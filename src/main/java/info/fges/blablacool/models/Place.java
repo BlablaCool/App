@@ -15,18 +15,8 @@ public class Place {
     private String namePrivate;
     private BigDecimal latitude;
     private BigDecimal longitude;
-    private String location;
     private String address;
-    private String street;
-    private String streetNumber;
-    private String postalCode;
-    private String locality;
-    private String country;
-    private String countryCode;
-    private String state;
     private String gmapsPlaceId;
-    private String gmapsId;
-    private String gmapsReference;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -106,16 +96,6 @@ public class Place {
     }
 
     @Basic
-    @Column(name = "location", nullable = false, insertable = true, updatable = true, length = 255)
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    @Basic
     @Column(name = "address", nullable = false, insertable = true, updatable = true, length = 255)
     public String getAddress() {
         return address;
@@ -126,76 +106,6 @@ public class Place {
     }
 
     @Basic
-    @Column(name = "street", nullable = false, insertable = true, updatable = true, length = 255)
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    @Basic
-    @Column(name = "street_number", nullable = true, insertable = true, updatable = true, length = 42)
-    public String getStreetNumber() {
-        return streetNumber;
-    }
-
-    public void setStreetNumber(String streetNumber) {
-        this.streetNumber = streetNumber;
-    }
-
-    @Basic
-    @Column(name = "postal_code", nullable = false, insertable = true, updatable = true, length = 20)
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    @Basic
-    @Column(name = "locality", nullable = false, insertable = true, updatable = true, length = 255)
-    public String getLocality() {
-        return locality;
-    }
-
-    public void setLocality(String locality) {
-        this.locality = locality;
-    }
-
-    @Basic
-    @Column(name = "country", nullable = false, insertable = true, updatable = true, length = 255)
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    @Basic
-    @Column(name = "country_code", nullable = false, insertable = true, updatable = true, length = 4)
-    public String getCountryCode() {
-        return countryCode;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
-
-    @Basic
-    @Column(name = "state", nullable = false, insertable = true, updatable = true, length = 255)
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    @Basic
     @Column(name = "gmaps_place_id", nullable = false, insertable = true, updatable = true, length = 42)
     public String getGmapsPlaceId() {
         return gmapsPlaceId;
@@ -203,25 +113,5 @@ public class Place {
 
     public void setGmapsPlaceId(String gmapsPlaceId) {
         this.gmapsPlaceId = gmapsPlaceId;
-    }
-
-    @Basic
-    @Column(name = "gmaps_id", nullable = false, insertable = true, updatable = true, length = 42)
-    public String getGmapsId() {
-        return gmapsId;
-    }
-
-    public void setGmapsId(String gmapsId) {
-        this.gmapsId = gmapsId;
-    }
-
-    @Basic
-    @Column(name = "gmaps_reference", nullable = false, insertable = true, updatable = true, length = 42)
-    public String getGmapsReference() {
-        return gmapsReference;
-    }
-
-    public void setGmapsReference(String gmapsReference) {
-        this.gmapsReference = gmapsReference;
     }
 }

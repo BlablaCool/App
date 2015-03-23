@@ -27,86 +27,30 @@
             </div>
 
             <div class="row">
-
-                <form method="POST" action="/trips/new">
-                    <div class="col-xs-12 col-md-6">
-                        <h4><i class="fa fa-flag"></i> Point de départ</h4>
-                        <div class="form-group form-group-icon-left">
-                            <i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
-                            <label>Adresse, POI, ...</label>
-                            <input class="form-control" type="text" id="departureAddress" name="departureAddress" placeholder="Avenue des Champs-Elysées, Paris">
-                        </div>
-                        <div id="departureAddressMap" style="height: 360px;"></div>
-                        <div id="departureAddressHiddenForm">
-                            <label>Name</label>
-                            <spring:bind path="departureAddress.namePublic">
-                                <input type="text" name="name">
-                            </spring:bind>
-
-                            <label>POI Name</label>
-                            <input name="point_of_interest" type="text" value="">
-
-                            <label>Latitude</label>
-                            <input name="lat" type="text" value="">
-
-                            <label>Longitude</label>
-                            <input name="lng" type="text" value="">
-
-                            <label>Location</label>
-                            <input name="location" type="text" value="">
-
-                            <label>Location Type</label>
-                            <input name="location_type" type="text" value="">
-
-                            <label>Formatted Address</label>
-                            <input name="formatted_address" type="text" value="">
-
-                            <label>Bounds</label>
-                            <input name="bounds" type="text" value="">
-
-                            <label>Viewport</label>
-                            <input name="viewport" type="text" value="">
-
-                            <label>Route</label>
-                            <input name="route" type="text" value="">
-
-                            <label>Street Number</label>
-                            <input name="street_number" type="text" value="">
-
-                            <label>Postal Code</label>
-                            <input name="postal_code" type="text" value="">
-
-                            <label>Locality</label>
-                            <input name="locality" type="text" value="">
-
-                            <label>Sub Locality</label>
-                            <input name="sublocality" type="text" value="">
-
-                            <label>Country</label>
-                            <input name="country" type="text" value="">
-
-                            <label>Country Code</label>
-                            <input name="country_short" type="text" value="">
-
-                            <label>State</label>
-                            <input name="administrative_area_level_1" type="text" value="">
-
-                            <label>Place ID</label>
-                            <input name="place_id" type="text" value="">
-
-                            <label>ID</label>
-                            <input name="id" type="text" value="">
-
-                            <label>Reference</label>
-                            <input name="reference" type="text" value="">
-
-                            <label>URL</label>
-                            <input name="url" type="text" value="">
-
-                            <label>Website</label>
-                            <input name="website" type="text" value="">
-                        </div>
+                <div class="col-xs-12 col-md-6">
+                    <h4><i class="fa fa-flag"></i> Point de départ</h4>
+                    <div class="form-group form-group-icon-left">
+                        <i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
+                        <label>Adresse, POI, ...</label>
+                        <input class="form-control" type="text" id="departureAddress" name="departureAddress" placeholder="Avenue des Champs-Elysées, Paris">
                     </div>
+                    <div id="departureAddressMap" style="height: 360px;"></div>
+                    <form id="departureAddressHiddenForm" class="placeContainer">
+                        <input type="hidden" name="type" value="departure">
+                        <input type="hidden" name="name">
+                        <input type="hidden" name="lat">
+                        <input type="hidden" name="lng">
+                        <input type="hidden" name="location">
+                        <input type="hidden" name="formatted_address">
+                        <input type="hidden" name="street_number">
+                        <input type="hidden" name="postal_code">
+                        <input type="hidden" name="locality">
+                        <input type="hidden" name="country">
+                        <input type="hidden" name="country_short">
+                        <input type="hidden" name="administrative_area_level_1">
+                        <input type="hidden" name="place_id">
+                    </form>
+                </div>
 
                     <div class="col-xs-12 col-md-6">
                         <h4><i class="fa fa-flag-checkered"></i> Point d'arrivée</h4>
@@ -116,80 +60,25 @@
                             <input class="form-control" type="text" id="arrivalAddress" name="arrivalAddress" placeholder="Avenue des Champs-Elysées, Paris">
                         </div>
                         <div id="arrivalAddressMap" style="height: 360px;"></div>
-                        <div id="arrivalAddressHiddenForm">
-                            <label>Name</label>
-                            <input name="name" type="text" value="">
-
-                            <label>POI Name</label>
-                            <input name="point_of_interest" type="text" value="">
-
-                            <label>Latitude</label>
-                            <input name="lat" type="text" value="">
-
-                            <label>Longitude</label>
-                            <input name="lng" type="text" value="">
-
-                            <label>Location</label>
-                            <input name="location" type="text" value="">
-
-                            <label>Location Type</label>
-                            <input name="location_type" type="text" value="">
-
-                            <label>Formatted Address</label>
-                            <input name="formatted_address" type="text" value="">
-
-                            <label>Bounds</label>
-                            <input name="bounds" type="text" value="">
-
-                            <label>Viewport</label>
-                            <input name="viewport" type="text" value="">
-
-                            <label>Route</label>
-                            <input name="route" type="text" value="">
-
-                            <label>Street Number</label>
-                            <input name="street_number" type="text" value="">
-
-                            <label>Postal Code</label>
-                            <input name="postal_code" type="text" value="">
-
-                            <label>Locality</label>
-                            <input name="locality" type="text" value="">
-
-                            <label>Sub Locality</label>
-                            <input name="sublocality" type="text" value="">
-
-                            <label>Country</label>
-                            <input name="country" type="text" value="">
-
-                            <label>Country Code</label>
-                            <input name="country_short" type="text" value="">
-
-                            <label>State</label>
-                            <input name="administrative_area_level_1" type="text" value="">
-
-                            <label>Place ID</label>
-                            <input name="place_id" type="text" value="">
-
-                            <label>ID</label>
-                            <input name="id" type="text" value="">
-
-                            <label>Reference</label>
-                            <input name="reference" type="text" value="">
-
-                            <label>URL</label>
-                            <input name="url" type="text" value="">
-
-                            <label>Website</label>
-                            <input name="website" type="text" value="">
-                        </div>
+                        <form id="arrivalAddressHiddenForm" class="placeContainer">
+                            <input type="hidden" name="type" value="arrival">
+                            <input type="hidden" name="name">
+                            <input type="hidden" name="lat">
+                            <input type="hidden" name="lng">
+                            <input type="hidden" name="location">
+                            <input type="hidden" name="formatted_address">
+                            <input type="hidden" name="street_number">
+                            <input type="hidden" name="postal_code">
+                            <input type="hidden" name="locality">
+                            <input type="hidden" name="country">
+                            <input type="hidden" name="country_short">
+                            <input type="hidden" name="administrative_area_level_1">
+                            <input type="hidden" name="place_id">
+                        </form>
                     </div>
 
-                    <button type="submit">Créer</button>
+                <button type="button" id="createTrip">Créer</button>
 
-                </form>
-
-                
             </div>
 
         </div>
