@@ -18,7 +18,8 @@ public class Place {
     private String privateName;
 
     @Id
-    @Column(name = "id_place", nullable = false, insertable = true, updatable = true)
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id_place", nullable = false, insertable = false, updatable = false)
     public int getIdPlace() {
         return idPlace;
     }

@@ -19,7 +19,8 @@ public class Subscription {
     private User user;
 
     @Id
-    @Column(name = "id_subscription", nullable = false, insertable = true, updatable = true)
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id_subscription", nullable = false, insertable = false, updatable = false)
     public int getIdSubscription() {
         return idSubscription;
     }

@@ -15,7 +15,8 @@ public class Trip {
     private List<User> passengers;
 
     @Id
-    @Column(name = "id_trip", nullable = false, insertable = true, updatable = true)
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id_trip", nullable = false, insertable = false, updatable = false)
     public int getIdTrip() {
         return idTrip;
     }
