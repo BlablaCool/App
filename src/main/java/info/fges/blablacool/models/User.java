@@ -40,6 +40,7 @@ public class User
     private List<Role> roles;
 
     private Byte age;
+    private List<Subscription> subscriptions;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -169,5 +170,14 @@ public class User
 
     public void setPasswordConfirmation(String passwordConfirmation) {
         this.passwordConfirmation = passwordConfirmation;
+    }
+
+    @OneToMany(mappedBy = "user")
+    public List<Subscription> getSubscriptions() {
+        return subscriptions;
+    }
+
+    public void setSubscriptions(List<Subscription> subscriptions) {
+        this.subscriptions = subscriptions;
     }
 }
