@@ -10,13 +10,19 @@ import java.util.List;
 @Entity
 public class Place {
     private int idPlace;
-    private List<info.fges.blablacool.models.TripHasPlaces> TripHasPlaces;
     private String namePublic;
     private String namePrivate;
     private BigDecimal latitude;
     private BigDecimal longitude;
+    private String location;
     private String address;
-    private String gmapsPlaceId;
+    private String street;
+    private String streetNumber;
+    private String postalCode;
+    private String city;
+    private String country;
+    private String countryShort;
+    private List<Step> steps;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -44,15 +50,6 @@ public class Place {
     @Override
     public int hashCode() {
         return idPlace;
-    }
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.place", cascade = CascadeType.ALL)
-    public List<TripHasPlaces> getTripHasPlaces() {
-        return TripHasPlaces;
-    }
-
-    public void setTripHasPlaces(List<TripHasPlaces> tripHasPlaces) {
-        TripHasPlaces = tripHasPlaces;
     }
 
     @Basic
@@ -96,6 +93,16 @@ public class Place {
     }
 
     @Basic
+    @Column(name = "location", nullable = false, insertable = true, updatable = true, length = 255)
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    @Basic
     @Column(name = "address", nullable = false, insertable = true, updatable = true, length = 255)
     public String getAddress() {
         return address;
@@ -106,12 +113,71 @@ public class Place {
     }
 
     @Basic
-    @Column(name = "gmaps_place_id", nullable = false, insertable = true, updatable = true, length = 42)
-    public String getGmapsPlaceId() {
-        return gmapsPlaceId;
+    @Column(name = "street", nullable = false, insertable = true, updatable = true, length = 255)
+    public String getStreet() {
+        return street;
     }
 
-    public void setGmapsPlaceId(String gmapsPlaceId) {
-        this.gmapsPlaceId = gmapsPlaceId;
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    @Basic
+    @Column(name = "street_number", nullable = false, insertable = true, updatable = true, length = 42)
+    public String getStreetNumber() {
+        return streetNumber;
+    }
+
+    public void setStreetNumber(String streetNumber) {
+        this.streetNumber = streetNumber;
+    }
+
+    @Basic
+    @Column(name = "postal_code", nullable = false, insertable = true, updatable = true, length = 6)
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    @Basic
+    @Column(name = "city", nullable = false, insertable = true, updatable = true, length = 255)
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    @Basic
+    @Column(name = "country", nullable = false, insertable = true, updatable = true, length = 255)
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    @Basic
+    @Column(name = "country_short", nullable = false, insertable = true, updatable = true, length = 45)
+    public String getCountryShort() {
+        return countryShort;
+    }
+
+    public void setCountryShort(String countryShort) {
+        this.countryShort = countryShort;
+    }
+
+    @OneToMany(mappedBy = "place")
+    public List<Step> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(List<Step> steps) {
+        this.steps = steps;
     }
 }

@@ -75,17 +75,18 @@ $('.typeahead').typeahead({
 
 
 $('input.date-pick, .input-daterange, .date-pick-inline').datepicker({
-    todayHighlight: true
+    todayHighlight: true,
+    language: 'fr'
 });
 
-
-
 $('input.date-pick, .input-daterange input[name="start"]').datepicker('setDate', 'today');
+
 $('.input-daterange input[name="end"]').datepicker('setDate', '+7d');
 
 $('input.time-pick').timepicker({
     minuteStep: 15,
-    showInpunts: false
+    showInputs: true,
+    showMeridian: false
 })
 
 $('input.date-pick-years').datepicker({

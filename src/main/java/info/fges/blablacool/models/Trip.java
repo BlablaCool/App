@@ -9,13 +9,14 @@ import java.util.List;
 @Entity
 public class Trip {
     private int idTrip;
-    private List<TripHasPlaces> TripHasPlaces;
-    private byte capacity;
+    private Short capacity;
     private User driver;
     private List<User> passengers;
+    private List<Step> steps;
 
     @Id
-    @Column(name = "id_trip", nullable = false, insertable = true, updatable = true)
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id_trip", nullable = false, insertable = false, updatable = false)
     public int getIdTrip() {
         return idTrip;
     }
@@ -41,20 +42,13 @@ public class Trip {
         return idTrip;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.trip", cascade = CascadeType.ALL, orphanRemoval = true)
-    public List<TripHasPlaces> getTripHasPlaces() {
-        return TripHasPlaces;
-    }
-    public void setTripHasPlaces(List<TripHasPlaces> tripHasPlaces) {
-        TripHasPlaces = tripHasPlaces;
-    }
-
     @Basic
-    @Column(name = "capacity", nullable = false, insertable = true, updatable = true)
-    public byte getCapacity() {
+    @Column(name = "capacity", columnDefinition = "TINYINT", nullable = false, insertable = true, updatable = true)
+    public Short getCapacity() {
         return capacity;
     }
-    public void setCapacity(byte capacity) {
+
+    public void setCapacity(Short capacity) {
         this.capacity = capacity;
     }
 
@@ -63,6 +57,7 @@ public class Trip {
     public User getDriver() {
         return driver;
     }
+
     public void setDriver(User driver) {
         this.driver = driver;
     }
@@ -72,6 +67,7 @@ public class Trip {
     public List<User> getPassengers() {
         return passengers;
     }
+
     public void setPassengers(List<User> passengers) {
         this.passengers = passengers;
     }
@@ -80,5 +76,14 @@ public class Trip {
     public int getLeftSeats()
     {
         return (this.capacity - this.passengers.size());
+    }
+
+    @OneToMany(mappedBy = "trip")
+    public List<Step> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(List<Step> steps) {
+        this.steps = steps;
     }
 }

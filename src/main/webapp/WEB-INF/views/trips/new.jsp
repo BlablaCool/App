@@ -30,10 +30,26 @@
                     <div class="row">
                         <div class="col-md-12 step-wrapper">
                             <h5><i class="fa fa-flag"></i> &nbsp;Point de départ</h5>
-                            <div class="form-group">
-                                <input class="form-control" type="text" id="departureAddress" name="departureAddress" placeholder="Avenue des Champs-Elysées, Paris">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Adresse, P.O.I., etc...</label>
+                                        <input class="form-control" type="text" id="departureAddress" name="departureAddress" placeholder="Avenue des Champs-Elysées, Paris">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-group-filled">
+                                        <label>Date</label>
+                                        <input class="date-pick form-control" type="text" id="departureDate" name="departureDate">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-group-filled">
+                                        <label>Heure</label>
+                                        <input class="time-pick form-control" type="text" id="departureTime" name="departureTime">
+                                    </div>
+                                </div>
                             </div>
-
                             <form id="departureAddressHiddenForm" class="placeContainer">
                                 <input type="hidden" name="type" value="departure">
                                 <input type="hidden" name="name">
@@ -92,11 +108,28 @@
 
         <div id="step-wrapper-model" class="col-md-12 step-wrapper" style="margin-top: -18px;">
             <h5><i class="fa fa-flag-o"></i> &nbsp;Point intermédiaire</h5>
-            <div class="input-group" style="margin-bottom: 15px;">
-                <span class="input-group-btn">
-                    <button class="btn btn-link" type="button"><i class="fa fa-times"></i></button>
-                </span>
-                <input type="text" class="form-control addressToFind">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group" style="margin-bottom: 15px;">
+                        <span class="input-group-btn">
+                            <button class="btn btn-link" type="button"><i class="fa fa-times"></i></button>
+                        </span>
+                        <label>Adresse, P.O.I., etc...</label>
+                        <input type="text" class="form-control addressToFind">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-group-filled">
+                        <label>Date</label>
+                        <input class="date-pick form-control" type="text" id="placeholderDate" name="placeholderDate">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group form-group-filled">
+                        <label>Heure</label>
+                        <input class="time-pick form-control" type="text" id="placeholderTime" name="placeholderTime">
+                    </div>
+                </div>
             </div>
             <form class="placeContainer-model">
                 <input type="hidden" name="type" value="middle">
@@ -113,7 +146,7 @@
                 <input type="hidden" name="administrative_area_level_1">
                 <input type="hidden" name="place_id">
             </form>
-            <i class="addMiddleStep fa fa-plus box-icon-to-normal box-icon-center box-icon-gray box-icon-to-success box-icon-border-dashed animate-icon-border-rise round" style="cursor: pointer;"></i>
+            <i class="addMiddleStep fa fa-plus box-icon-to-normal box-icon-center box-icon-gray box-icon-to-success box-icon-border-dashed animate-icon-border-rise round" style="cursor: pointer; margin-top: 10px;"></i>
         </div>
     </tiles:putAttribute>
 </tiles:insertDefinition>
