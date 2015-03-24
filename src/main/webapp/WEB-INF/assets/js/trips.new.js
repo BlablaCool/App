@@ -83,6 +83,7 @@ $(function()
 
         var clone = $('#step-wrapper-model').clone();
         clone.removeAttr('id');
+        clone.find('form.placeContainer-model').removeClass('placeContainer-model').addClass('placeContainer');
         clone.find('form.placeContainer').first().attr('id', randomId + "_hiddenForm");
         clone.find('input.addressToFind').first().attr('id', randomId + "_address").removeClass('addressToFind');
         clone.insertAfter($(this).closest('.step-wrapper'));

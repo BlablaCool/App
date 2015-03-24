@@ -33,6 +33,7 @@
                             <div class="form-group">
                                 <input class="form-control" type="text" id="departureAddress" name="departureAddress" placeholder="Avenue des Champs-Elysées, Paris">
                             </div>
+
                             <form id="departureAddressHiddenForm" class="placeContainer">
                                 <input type="hidden" name="type" value="departure">
                                 <input type="hidden" name="name">
@@ -91,11 +92,14 @@
 
         <div id="step-wrapper-model" class="col-md-12 step-wrapper" style="margin-top: -18px;">
             <h5><i class="fa fa-flag-o"></i> &nbsp;Point intermédiaire</h5>
-            <div class="form-group">
-                <input class="form-control addressToFind" type="text">
+            <div class="input-group" style="margin-bottom: 15px;">
+                <span class="input-group-btn">
+                    <button class="btn btn-link" type="button"><i class="fa fa-times"></i></button>
+                </span>
+                <input type="text" class="form-control addressToFind">
             </div>
-            <form class="placeContainer">
-                <input type="hidden" name="type" value="departure">
+            <form class="placeContainer-model">
+                <input type="hidden" name="type" value="middle">
                 <input type="hidden" name="name">
                 <input type="hidden" name="lat">
                 <input type="hidden" name="lng">

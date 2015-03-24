@@ -1,2 +1,4 @@
-/*YOUR CUSTOM STYLES*/
-
+#step-wrapper-model {
+    display: none;
+    margin-top: -18px;
+}
