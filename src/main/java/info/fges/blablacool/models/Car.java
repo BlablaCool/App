@@ -16,7 +16,8 @@ public class Car {
     private User owner;
 
     @Id
-    @Column(name = "id_car", nullable = false, insertable = true, updatable = true)
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id_car", nullable = false, insertable = false, updatable = false)
     public int getIdCar() {
         return idCar;
     }
