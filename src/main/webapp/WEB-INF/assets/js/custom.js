@@ -87,7 +87,7 @@ $('input.time-pick').timepicker({
     minuteStep: 15,
     showInputs: true,
     showMeridian: false
-})
+});
 
 $('input.date-pick-years').datepicker({
     startView: 2

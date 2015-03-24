@@ -4,19 +4,17 @@ $(function()
 
     /**
      * Global Google Maps
-     * @type {Window.Maplace}
      */
     var maPlace = new Maplace({
-        debug: true,
         map_div: '#globalMap',
         show_markers: false,
         draggable: false,
         generate_controls: false,
         force_generate_controls: false,
         editable: true,
-        shared: shared,
+        locations: [{lat: 46.227638, lon: 2.213749000000007}],
         map_options: {
-            zoom: 15,
+            zoom: 5,
             panControl: false,
             mapTypeControl: false,
             streetViewControl: false,
@@ -25,13 +23,13 @@ $(function()
         afterRoute: function (distance) {
 
         }
-    });
+    }).Load();
 
-    var inputsToGeocomplete = ['#departureAddress', '#arrivalAddress'];
+    var inputsToGeocomplete = ['#departure', '#arrival'];
     inputsToGeocomplete.forEach(function(input)
     {
-        $(input).geocomplete({
-            details: input + 'HiddenForm'
+        $(input + "Address").geocomplete({
+            details: input + 'Form'
         }).bind("geocode:result", function(event, result) {
             refreshMap(maPlace);
         });
@@ -39,7 +37,6 @@ $(function()
 
     /**
      * Helper to serialize a form to JSON
-     * @returns {{}}
      */
     $.fn.serializeObject = function()
     {
@@ -58,11 +55,13 @@ $(function()
         return o;
     };
 
+    /**
+     * We DO NOT WANT to submit the form directly, going through AJAX here!
+     */
     $(document).on('click', '#createTrip', function()
     {
         var placesToSend = [];
-        $(".placeContainer").each(function()
-        {
+        $(".placeContainer").each(function() {
             placesToSend.push($(this).serializeObject());
         });
 
@@ -77,19 +76,37 @@ $(function()
         });
     });
 
+    /**
+     * Cloning input when user wants to add a step...
+     */
     $(document).on('click', '.addMiddleStep', function()
     {
         var randomId = Math.random().toString(36).substring(7);
 
-        var clone = $('#step-wrapper-model').clone();
+        var clone = $('#placeholderContainer').clone();
         clone.removeAttr('id');
-        clone.find('form.placeContainer-model').removeClass('placeContainer-model').addClass('placeContainer');
-        clone.find('form.placeContainer').first().attr('id', randomId + "_hiddenForm");
-        clone.find('input.addressToFind').first().attr('id', randomId + "_address").removeClass('addressToFind');
+        clone.find('#placeholderForm').first().attr('id', randomId + "_Form").addClass('placeContainer');
+        clone.find('#placeholderAddress').first().attr('id', randomId + "_Address");
+        clone.find('#placeholderDate').first().attr('id', randomId + "_Date");
+        clone.find('#placeholderTime').first().attr('id', randomId + "_Time");
         clone.insertAfter($(this).closest('.step-wrapper'));
 
-        $("#" + randomId + "_address").geocomplete({
-            details: "#" + randomId + "_hiddenForm"
+        // We need to bind a date picker to the cloned input (I know, it sucks!)
+        $('#' + randomId + "_Date").datepicker({
+            todayHighlight: true,
+            language: 'fr'
+        });
+
+        // Same applies for the time-picker, of course!
+        $('#' + randomId + "_Time").timepicker({
+            minuteStep: 15,
+            showInputs: true,
+            showMeridian: false
+        });
+
+        // And also for the autocomplete on the address field
+        $("#" + randomId + "_Address").geocomplete({
+            details: "#" + randomId + "_Form"
         }).bind("geocode:result", function(event, result) {
             refreshMap(maPlace);
         });
@@ -106,8 +123,7 @@ function refreshMap(map)
         var latitude = $(this).children('input[name="lat"]').first().val();
         var longitude = $(this).children('input[name="lng"]').first().val();
 
-        if (latitude != "" && longitude != "")
-        {
+        if (latitude != "" && longitude != "") {
             locations.push({
                 lat: latitude,
                 lon: longitude
@@ -116,13 +132,15 @@ function refreshMap(map)
     });
 
 
-    if (locations.length >= 2)
-    {
+    if (locations.length >= 2) {
         type = "directions";
     }
 
     map.Load({
         locations: locations,
-        type: type
+        type: type,
+        map_options: {
+            zoom: 15
+        }
     });
 }
