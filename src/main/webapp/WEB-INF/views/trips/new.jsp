@@ -28,8 +28,8 @@
 
                 <div class="col-md-7">
                     <div class="row">
-                        <div class="col-md-12">
-                            <h5><i class="fa fa-flag-checkered"></i> &nbsp;Point de départ</h5>
+                        <div class="col-md-12 step-wrapper">
+                            <h5><i class="fa fa-flag"></i> &nbsp;Point de départ</h5>
                             <div class="form-group">
                                 <input class="form-control" type="text" id="departureAddress" name="departureAddress" placeholder="Avenue des Champs-Elysées, Paris">
                             </div>
@@ -48,10 +48,10 @@
                                 <input type="hidden" name="administrative_area_level_1">
                                 <input type="hidden" name="place_id">
                             </form>
-                            <i class="fa fa-plus box-icon-to-normal box-icon-center box-icon-gray box-icon-to-success box-icon-border-dashed animate-icon-border-rise round" style="cursor: pointer;"></i>
+                            <i class="addMiddleStep fa fa-plus box-icon-to-normal box-icon-center box-icon-gray box-icon-to-success box-icon-border-dashed animate-icon-border-rise round" style="cursor: pointer;"></i>
                         </div>
 
-                        <div class="col-md-12" style="margin-top: -18px;">
+                        <div class="col-md-12 step-wrapper" style="margin-top: -18px;">
                             <h5><i class="fa fa-flag-checkered"></i> Point d'arrivée</h5>
                             <div class="form-group">
                                 <input class="form-control" type="text" id="arrivalAddress" name="arrivalAddress" placeholder="Avenue des Champs-Elysées, Paris">
@@ -88,5 +88,28 @@
         </div>
 
         <div class="gap"></div>
+
+        <div id="step-wrapper-model" class="col-md-12 step-wrapper" style="margin-top: -18px;">
+            <h5><i class="fa fa-flag-o"></i> &nbsp;Point intermédiaire</h5>
+            <div class="form-group">
+                <input class="form-control addressToFind" type="text">
+            </div>
+            <form class="placeContainer">
+                <input type="hidden" name="type" value="departure">
+                <input type="hidden" name="name">
+                <input type="hidden" name="lat">
+                <input type="hidden" name="lng">
+                <input type="hidden" name="location">
+                <input type="hidden" name="formatted_address">
+                <input type="hidden" name="street_number">
+                <input type="hidden" name="postal_code">
+                <input type="hidden" name="locality">
+                <input type="hidden" name="country">
+                <input type="hidden" name="country_short">
+                <input type="hidden" name="administrative_area_level_1">
+                <input type="hidden" name="place_id">
+            </form>
+            <i class="addMiddleStep fa fa-plus box-icon-to-normal box-icon-center box-icon-gray box-icon-to-success box-icon-border-dashed animate-icon-border-rise round" style="cursor: pointer;"></i>
+        </div>
     </tiles:putAttribute>
 </tiles:insertDefinition>
