@@ -1,3 +1,6 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <div class="header-top">
     <div class="container">
         <div class="row">
@@ -18,7 +21,8 @@
                 <div class="top-user-area clearfix">
                     <ul class="top-user-area-list list list-horizontal list-border">
                         <li class="top-user-area-avatar">
-                            <a href="user-profile.html">
+                            <s:url var="url_profile" value="/user/view/1"/>
+                            <a href="${url_profile}">
                                 <img class="origin round" src="/assets/img/amaze_40x40.jpg" alt="Image Alternative text" title="AMaze" />Hi, John</a>
                         </li>
                         <li><a href="index-7.html#">Sign Out</a>
