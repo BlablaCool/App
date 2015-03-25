@@ -13,16 +13,30 @@ import org.springframework.web.servlet.ModelAndView;
  * Created by Nicolas on 3/25/2015.
  */
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
-    public ModelAndView getProfile(ModelAndView modelAndView , @PathVariable("id") Integer id )
+    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    public ModelAndView getUserSettings(ModelAndView modelAndView)
     {
-        modelAndView.setViewName("user/user-profile");
+        modelAndView.setViewName("user/settings");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ModelAndView getUser(ModelAndView modelAndView , @PathVariable("id") Integer id )
+    {
+        modelAndView.setViewName("user/profile");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/{id}/history", method = RequestMethod.GET)
+    public ModelAndView getUserPastTrips(ModelAndView modelAndView , @PathVariable("id") Integer id )
+    {
+        modelAndView.setViewName("user/trip-history");
         return modelAndView;
     }
 
