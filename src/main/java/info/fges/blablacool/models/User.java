@@ -41,6 +41,7 @@ public class User
 
     private Byte age;
     private List<Subscription> subscriptions;
+    private List<Place> places;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -179,5 +180,14 @@ public class User
 
     public void setSubscriptions(List<Subscription> subscriptions) {
         this.subscriptions = subscriptions;
+    }
+
+    @OneToMany(mappedBy = "user")
+    public List<Place> getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(List<Place> places) {
+        this.places = places;
     }
 }

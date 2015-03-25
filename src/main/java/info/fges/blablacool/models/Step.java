@@ -1,7 +1,9 @@
 package info.fges.blablacool.models;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 /**
  * Created by Valentin on 24/03/15.
@@ -9,7 +11,7 @@ import java.sql.Timestamp;
 @Entity
 public class Step {
     private Integer position;
-    private Timestamp estimatedTime;
+    private DateTime estimatedTime;
     private Place place;
     private Trip trip;
     private int idStep;
@@ -32,7 +34,7 @@ public class Step {
         this.position = position;
     }
 
-    public Step(Trip trip, Place place, Integer position, Timestamp estimatedTime)
+    public Step(Trip trip, Place place, Integer position, DateTime estimatedTime)
     {
         this.trip = trip;
         this.place = place;
@@ -51,12 +53,13 @@ public class Step {
     }
 
     @Basic
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "estimated_time", nullable = true, insertable = true, updatable = true)
-    public Timestamp getEstimatedTime() {
+    public DateTime getEstimatedTime() {
         return estimatedTime;
     }
 
-    public void setEstimatedTime(Timestamp estimatedTime) {
+    public void setEstimatedTime(DateTime estimatedTime) {
         this.estimatedTime = estimatedTime;
     }
 

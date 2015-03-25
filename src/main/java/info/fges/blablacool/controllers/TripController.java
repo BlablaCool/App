@@ -1,8 +1,15 @@
 package info.fges.blablacool.controllers;
 
 import info.fges.blablacool.models.Place;
+import info.fges.blablacool.models.Step;
 import info.fges.blablacool.models.Trip;
+import info.fges.blablacool.models.User;
+import info.fges.blablacool.services.PlaceService;
+import info.fges.blablacool.services.StepService;
 import info.fges.blablacool.services.TripService;
+import info.fges.blablacool.services.UserService;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -12,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.DateFormat;
 import java.util.List;
 
 /**
@@ -23,6 +31,15 @@ public class TripController
 {
     @Autowired
     private TripService tripService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private PlaceService placeService;
+
+    @Autowired
+    private StepService stepService;
 
     @Secured("ROLE_USER")
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
@@ -49,6 +66,33 @@ public class TripController
                           ModelAndView modelAndView)
     {
         System.out.println(departureAddress);
+
+        return "Sumitted";
+    }
+
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    @ResponseBody
+    public String getTest()
+    {
+        User driver = userService.findById(1);
+
+        Trip trip = new Trip();
+        trip.setDriver(driver);
+        trip.setCapacity(Short.valueOf("5"));
+        tripService.create(trip);
+
+        Place place = new Place(driver);
+        placeService.create(place);
+
+        Step step = new Step();
+        step.setPlace(place);
+        step.setTrip(trip);
+        step.setPosition(1);
+        step.setEstimatedTime(DateTime.parse("01/01/1970 19:42", DateTimeFormat.forPattern("dd/MM/yyyy HH:mm")));
+        stepService.create(step);
+
+        System.out.println(trip.toString() + place.toString() + step.toString());
+
 
         return "Sumitted";
     }

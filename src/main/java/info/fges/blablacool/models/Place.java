@@ -23,6 +23,29 @@ public class Place {
     private String country;
     private String countryShort;
     private List<Step> steps;
+    private User user;
+
+    public Place()
+    {
+
+    }
+
+    public Place(User user)
+    {
+        this.namePublic = "Test Public";
+        this.namePrivate = "Test Private";
+        this.latitude = new BigDecimal(0);
+        this.longitude = new BigDecimal(0);
+        this.location = "";
+        this.address = "";
+        this.street = "";
+        this.streetNumber = "";
+        this.postalCode = "";
+        this.city = "";
+        this.country = "";
+        this.countryShort = "";
+        this.user = user;
+    }
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -179,5 +202,15 @@ public class Place {
 
     public void setSteps(List<Step> steps) {
         this.steps = steps;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "user_id_user", referencedColumnName = "id_user", nullable = false)
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
