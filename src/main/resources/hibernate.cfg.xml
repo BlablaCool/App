@@ -17,6 +17,7 @@
         <mapping class="info.fges.blablacool.models.Car"/>
         <mapping class="info.fges.blablacool.models.Role"/>
         <mapping class="info.fges.blablacool.models.Step"/>
+        <mapping class="info.fges.blablacool.models.Subscription"/>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
     </session-factory>
