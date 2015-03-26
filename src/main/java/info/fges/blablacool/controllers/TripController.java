@@ -51,25 +51,16 @@ public class TripController
         return "Index Trips";
     }
 
+    @Secured("ROLE_USER")
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public ModelAndView getNew(ModelAndView modelAndView)
+    public ModelAndView getNew(@AuthenticationPrincipal User user, ModelAndView modelAndView)
     {
         modelAndView.setViewName("trips/new");
         modelAndView.addObject("departureAddress", new Place());
         modelAndView.addObject("arrivalAddress", new Place());
+        modelAndView.addObject("driver", user);
 
         return modelAndView;
-    }
-
-    @RequestMapping(value = "/new", method = RequestMethod.POST)
-    @ResponseBody
-    public String postNew(@ModelAttribute("departureAddress") Place departureAddress,
-                          @ModelAttribute("arrivalAddress") Place arrivalAddress,
-                          ModelAndView modelAndView)
-    {
-        System.out.println(departureAddress);
-
-        return "Sumitted";
     }
 
     @Secured("ROLE_USER")
@@ -79,14 +70,12 @@ public class TripController
     {
         System.out.println(user);
 
-        User driver = userService.findById(1);
-
         Trip trip = new Trip();
-        trip.setDriver(driver);
+        trip.setDriver(user);
         trip.setCapacity(Short.valueOf("5"));
         tripService.create(trip);
 
-        Place place = new Place(driver);
+        Place place = new Place(user);
         placeService.create(place);
 
         Step step = new Step();
@@ -98,8 +87,7 @@ public class TripController
 
         System.out.println(trip.toString() + place.toString() + step.toString());
 
-
-        return "Sumitted";
+        return "Submitted";
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)

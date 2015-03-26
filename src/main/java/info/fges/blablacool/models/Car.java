@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 public class Car {
-    private int idCar;
+    private int id;
     private String type;
     private String registration;
     private String brand;
@@ -18,12 +18,12 @@ public class Car {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_car", nullable = false, insertable = false, updatable = false)
-    public int getIdCar() {
-        return idCar;
+    public int getId() {
+        return id;
     }
 
-    public void setIdCar(int idCar) {
-        this.idCar = idCar;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Basic
@@ -84,7 +84,7 @@ public class Car {
         Car car = (Car) o;
 
         if (capacity != car.capacity) return false;
-        if (idCar != car.idCar) return false;
+        if (id != car.id) return false;
         if (brand != null ? !brand.equals(car.brand) : car.brand != null) return false;
         if (model != null ? !model.equals(car.model) : car.model != null) return false;
         if (registration != null ? !registration.equals(car.registration) : car.registration != null) return false;
@@ -95,7 +95,7 @@ public class Car {
 
     @Override
     public int hashCode() {
-        int result = idCar;
+        int result = id;
         result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + (registration != null ? registration.hashCode() : 0);
         result = 31 * result + (brand != null ? brand.hashCode() : 0);

@@ -1,5 +1,6 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <tiles:insertDefinition name="blablacoolTemplate">
 
@@ -21,8 +22,62 @@
                 <div class="col-md-12">
                     <h3 style="margin-bottom: 20px;">1. Paramètres</h3>
                     <div class="panel panel-default">
-                        <div class="panel-body">
-                            Basic panel example
+                        <div class="panel-body" style="padding-top: 14px;">
+
+                            <form class="form-horizontal">
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h5>Voiture</h5>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="car">Voiture</label>
+                                            <div class="col-md-9">
+                                                <select id="car" name="car" class="form-control">
+                                                    <c:forEach items="${driver.cars}" var="car">
+                                                        <option value="${car.id}" data-capacity="${car.capacity}">${car.brand}&nbsp;${car.model} (${car.registration})</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="availableSeats">Capacité</label>
+                                            <div class="col-md-4">
+                                                <input id="availableSeats" name="availableSeats" type="number" placeholder="" class="form-control input-md" required="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-md-offset-1">
+                                        <h5>Options</h5>
+                                        <div class="form-group">
+                                            <div class="checkbox checkbox-switch" style="margin-left: 42px;">
+                                                <label>
+                                                    <input class="i-check" type="checkbox" /> Accepte les fumeurs
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="checkbox checkbox-switch" style="margin-left: 42px;">
+                                                <label>
+                                                    <input class="i-check" type="checkbox" /> Accepte les animaux
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="price">Prix</label>
+                                            <div class="col-md-6">
+                                                <div class="input-group input-group-lg">
+                                                    <input id="price" name="price" class="form-control" placeholder="" type="text">
+                                                    <span class="input-group-addon">euros</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+
                         </div>
                     </div>
                 </div>
