@@ -1,6 +1,10 @@
 package info.fges.blablacool.models;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.json.simple.JSONObject;
+
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -13,6 +17,27 @@ public class Trip {
     private User driver;
     private List<User> passengers;
     private List<Step> steps;
+    private boolean allowSmoking;
+    private boolean allowAnimals;
+    private String luggage;
+    private BigDecimal price;
+
+    public Trip()
+    {
+        System.out.println("here we are");
+    }
+
+    public Trip(JSONObject jsonTrip, User user)
+    {
+        this.driver = user;
+        this.capacity = Short.valueOf((String) jsonTrip.get("availableSeats"));
+        this.allowSmoking = Boolean.parseBoolean((String) jsonTrip.getOrDefault("allowSmokers", "False"));
+        this.allowAnimals = Boolean.parseBoolean((String) jsonTrip.getOrDefault("allowAnimals", "False"));
+        this.luggage = (String) jsonTrip.get("bags");
+        this.price = new BigDecimal((String) jsonTrip.getOrDefault("price", 0));
+
+        System.out.println(this);
+    }
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -85,5 +110,45 @@ public class Trip {
 
     public void setSteps(List<Step> steps) {
         this.steps = steps;
+    }
+
+    @Basic
+    @Column(name = "smoking", nullable = false, insertable = true, updatable = true)
+    public boolean isAllowSmoking() {
+        return allowSmoking;
+    }
+
+    public void setAllowSmoking(boolean allowSmoking) {
+        this.allowSmoking = allowSmoking;
+    }
+
+    @Basic
+    @Column(name = "animals", nullable = false, insertable = true, updatable = true)
+    public boolean isAllowAnimals() {
+        return allowAnimals;
+    }
+
+    public void setAllowAnimals(boolean allowAnimals) {
+        this.allowAnimals = allowAnimals;
+    }
+
+    @Basic
+    @Column(name = "luggage", nullable = true, insertable = true, updatable = true, length = 50)
+    public String getLuggage() {
+        return luggage;
+    }
+
+    public void setLuggage(String luggage) {
+        this.luggage = luggage;
+    }
+
+    @Basic
+    @Column(name = "price", nullable = false, insertable = true, updatable = true, precision = 2)
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 }

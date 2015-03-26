@@ -25,6 +25,9 @@ $(function()
         }
     }).Load();
 
+    /**
+     * Autocomplete Google Maps
+     */
     var inputsToGeocomplete = ['#departure', '#arrival'];
     inputsToGeocomplete.forEach(function(input)
     {
@@ -67,8 +70,11 @@ $(function()
 
         $.ajax({
             type: "POST",
-            url: "/ajax/places/add",
-            data: {places: JSON.stringify(placesToSend)},
+            url: "/ajax/trips/add",
+            data: {
+                infos: JSON.stringify($('#infosForm').serializeObject()),
+                places: JSON.stringify(placesToSend)
+            },
             success: function(response) {
                 console.log(response);
             },
@@ -110,6 +116,12 @@ $(function()
         }).bind("geocode:result", function(event, result) {
             refreshMap(maPlace);
         });
+    });
+
+    $(document).on('change', '#car', function()
+    {
+        var carCapacity = $(this).find(":selected").data('capacity');
+        $('#availableSeats').val(carCapacity);
     });
 });
 
