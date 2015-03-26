@@ -13,7 +13,8 @@ public class Role {
     private List<User> users;
 
     @Id
-    @Column(name = "id_role", nullable = false, insertable = true, updatable = true)
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id_role", nullable = false, insertable = false, updatable = false)
     public int getIdRole() {
         return idRole;
     }

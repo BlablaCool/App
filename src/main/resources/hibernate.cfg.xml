@@ -6,17 +6,18 @@
     <session-factory>
         <property name="connection.url">jdbc:mysql://localhost:3306/blablacool</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
         <property name="connection.username">blablacool</property>
         <property name="connection.password">blablacool</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
+        <property name="hibernate.show_sql">true</property>
         <mapping class="info.fges.blablacool.models.User"/>
         <mapping class="info.fges.blablacool.models.Place"/>
         <mapping class="info.fges.blablacool.models.Trip"/>
-        <mapping class="info.fges.blablacool.models.TripHasPlaces"/>
-        <mapping class="info.fges.blablacool.models.TripHasPlacesId"/>
         <mapping class="info.fges.blablacool.models.Car"/>
         <mapping class="info.fges.blablacool.models.Role"/>
+        <mapping class="info.fges.blablacool.models.Step"/>
+        <mapping class="info.fges.blablacool.models.Subscription"/>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
     </session-factory>

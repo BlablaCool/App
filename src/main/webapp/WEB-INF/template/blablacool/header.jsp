@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-3">
                 <a class="logo" href="/">
-                    <img src="/assets/img/logo-invert.png" alt="Image Alternative text" title="Image Title" />
+                    <img src="/assets/img/logo-white.png">
                 </a>
             </div>
             <div class="col-md-3 col-md-offset-2">
@@ -44,37 +44,37 @@
                         </li>
                         <li class="top-user-area-lang nav-drop">
                             <a href="index-7.html#">
-                                <img src="/assets/img/flags/32/uk.png" alt="Image Alternative text" title="Image Title" />ENG<i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i>
+                                <img src="/assets/img/flags/32/uk.png" data-no-retina>ENG<i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i>
                             </a>
                             <ul class="list nav-drop-menu">
                                 <li>
                                     <a title="German" href="index-7.html#">
-                                        <img src="/assets/img/flags/32/de.png" alt="Image Alternative text" title="Image Title" /><span class="right">GER</span>
+                                        <img src="/assets/img/flags/32/de.png" data-no-retina><span class="right">GER</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a title="Japanise" href="index-7.html#">
-                                        <img src="/assets/img/flags/32/jp.png" alt="Image Alternative text" title="Image Title" /><span class="right">JAP</span>
+                                        <img src="/assets/img/flags/32/jp.png" data-no-retina><span class="right">JAP</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a title="Italian" href="index-7.html#">
-                                        <img src="/assets/img/flags/32/it.png" alt="Image Alternative text" title="Image Title" /><span class="right">ITA</span>
+                                        <img src="/assets/img/flags/32/it.png" data-no-retina><span class="right">ITA</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a title="French" href="index-7.html#">
-                                        <img src="/assets/img/flags/32/fr.png" alt="Image Alternative text" title="Image Title" /><span class="right">FRE</span>
+                                        <img src="/assets/img/flags/32/fr.png" data-no-retina><span class="right">FRE</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a title="Russian" href="index-7.html#">
-                                        <img src="/assets/img/flags/32/ru.png" alt="Image Alternative text" title="Image Title" /><span class="right">RUS</span>
+                                        <img src="/assets/img/flags/32/ru.png" data-no-retina><span class="right">RUS</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a title="Korean" href="index-7.html#">
-                                        <img src="/assets/img/flags/32/kr.png" alt="Image Alternative text" title="Image Title" /><span class="right">KOR</span>
+                                        <img src="/assets/img/flags/32/kr.png" data-no-retina><span class="right">KOR</span>
                                     </a>
                                 </li>
                             </ul>

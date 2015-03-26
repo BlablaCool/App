@@ -7,7 +7,6 @@
 <script src="/assets/js/ionrangeslider.js"></script>
 <script src="/assets/js/icheck.js"></script>
 <script src="/assets/js/fotorama.js"></script>
-<script src="//maps.googleapis.com/maps/api/js?v=3.exp"></script>
 <script src="/assets/js/typeahead.js"></script>
 <script src="/assets/js/card-payment.js"></script>
 <script src="/assets/js/magnific.js"></script>

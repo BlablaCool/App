@@ -1,7 +1,6 @@
 package info.fges.blablacool.controllers;
 
 import info.fges.blablacool.models.Trip;
-import info.fges.blablacool.models.TripHasPlaces;
 import info.fges.blablacool.models.User;
 import info.fges.blablacool.services.TripService;
 import info.fges.blablacool.services.UserService;

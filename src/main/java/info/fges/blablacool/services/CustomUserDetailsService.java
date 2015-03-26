@@ -31,10 +31,12 @@ public class CustomUserDetailsService implements UserDetailsService
     public UserDetails loadUserByUsername(final String email)
             throws UsernameNotFoundException {
 
-        info.fges.blablacool.models.User user = userService.findByEmail(email);
-        List<GrantedAuthority> authorities = buildUserAuthority(user.getRoles());
+        return userService.findByEmail(email);
 
-        return buildUserForAuthentication(user, authorities);
+//        info.fges.blablacool.models.User user = userService.findByEmail(email);
+//        List<GrantedAuthority> authorities = buildUserAuthority(user.getRoles());
+//
+//        return buildUserForAuthentication(user, authorities);
     }
 
     private User buildUserForAuthentication(info.fges.blablacool.models.User user,
@@ -44,17 +46,16 @@ public class CustomUserDetailsService implements UserDetailsService
                 true, true, true, true, authorities);
     }
 
-    private List<GrantedAuthority> buildUserAuthority(List<Role> userRoles) {
+    private List<GrantedAuthority> buildUserAuthority(List<Role> userRoles)
+    {
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
-        Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
-
-        for (Role userRole : userRoles) {
-            setAuths.add(new SimpleGrantedAuthority(userRole.getRole()));
+        for (Role userRole : userRoles)
+        {
+            authorities.add(new SimpleGrantedAuthority(userRole.getRole()));
         }
 
-        List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(setAuths);
-
-        return Result;
+        return authorities;
     }
 
 }

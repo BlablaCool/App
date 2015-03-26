@@ -3,16 +3,21 @@ package info.fges.blablacool.models;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
  * Created by Valentin on 15/03/15.
  */
 @Entity
-public class User
+public class User implements UserDetails
 {
     private int id;
 
@@ -40,6 +45,8 @@ public class User
     private List<Role> roles;
 
     private Byte age;
+    private List<Subscription> subscriptions;
+    private List<Place> places;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -148,6 +155,50 @@ public class User
         return password;
     }
 
+    @Override
+    @Transient
+    public List<GrantedAuthority> getAuthorities()
+    {
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+
+        for (Role userRole : this.roles)
+        {
+            authorities.add(new SimpleGrantedAuthority(userRole.getRole()));
+        }
+
+        return authorities;
+    }
+
+    @Override
+    @Transient
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    @Transient
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isEnabled() {
+        return true;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -169,5 +220,23 @@ public class User
 
     public void setPasswordConfirmation(String passwordConfirmation) {
         this.passwordConfirmation = passwordConfirmation;
+    }
+
+    @OneToMany(mappedBy = "user")
+    public List<Subscription> getSubscriptions() {
+        return subscriptions;
+    }
+
+    public void setSubscriptions(List<Subscription> subscriptions) {
+        this.subscriptions = subscriptions;
+    }
+
+    @OneToMany(mappedBy = "user")
+    public List<Place> getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(List<Place> places) {
+        this.places = places;
     }
 }
