@@ -45,6 +45,15 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+    <context-param>
+        <param-name>emdundsApiKey</param-name>
+        <param-value>2w77fqtnwmsy43dj6h3s73zu</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name></param-name>
+    </context-param>
+
     <jsp-config>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>

@@ -22,21 +22,21 @@ public class UserController {
     @RequestMapping(value = "/update", method = RequestMethod.GET)
     public ModelAndView getUserSettings(ModelAndView modelAndView)
     {
-        modelAndView.setViewName("user/settings");
+        modelAndView.setViewName("users/settings");
         return modelAndView;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ModelAndView getUser(ModelAndView modelAndView , @PathVariable("id") Integer id )
     {
-        modelAndView.setViewName("user/profile");
+        modelAndView.setViewName("users/profile");
         return modelAndView;
     }
 
     @RequestMapping(value = "/{id}/history", method = RequestMethod.GET)
     public ModelAndView getUserPastTrips(ModelAndView modelAndView , @PathVariable("id") Integer id )
     {
-        modelAndView.setViewName("user/trip-history");
+        modelAndView.setViewName("users/trip-history");
         return modelAndView;
     }
 
