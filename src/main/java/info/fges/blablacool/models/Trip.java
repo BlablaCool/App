@@ -151,4 +151,26 @@ public class Trip {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
+
+    @Transient
+    public Step getDepartureStep()
+    {
+        if (this.steps.size() > 0)
+        {
+            return steps.get(0);
+        }
+
+        return null;
+    }
+
+    @Transient
+    public Step getArrivalStep()
+    {
+        if (this.steps.size() > 0)
+        {
+            return steps.get(this.steps.size() - 1);
+        }
+
+        return null;
+    }
 }
