@@ -3,16 +3,21 @@ package info.fges.blablacool.models;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
  * Created by Valentin on 15/03/15.
  */
 @Entity
-public class User
+public class User implements UserDetails
 {
     private int id;
 
@@ -148,6 +153,50 @@ public class User
     @Column(name = "password", nullable = false, insertable = true, updatable = true, length = 200)
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    @Transient
+    public List<GrantedAuthority> getAuthorities()
+    {
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+
+        for (Role userRole : this.roles)
+        {
+            authorities.add(new SimpleGrantedAuthority(userRole.getRole()));
+        }
+
+        return authorities;
+    }
+
+    @Override
+    @Transient
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    @Transient
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setPassword(String password) {

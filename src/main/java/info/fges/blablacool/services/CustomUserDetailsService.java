@@ -31,10 +31,12 @@ public class CustomUserDetailsService implements UserDetailsService
     public UserDetails loadUserByUsername(final String email)
             throws UsernameNotFoundException {
 
-        info.fges.blablacool.models.User user = userService.findByEmail(email);
-        List<GrantedAuthority> authorities = buildUserAuthority(user.getRoles());
+        return userService.findByEmail(email);
 
-        return buildUserForAuthentication(user, authorities);
+//        info.fges.blablacool.models.User user = userService.findByEmail(email);
+//        List<GrantedAuthority> authorities = buildUserAuthority(user.getRoles());
+//
+//        return buildUserForAuthentication(user, authorities);
     }
 
     private User buildUserForAuthentication(info.fges.blablacool.models.User user,

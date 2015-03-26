@@ -12,6 +12,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.text.DateFormat;
 import java.util.List;
 
@@ -70,10 +72,13 @@ public class TripController
         return "Sumitted";
     }
 
+    @Secured("ROLE_USER")
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     @ResponseBody
-    public String getTest()
+    public String getTest(@AuthenticationPrincipal User user)
     {
+        System.out.println(user);
+
         User driver = userService.findById(1);
 
         Trip trip = new Trip();
