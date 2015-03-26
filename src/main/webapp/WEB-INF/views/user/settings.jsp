@@ -104,6 +104,18 @@
                                             <input class="i-radio" type="radio" name="talkative" />Non</label>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label>Style de conduite</label>
+                                    <select name="drivingStyle" class="form-control">
+                                        <option value="calme">Calme</option>
+                                        <option value="sprotif">Sptortif</option>
+                                        <option value="prudent">Prudent</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Informations supplémentaires:</label>
+                                    <textarea class="form-control" rows="5" name="description"></textarea>
+                                </div>
                                 <hr>
                                 <input type="submit" class="btn btn-primary" value="Savegarder">
                             </form>
