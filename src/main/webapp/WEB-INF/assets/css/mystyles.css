@@ -1,3 +1,8 @@
 #placeholderContainer {
     display: none;
 }
+#autoCalculationState {
+    font-weight: bold;
+    border-bottom: 1px dashed #999;
+    cursor: pointer;
+}

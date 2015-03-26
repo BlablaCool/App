@@ -19,7 +19,7 @@
         <div class="container">
             <div class="row" style="margin-bottom: 20px;">
                 <div class="col-md-12">
-                    <h3 style="margin-bottom: 20px;">1. Paramètres</h3>
+                    <h3 style="margin-bottom: 20px; color: #74c683;">1. Paramètres</h3>
                     <hr>
                     <div class="panel panel-default">
                         <div class="panel-body" style="padding-top: 14px;">
@@ -79,9 +79,10 @@
                                             <label class="col-md-4 control-label" for="price" style="padding-top: 12px;">Prix</label>
                                             <div class="col-md-6">
                                                 <div class="input-group input-group-lg">
-                                                    <input id="price" name="price" class="form-control" type="text" style="text-align: right;">
+                                                    <input id="price" name="price" class="form-control" type="text" style="text-align: right;" disabled="disabled">
                                                     <span class="input-group-addon">&euro;</span>
                                                 </div>
+                                                <p class="help-block"><sup>*</sup>calcul auto <span id="autoCalculationState" data-auto="auto" >ACTIVÉ</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -94,18 +95,18 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <h3 style="margin-bottom: 20px;">2. Etapes du parcours</h3>
+                    <h3 style="margin-bottom: 20px; color: #74c683;">2. Etapes du parcours</h3>
                     <hr>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row">
-                                <jsp:include page="/WEB-INF/views/blocks/trips/new-input.jsp">
+                                <jsp:include page="/WEB-INF/views/trips/blocks/new-input.jsp">
                                     <jsp:param name="pointNameLong" value="de Départ" />
                                     <jsp:param name="pointName" value="departure" />
                                     <jsp:param name="flag" value="fa-flag" />
                                     <jsp:param name="canAddAfter" value="yes" />
                                 </jsp:include>
-                                <jsp:include page="/WEB-INF/views/blocks/trips/new-input.jsp">
+                                <jsp:include page="/WEB-INF/views/trips/blocks/new-input.jsp">
                                     <jsp:param name="pointNameLong" value="d'Arrivée" />
                                     <jsp:param name="pointName" value="arrival" />
                                     <jsp:param name="flag" value="fa-flag-checkered" />
@@ -127,7 +128,7 @@
 
         <div class="gap"></div>
 
-        <jsp:include page="/WEB-INF/views/blocks/trips/new-input.jsp">
+        <jsp:include page="/WEB-INF/views/trips/blocks/new-input.jsp">
             <jsp:param name="pointNameLong" value="intermédiaire" />
             <jsp:param name="pointName" value="placeholder" />
             <jsp:param name="flag" value="fa-flag-o" />
