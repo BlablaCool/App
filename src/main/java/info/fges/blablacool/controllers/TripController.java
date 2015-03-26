@@ -12,6 +12,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -51,7 +52,7 @@ public class TripController
         return "Index Trips";
     }
 
-    @Secured("ROLE_USER")
+    @Secured("ROLE_SUBSCRIBED")
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public ModelAndView getNew(@AuthenticationPrincipal User user, ModelAndView modelAndView)
     {
@@ -61,33 +62,6 @@ public class TripController
         modelAndView.addObject("driver", user);
 
         return modelAndView;
-    }
-
-    @Secured("ROLE_USER")
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    @ResponseBody
-    public String getTest(@AuthenticationPrincipal User user)
-    {
-        System.out.println(user);
-
-        Trip trip = new Trip();
-        trip.setDriver(user);
-        trip.setCapacity(Short.valueOf("5"));
-        tripService.create(trip);
-
-        Place place = new Place(user);
-        placeService.create(place);
-
-        Step step = new Step();
-        step.setPlace(place);
-        step.setTrip(trip);
-        step.setPosition(1);
-        step.setEstimatedTime(DateTime.parse("01/01/1970 19:42", DateTimeFormat.forPattern("dd/MM/yyyy HH:mm")));
-        stepService.create(step);
-
-        System.out.println(trip.toString() + place.toString() + step.toString());
-
-        return "Submitted";
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
