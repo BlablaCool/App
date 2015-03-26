@@ -78,6 +78,9 @@ $(function()
                 $(this).attr('disabled');
                 console.log(response);
             },
+            error: function() {
+                alert('Une erreur est survenue pendant la création de l\'itinéraire...')
+            },
             dataType: 'html'
         });
     });
@@ -119,6 +122,9 @@ $(function()
         });
     });
 
+    /**
+     * Loading car's capacity in input field
+     */
     $(document).on('change', '#car', function()
     {
         var carCapacity = $(this).find(":selected").data('capacity');

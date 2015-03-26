@@ -4,6 +4,10 @@
 
 <tiles:insertDefinition name="blablacoolTemplate">
 
+    <tiles:putAttribute name="header-custom-css">
+        <link type="text/css" rel="stylesheet" href="/assets/plugins/bower_components/animate.css/animate.min.css">
+    </tiles:putAttribute>
+
     <tiles:putAttribute name="footer-custom-js">
         <script src="//maps.googleapis.com/maps/api/js?libraries=places"></script>
         <script src="/assets/js/jquery.geocomplete.min.js"></script>
@@ -16,7 +20,7 @@
             <h1 class="page-title">Créer un itinéraire</h1>
         </div>
 
-        <div class="container">
+        <div id="tripWizard" class="container">
             <div class="row" style="margin-bottom: 20px;">
                 <div class="col-md-12">
                     <h3 style="margin-bottom: 20px; color: #74c683;">1. Paramètres</h3>
@@ -121,7 +125,7 @@
             </div>
             <div class="row" style="margin-top: 25px;">
                 <div class="col-md-6 col-md-offset-3" style="text-align: center;">
-                    <button id="createTrip" class="btn btn-lg btn-success"><i class="fa fa-check"></i> Créer mon itinéraire</button>
+                    <button id="createTrip" class="btn btn-lg btn- btn-success"><i class="fa fa-check"></i> Créer mon itinéraire</button>
                 </div>
             </div>
         </div>
