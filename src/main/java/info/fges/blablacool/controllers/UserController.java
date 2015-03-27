@@ -1,6 +1,7 @@
 package info.fges.blablacool.controllers;
 
 import info.fges.blablacool.models.User;
+import info.fges.blablacool.models.UserPreference;
 import info.fges.blablacool.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -32,6 +33,7 @@ public class UserController {
     {
         modelAndView.setViewName("user/settings");
         modelAndView.addObject("user", userService.findById(user.getId())); // We can't just use the User from Spring Security as it is not refreshed!
+        modelAndView.addObject("musicStyles", UserPreference.getMusicStyles());
 
         return modelAndView;
     }

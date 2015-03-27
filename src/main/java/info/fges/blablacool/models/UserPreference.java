@@ -1,13 +1,16 @@
 package info.fges.blablacool.models;
 
 import javax.persistence.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Created by Valentin on 27/03/15.
  */
 @Entity
 @Table(name = "user_preference", schema = "", catalog = "blablacool")
-public class UserPreference {
+public class UserPreference
+{
     private int idUserPreference;
     private boolean likeAnimals;
     private boolean likeSmoking;
@@ -26,6 +29,18 @@ public class UserPreference {
     public UserPreference(User user)
     {
         this.user = user;
+    }
+
+    public static ArrayList<String> getMusicStyles()
+    {
+        ArrayList<String> musicStyles = new ArrayList<String>();
+        musicStyles.add("Pop/rock");
+        musicStyles.add("RnB");
+        musicStyles.add("Rap");
+        musicStyles.add("Variétés");
+        musicStyles.add("Classique");
+
+        return musicStyles;
     }
 
     @Id

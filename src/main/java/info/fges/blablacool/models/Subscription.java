@@ -18,6 +18,19 @@ public class Subscription {
     private BigDecimal amount;
     private User user;
 
+    public Subscription()
+    {
+
+    }
+
+    public Subscription(User user, int daysToAdd)
+    {
+        this.from = DateTime.now();
+        this.to = DateTime.now().plusDays(daysToAdd);
+        this.amount = new BigDecimal(0);
+        this.user = user;
+    }
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_subscription", nullable = false, insertable = false, updatable = false)

@@ -33,7 +33,7 @@
                                     <form:input path="phoneNumber" cssClass="form-control"></form:input>
                                 </div>
                                 <div class="gap gap-small"></div>
-                                <h4>Coordonées</h4>
+                                <h4>Coordonnées</h4>
                                 <div class="form-group">
                                     <label>Addresse</label>
                                     <form:input path="address" cssClass="form-control"></form:input>
@@ -57,33 +57,36 @@
                                 <div class="gap gap-small"></div>
                                 <h4>Traits de caractère</h4>
                                 <div class="form-group">
-                                    <label>Animaux</label>
+                                    <label>Possède un animal</label>
                                     <div class="radio-inline">
                                         <label>
-                                            <input class="i-radio" type="radio" name="animal" />Oui</label>
+                                            <form:radiobutton path="preferences.likeAnimals" value="1" cssClass="i-radio" /> Oui
+                                        </label>
                                     </div>
                                     <div class="radio-inline">
                                         <label>
-                                            <input class="i-radio" type="radio" name="animal" />Non</label>
+                                            <form:radiobutton path="preferences.likeAnimals" value="0" cssClass="i-radio" /> Non
+                                        </label>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Musique</label>
-                                    <select name="music" class="form-control">
-                                        <option value="rap">Rap</option>
-                                        <option value="classique">Classique</option>
-                                        <option value="rock">Rock</option>
-                                    </select>
+                                    <label>Style de musique</label>
+                                    <form:select path="preferences.musicStyle" cssClass="form-control">
+                                        <form:option value="none" label="Choisir un style de musique..."/>
+                                        <form:options items="${musicStyles}" />
+                                    </form:select>
                                 </div>
                                 <div class="form-group">
                                     <label>Fumeur</label>
                                     <div class="radio-inline">
                                         <label>
-                                            <input class="i-radio" type="radio" name="smoker" />Oui</label>
+                                            <form:radiobutton path="preferences.likeSmoking" value="1" cssClass="i-radio" /> Oui
+                                        </label>
                                     </div>
                                     <div class="radio-inline">
                                         <label>
-                                            <input class="i-radio" type="radio" name="smoker" />Non</label>
+                                            <form:radiobutton path="preferences.likeSmoking" value="0" cssClass="i-radio" /> Non
+                                        </label>
                                     </div>
                                 </div>
                                 <div class="form-group">
