@@ -4,6 +4,7 @@
 $( document ).ready(function() {
     var cars;
     var brandsSelect =  $('#brands');
+    var modelsSelect = $('#models');
     $.ajax({
         url: "/cars/brands",
         type: "GET",
@@ -13,24 +14,25 @@ $( document ).ready(function() {
             $.each(data.makes, function(key, val) {
                 cars = data;
                 brandsSelect.append('<option id="' + val.id + '">' + val.name + '</option>');
+                brandsSelect.prop("disabled", false);
                 brandsSelect.trigger( "change" );
+                modelsSelect.prop("disabled", false);
             });
         },
         complete: function(){}
     });
 
     brandsSelect.change(function(e) {
-        $('#models').empty();
+        modelsSelect.empty();
         index = $(this).children(':selected').attr('id');
         var brand;
         for (i = 0; cars.makes.length > i; i += 1) {
-            alert(cars.makes[i].id)
             if (cars.makes[i].id == index) {
                 brand = cars.makes[i];
             }
         }
         $.each(brand.models, function(key, val) {
-            $('#models').append('<option id="' + val.id + '">' + val.name + '</option>');
+            modelsSelect.append('<option id="' + val.id + '">' + val.name + '</option>');
         });
     });
 

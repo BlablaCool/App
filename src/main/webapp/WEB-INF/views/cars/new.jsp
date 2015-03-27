@@ -19,16 +19,16 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="brand" id="brand">Marque</label>
                         <div class="col-md-5">
-                            <select id="brands" name="brand" class="form-control">
+                            <select id="brands" name="brand" class="form-control" disabled>
                             </select>
                         </div>
                     </div>
 
                     <!-- Select Basic -->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="model">Modele</label>
+                        <label class="col-md-4 control-label" for="model" id="model">Modele</label>
                         <div class="col-md-5">
-                            <select id="models" name="model" class="form-control">
+                            <select id="models" name="model" class="form-control" disabled>
                             </select>
                         </div>
                     </div>
@@ -94,16 +94,7 @@
             </form>
         </div>
 
-
         <div class="gap"></div>
-
-        <jsp:include page="/WEB-INF/views/blocks/trips/new-input.jsp">
-            <jsp:param name="pointNameLong" value="intermédiaire" />
-            <jsp:param name="pointName" value="placeholder" />
-            <jsp:param name="flag" value="fa-flag-o" />
-            <jsp:param name="canAddAfter" value="yes" />
-            <jsp:param name="isModel" value="yes" />
-        </jsp:include>
 
     </tiles:putAttribute>
 </tiles:insertDefinition>
