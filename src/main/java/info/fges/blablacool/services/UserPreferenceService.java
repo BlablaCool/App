@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * Created by Valentin on 27/03/15.
  */
+@Service
 public class UserPreferenceService extends ServiceInterface<UserPreference, Integer>
 {
     @Autowired

@@ -4,6 +4,10 @@ import info.fges.blablacool.models.User;
 import info.fges.blablacool.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +31,7 @@ public class UserController {
                                         ModelAndView modelAndView)
     {
         modelAndView.setViewName("user/settings");
-        modelAndView.addObject("user", user);
+        modelAndView.addObject("user", userService.findById(user.getId())); // We can't just use the User from Spring Security as it is not refreshed!
 
         return modelAndView;
     }

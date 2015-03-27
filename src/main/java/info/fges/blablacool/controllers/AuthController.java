@@ -2,7 +2,9 @@ package info.fges.blablacool.controllers;
 
 import info.fges.blablacool.models.Role;
 import info.fges.blablacool.models.User;
+import info.fges.blablacool.models.UserPreference;
 import info.fges.blablacool.services.RoleService;
+import info.fges.blablacool.services.UserPreferenceService;
 import info.fges.blablacool.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,6 +31,9 @@ public class AuthController
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private UserPreferenceService userPreferenceService;
 
     @RequestMapping(value = "/login-register", method = RequestMethod.GET)
     public ModelAndView getLoginRegister(ModelAndView modelAndView)
@@ -59,6 +64,11 @@ public class AuthController
          * We persist the validated User...
          */
         userService.create(user);
+
+        /**
+         * Creating UserPreferences for saved user...
+         */
+        userPreferenceService.create(new UserPreference(user));
 
         /**
          * Adding a role...

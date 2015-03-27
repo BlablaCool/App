@@ -9,17 +9,28 @@ import javax.persistence.*;
 @Table(name = "user_preference", schema = "", catalog = "blablacool")
 public class UserPreference {
     private int idUserPreference;
-    private Byte likeAnimals;
+    private boolean likeAnimals;
+    private boolean likeSmoking;
     private String musicStyle;
-    private Byte likeSmoking;
     private String temperament;
     private String talkingLevel;
     private String drivingStyle;
     private String others;
     private User user;
 
+    public UserPreference()
+    {
+
+    }
+
+    public UserPreference(User user)
+    {
+        this.user = user;
+    }
+
     @Id
-    @Column(name = "id_user_preference", nullable = false, insertable = true, updatable = true)
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id_user_preference", nullable = false, insertable = false, updatable = false)
     public int getIdUserPreference() {
         return idUserPreference;
     }
@@ -30,11 +41,11 @@ public class UserPreference {
 
     @Basic
     @Column(name = "like_animals", nullable = true, insertable = true, updatable = true)
-    public Byte getLikeAnimals() {
+    public boolean getLikeAnimals() {
         return likeAnimals;
     }
 
-    public void setLikeAnimals(Byte likeAnimals) {
+    public void setLikeAnimals(boolean likeAnimals) {
         this.likeAnimals = likeAnimals;
     }
 
@@ -50,11 +61,11 @@ public class UserPreference {
 
     @Basic
     @Column(name = "like_smoking", nullable = true, insertable = true, updatable = true)
-    public Byte getLikeSmoking() {
+    public boolean getLikeSmoking() {
         return likeSmoking;
     }
 
-    public void setLikeSmoking(Byte likeSmoking) {
+    public void setLikeSmoking(boolean likeSmoking) {
         this.likeSmoking = likeSmoking;
     }
 
@@ -106,9 +117,7 @@ public class UserPreference {
         UserPreference that = (UserPreference) o;
 
         if (idUserPreference != that.idUserPreference) return false;
-        if (likeAnimals != null ? !likeAnimals.equals(that.likeAnimals) : that.likeAnimals != null) return false;
         if (musicStyle != null ? !musicStyle.equals(that.musicStyle) : that.musicStyle != null) return false;
-        if (likeSmoking != null ? !likeSmoking.equals(that.likeSmoking) : that.likeSmoking != null) return false;
         if (temperament != null ? !temperament.equals(that.temperament) : that.temperament != null) return false;
         if (talkingLevel != null ? !talkingLevel.equals(that.talkingLevel) : that.talkingLevel != null) return false;
         if (drivingStyle != null ? !drivingStyle.equals(that.drivingStyle) : that.drivingStyle != null) return false;
@@ -120,9 +129,7 @@ public class UserPreference {
     @Override
     public int hashCode() {
         int result = idUserPreference;
-        result = 31 * result + (likeAnimals != null ? likeAnimals.hashCode() : 0);
         result = 31 * result + (musicStyle != null ? musicStyle.hashCode() : 0);
-        result = 31 * result + (likeSmoking != null ? likeSmoking.hashCode() : 0);
         result = 31 * result + (temperament != null ? temperament.hashCode() : 0);
         result = 31 * result + (talkingLevel != null ? talkingLevel.hashCode() : 0);
         result = 31 * result + (drivingStyle != null ? drivingStyle.hashCode() : 0);
