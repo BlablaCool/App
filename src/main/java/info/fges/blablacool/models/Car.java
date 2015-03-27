@@ -14,6 +14,7 @@ public class Car {
     private String model;
     private byte capacity;
     private User owner;
+    private String image;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -112,5 +113,15 @@ public class Car {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    @Basic
+    @Column(name = "image", nullable = true, insertable = true, updatable = true, length = 255)
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

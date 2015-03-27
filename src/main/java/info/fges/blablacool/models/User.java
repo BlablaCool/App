@@ -47,6 +47,13 @@ public class User implements UserDetails
     private Byte age;
     private List<Subscription> subscriptions;
     private List<Place> places;
+    private String phoneNumber;
+    private String address;
+    private String city;
+    private String state;
+    private String postcode;
+    private String country;
+    private UserPreference preferences;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -155,6 +162,10 @@ public class User implements UserDetails
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     @Transient
     public List<GrantedAuthority> getAuthorities()
@@ -199,10 +210,6 @@ public class User implements UserDetails
         return true;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     @Basic
     @Column(name = "age", nullable = true, insertable = true, updatable = true)
     public Byte getAge() {
@@ -238,5 +245,74 @@ public class User implements UserDetails
 
     public void setPlaces(List<Place> places) {
         this.places = places;
+    }
+
+    @Basic
+    @Column(name = "phone_number", nullable = true, insertable = true, updatable = true, length = 20)
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    @Basic
+    @Column(name = "address", nullable = true, insertable = true, updatable = true, length = 255)
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Basic
+    @Column(name = "city", nullable = true, insertable = true, updatable = true, length = 180)
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    @Basic
+    @Column(name = "state", nullable = true, insertable = true, updatable = true, length = 255)
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    @Basic
+    @Column(name = "postcode", nullable = true, insertable = true, updatable = true, length = 10)
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
+    }
+
+    @Basic
+    @Column(name = "country", nullable = true, insertable = true, updatable = true, length = 255)
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    @OneToOne(mappedBy = "user")
+    public UserPreference getPreferences() {
+        return preferences;
+    }
+
+    public void setPreferences(UserPreference preferences) {
+        this.preferences = preferences;
     }
 }
