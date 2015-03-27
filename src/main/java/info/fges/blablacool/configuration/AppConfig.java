@@ -2,10 +2,7 @@ package info.fges.blablacool.configuration;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.SessionFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.*;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -35,8 +32,7 @@ public class AppConfig extends WebMvcConfigurerAdapter
     public SessionFactory sessionFactory()
     {
         LocalSessionFactoryBuilder builder = new LocalSessionFactoryBuilder(dataSource());
-        builder.scanPackages("info.fges.blablacool.models")
-                .addProperties(getHibernateProperties());
+        builder.scanPackages("info.fges.blablacool").addProperties(getHibernateProperties());
 
         return builder.buildSessionFactory();
     }
@@ -46,7 +42,14 @@ public class AppConfig extends WebMvcConfigurerAdapter
         Properties prop = new Properties();
         prop.put("hibernate.format_sql", "true");
         prop.put("hibernate.show_sql", "true");
-        prop.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+        prop.put("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
+
+        prop.put("hibernate.enable_lazy_load_no_trans", "true");
+
+        prop.put("hibernate.cache.use_second_level_cache", "false");
+        prop.put("hibernate.cache.use_query_cache", "false");
+        prop.put("hibernate.c3p0.max_statements", "0");
+        prop.put("hibernate.connection.isolation", "2");
 
         return prop;
     }

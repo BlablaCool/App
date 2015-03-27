@@ -1,8 +1,9 @@
 package info.fges.blablacool.dao;
 
-import info.fges.blablacool.hibernate.HibernateUtils;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,19 +13,22 @@ import java.util.List;
  */
 public abstract class DaoInterface<T, Id extends Serializable>
 {
+    @Autowired
+    SessionFactory sessionFactory;
+
     protected Session currentSession;
     protected Transaction currentTransaction;
 
     public Session openCurrentSession()
     {
-        currentSession = HibernateUtils.getSession();
+        currentSession = sessionFactory.openSession();
 
         return currentSession;
     }
 
     public Session openCurrentSessionWithTransaction()
     {
-        currentSession = HibernateUtils.getSession();
+        currentSession = sessionFactory.getCurrentSession();
         currentTransaction = currentSession.beginTransaction();
 
         return currentSession;
