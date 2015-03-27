@@ -1,4 +1,8 @@
-#step-wrapper-model {
+#placeholderContainer {
     display: none;
-    margin-top: -18px;
+}
+#autoCalculationState {
+    font-weight: bold;
+    border-bottom: 1px dashed #999;
+    cursor: pointer;
 }

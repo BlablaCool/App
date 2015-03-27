@@ -1,5 +1,7 @@
 package info.fges.blablacool.models;
 
+import org.json.simple.JSONObject;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
@@ -27,7 +29,26 @@ public class Place {
 
     public Place()
     {
+    }
 
+    public Place(JSONObject jsonPlace, User user)
+    {
+        this.user = user;
+
+        this.country = (String) jsonPlace.get("country");
+        this.countryShort = (String) jsonPlace.get("country_short");
+        this.address = (String) jsonPlace.get("formatted_address");
+        this.postalCode = (String) jsonPlace.get("postal_code");
+        this.city = (String) jsonPlace.get("locality");
+        this.location = (String) jsonPlace.get("location");
+        this.streetNumber = (String) jsonPlace.get("street_number");
+        this.street = "";
+
+        this.latitude = new BigDecimal((String) jsonPlace.get("lat"));
+        this.longitude = new BigDecimal((String) jsonPlace.get("lng"));
+
+        this.namePublic = (String) jsonPlace.get("name");
+        this.namePrivate = "Private Name";
     }
 
     public Place(User user)

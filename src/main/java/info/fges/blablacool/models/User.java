@@ -3,14 +3,13 @@ package info.fges.blablacool.models;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -47,6 +46,13 @@ public class User implements UserDetails
     private Byte age;
     private List<Subscription> subscriptions;
     private List<Place> places;
+    private String phoneNumber;
+    private String address;
+    private String city;
+    private String state;
+    private String postcode;
+    private String country;
+    private UserPreference preferences;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -155,15 +161,30 @@ public class User implements UserDetails
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     @Transient
     public List<GrantedAuthority> getAuthorities()
     {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
+        /**
+         * Getting roles from DB
+         */
         for (Role userRole : this.roles)
         {
             authorities.add(new SimpleGrantedAuthority(userRole.getRole()));
+        }
+
+        /**
+         * Checking if user has valid subscription
+         */
+        if (this.hasActiveSubscription())
+        {
+            authorities.add(new SimpleGrantedAuthority("ROLE_SUBSCRIBED"));
         }
 
         return authorities;
@@ -177,7 +198,8 @@ public class User implements UserDetails
 
     @Override
     @Transient
-    public boolean isAccountNonExpired() {
+    public boolean isAccountNonExpired()
+    {
         return true;
     }
 
@@ -199,8 +221,19 @@ public class User implements UserDetails
         return true;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    @Transient
+    public boolean hasActiveSubscription()
+    {
+        for (Subscription subscription : this.subscriptions)
+        {
+            if ( (DateTime.now().isAfter(subscription.getFrom())) &&
+                    (DateTime.now().isBefore(subscription.getTo())) )
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Basic
@@ -238,5 +271,74 @@ public class User implements UserDetails
 
     public void setPlaces(List<Place> places) {
         this.places = places;
+    }
+
+    @Basic
+    @Column(name = "phone_number", nullable = true, insertable = true, updatable = true, length = 20)
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    @Basic
+    @Column(name = "address", nullable = true, insertable = true, updatable = true, length = 255)
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    @Basic
+    @Column(name = "city", nullable = true, insertable = true, updatable = true, length = 180)
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    @Basic
+    @Column(name = "state", nullable = true, insertable = true, updatable = true, length = 255)
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    @Basic
+    @Column(name = "postcode", nullable = true, insertable = true, updatable = true, length = 10)
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
+    }
+
+    @Basic
+    @Column(name = "country", nullable = true, insertable = true, updatable = true, length = 255)
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    @OneToOne(mappedBy = "user")
+    public UserPreference getPreferences() {
+        return preferences;
+    }
+
+    public void setPreferences(UserPreference preferences) {
+        this.preferences = preferences;
     }
 }

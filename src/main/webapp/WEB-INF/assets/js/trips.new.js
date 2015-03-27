@@ -1,7 +1,5 @@
 $(function()
 {
-    var shared;
-
     /**
      * Global Google Maps
      */
@@ -21,10 +19,13 @@ $(function()
             styles: [{"featureType":"landscape","stylers":[{"saturation":-100},{"lightness":65},{"visibility":"on"}]},{"featureType":"poi","stylers":[{"saturation":-100},{"lightness":51},{"visibility":"simplified"}]},{"featureType":"road.highway","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"road.arterial","stylers":[{"saturation":-100},{"lightness":30},{"visibility":"on"}]},{"featureType":"road.local","stylers":[{"saturation":-100},{"lightness":40},{"visibility":"on"}]},{"featureType":"transit","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"administrative.province","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":-25},{"saturation":-100}]},{"featureType":"water","elementType":"geometry","stylers":[{"hue":"#ffff00"},{"lightness":-25},{"saturation":-97}]}]
         },
         afterRoute: function (distance) {
-
+            refreshPrice(distance / 1000);
         }
     }).Load();
 
+    /**
+     * Autocomplete Google Maps
+     */
     var inputsToGeocomplete = ['#departure', '#arrival'];
     inputsToGeocomplete.forEach(function(input)
     {
@@ -67,10 +68,18 @@ $(function()
 
         $.ajax({
             type: "POST",
-            url: "/ajax/places/add",
-            data: {places: JSON.stringify(placesToSend)},
+            url: "/ajax/trips/add",
+            context: this,
+            data: {
+                infos: JSON.stringify($('#infosForm').serializeObject()),
+                places: JSON.stringify(placesToSend)
+            },
             success: function(response) {
+                $(this).attr('disabled');
                 console.log(response);
+            },
+            error: function() {
+                alert('Une erreur est survenue pendant la création de l\'itinéraire...')
             },
             dataType: 'html'
         });
@@ -89,6 +98,7 @@ $(function()
         clone.find('#placeholderAddress').first().attr('id', randomId + "_Address");
         clone.find('#placeholderDate').first().attr('id', randomId + "_Date");
         clone.find('#placeholderTime').first().attr('id', randomId + "_Time");
+        clone.find('input[name="type"]').first().val('middle');
         clone.insertAfter($(this).closest('.step-wrapper'));
 
         // We need to bind a date picker to the cloned input (I know, it sucks!)
@@ -110,6 +120,31 @@ $(function()
         }).bind("geocode:result", function(event, result) {
             refreshMap(maPlace);
         });
+    });
+
+    /**
+     * Loading car's capacity in input field
+     */
+    $(document).on('change', '#car', function()
+    {
+        var carCapacity = $(this).find(":selected").data('capacity');
+        $('#availableSeats').val(carCapacity);
+    });
+
+    $(document).on('click', '#autoCalculationState', function()
+    {
+        if ($(this).data("auto") == "auto")
+        {
+            $('#price').removeAttr('disabled');
+            $(this).text('DÉSACTIVÉ');
+            $(this).data('auto', 'manual');
+        }
+        else
+        {
+            $('#price').attr('disabled', 'disabled');
+            $(this).text('ACTIVÉ');
+            $(this).data('auto', 'auto');
+        }
     });
 });
 
@@ -143,4 +178,9 @@ function refreshMap(map)
             zoom: 15
         }
     });
+}
+
+function refreshPrice(kilometers)
+{
+    $('#price').val(Math.ceil(0.0655 * kilometers));
 }
