@@ -3,14 +3,13 @@ package info.fges.blablacool.models;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -172,9 +171,20 @@ public class User implements UserDetails
     {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
+        /**
+         * Getting roles from DB
+         */
         for (Role userRole : this.roles)
         {
             authorities.add(new SimpleGrantedAuthority(userRole.getRole()));
+        }
+
+        /**
+         * Checking if user has valid subscription
+         */
+        if (this.hasActiveSubscription())
+        {
+            authorities.add(new SimpleGrantedAuthority("ROLE_SUBSCRIBED"));
         }
 
         return authorities;
@@ -188,7 +198,8 @@ public class User implements UserDetails
 
     @Override
     @Transient
-    public boolean isAccountNonExpired() {
+    public boolean isAccountNonExpired()
+    {
         return true;
     }
 
@@ -208,6 +219,21 @@ public class User implements UserDetails
     @Transient
     public boolean isEnabled() {
         return true;
+    }
+
+    @Transient
+    public boolean hasActiveSubscription()
+    {
+        for (Subscription subscription : this.subscriptions)
+        {
+            if ( (DateTime.now().isAfter(subscription.getFrom())) &&
+                    (DateTime.now().isBefore(subscription.getTo())) )
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Basic
