@@ -12,7 +12,7 @@
         <div class="container">
             <h1 class="page-title">Ajouter une voiture</h1>
         </div>
-                <spring:url var="addCarUrl" value="/car/add" />
+                <spring:url var="addCarUrl" value="/cars/create" />
         <div class="container">
                 <form:form action="${addCarUrl}" method="POST" modelAttribute="newCar" class="form-horizontal">
                 <fieldset>

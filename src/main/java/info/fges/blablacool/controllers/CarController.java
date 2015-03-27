@@ -1,6 +1,7 @@
 package info.fges.blablacool.controllers;
 
 import info.fges.blablacool.models.Car;
+import info.fges.blablacool.models.User;
 import info.fges.blablacool.services.CarService;
 import org.apache.commons.io.IOUtils;
 import org.apache.tiles.request.servlet.ServletUtil;
@@ -8,7 +9,11 @@ import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.ServletContext;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -27,6 +33,7 @@ import java.net.URL;
  */
 @Controller
 @RequestMapping("/cars")
+@Secured("ROLE_USER")
 public class CarController implements ServletContextAware {
     @Autowired
     private CarService carService;
@@ -56,8 +63,10 @@ public class CarController implements ServletContextAware {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(ModelAndView modelAndView){
-        return "hello";
+    public String create(@Valid @ModelAttribute("newCar") Car car, BindingResult bindingResult, @AuthenticationPrincipal User user,ModelAndView modelAndView){
+        car.setOwner(user);
+        carService.create(car);
+        return "redirect:/";
     }
 
     @Override
