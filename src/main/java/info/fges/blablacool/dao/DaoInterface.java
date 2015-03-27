@@ -28,7 +28,7 @@ public abstract class DaoInterface<T, Id extends Serializable>
 
     public Session openCurrentSessionWithTransaction()
     {
-        currentSession = sessionFactory.getCurrentSession();
+        currentSession = sessionFactory.openSession();
         currentTransaction = currentSession.beginTransaction();
 
         return currentSession;

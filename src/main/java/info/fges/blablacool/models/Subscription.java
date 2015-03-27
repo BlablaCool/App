@@ -43,8 +43,8 @@ public class Subscription {
     }
 
     @Basic
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
-    @Column(name = "from", nullable = false, insertable = true, updatable = true)
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @Column(name = "`from`", nullable = false, insertable = true, updatable = true)
     public DateTime getFrom() {
         return from;
     }
@@ -54,8 +54,8 @@ public class Subscription {
     }
 
     @Basic
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
-    @Column(name = "to", nullable = false, insertable = true, updatable = true)
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @Column(name = "`to`", nullable = false, insertable = true, updatable = true)
     public DateTime getTo() {
         return to;
     }
