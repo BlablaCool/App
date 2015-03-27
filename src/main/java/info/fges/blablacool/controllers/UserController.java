@@ -3,6 +3,8 @@ package info.fges.blablacool.controllers;
 import info.fges.blablacool.models.User;
 import info.fges.blablacool.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,10 +21,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Secured("ROLE_USER")
     @RequestMapping(value = "/update", method = RequestMethod.GET)
-    public ModelAndView getUserSettings(ModelAndView modelAndView)
+    public ModelAndView getUserSettings(@AuthenticationPrincipal User user,
+                                        ModelAndView modelAndView)
     {
         modelAndView.setViewName("user/settings");
+        modelAndView.addObject("user", user);
+
         return modelAndView;
     }
 

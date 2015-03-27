@@ -1,5 +1,6 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <tiles:insertDefinition name="blablacoolTemplate">
     <tiles:putAttribute name="body">
@@ -13,45 +14,45 @@
                 <div class="col-md-9">
                     <div class="row">
                         <div class="col-md-5">
-                            <form action="">
-                                <h4>Information personnelle</h4>
+                            <form:form action="/users/update" modelAttribute="user">
+                                <h4>Informations personelles</h4>
                                 <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon"></i>
                                     <label>Prénom</label>
-                                    <input class="form-control" value="John" type="text" />
+                                    <form:input path="firstname" cssClass="form-control"></form:input>
                                 </div>
                                 <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon"></i>
                                     <label>Nom</label>
-                                    <input class="form-control" value="Doe" type="text" />
+                                    <form:input path="lastname" cssClass="form-control"></form:input>
                                 </div>
                                 <div class="form-group form-group-icon-left"><i class="fa fa-envelope input-icon"></i>
                                     <label>E-mail</label>
-                                    <input class="form-control" value="johndoe@gmail.com" type="text" />
+                                    <form:input path="email" cssClass="form-control"></form:input>
                                 </div>
                                 <div class="form-group form-group-icon-left"><i class="fa fa-phone input-icon"></i>
                                     <label>Numéro de Téléphone</label>
-                                    <input class="form-control" value="+1 202 555 0113" type="text" />
+                                    <form:input path="phoneNumber" cssClass="form-control"></form:input>
                                 </div>
                                 <div class="gap gap-small"></div>
                                 <h4>Coordonées</h4>
                                 <div class="form-group">
                                     <label>Addresse</label>
-                                    <input class="form-control" value="41 Rue du Port" type="text" />
+                                    <form:input path="address" cssClass="form-control"></form:input>
                                 </div>
                                 <div class="form-group">
                                     <label>Ville</label>
-                                    <input class="form-control" value="Lille" type="text" />
+                                    <form:input path="city" cssClass="form-control"></form:input>
                                 </div>
                                 <div class="form-group">
                                     <label>State/Province/Region</label>
-                                    <input class="form-control" value="Nord" type="text" />
+                                    <form:input path="state" cssClass="form-control"></form:input>
                                 </div>
                                 <div class="form-group">
                                     <label>Code Postal</label>
-                                    <input class="form-control" value="59000" type="text" />
+                                    <form:input path="postcode" cssClass="form-control"></form:input>
                                 </div>
                                 <div class="form-group">
                                     <label>Pays</label>
-                                    <input class="form-control" value="France" type="text" />
+                                    <form:input path="country" cssClass="form-control"></form:input>
                                 </div>
                                 <div class="gap gap-small"></div>
                                 <h4>Traits de caractère</h4>
@@ -118,7 +119,7 @@
                                 </div>
                                 <hr>
                                 <input type="submit" class="btn btn-primary" value="Savegarder">
-                            </form>
+                            </form:form>
                         </div>
                         <div class="col-md-4 col-md-offset-1">
                             <h4>Modifier le mot de passe</h4>
