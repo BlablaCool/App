@@ -1,5 +1,6 @@
 package info.fges.blablacool.controllers;
 
+import info.fges.blablacool.models.Car;
 import info.fges.blablacool.services.CarService;
 import org.apache.commons.io.IOUtils;
 import org.apache.tiles.request.servlet.ServletUtil;
@@ -35,6 +36,7 @@ public class CarController implements ServletContextAware {
     public ModelAndView getNew(ModelAndView modelAndView)
     {
         modelAndView.setViewName("cars/new");
+        modelAndView.addObject("newCar", new Car());
         return modelAndView;
     }
 
@@ -54,7 +56,9 @@ public class CarController implements ServletContextAware {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ModelAndView create(ModelAndView modelAndView, )
+    public String create(ModelAndView modelAndView){
+        return "hello";
+    }
 
     @Override
     public void setServletContext(ServletContext servletContext) {
