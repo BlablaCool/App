@@ -13,7 +13,7 @@
         </div>
 
         <div class="container">
-            <form class="form-horizontal">
+                <form:form action="/auth/login-register" method="POST" modelAttribute="newUser" id="registration-form" class="form-horizontal">
                 <fieldset>
                     <!-- Select Basic -->
                     <div class="form-group">
