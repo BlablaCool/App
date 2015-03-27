@@ -39,38 +39,17 @@ public class CarController implements ServletContextAware {
     }
 
     @RequestMapping(value = "/brands", method = RequestMethod.GET)
-    public ResponseEntity<String> getCareBrands()
-    {
+    public ResponseEntity<String> getCareBrands() {
         try {
-            URL edmundsUrl = new URL(this.servletContext.getInitParameter("edmundsApiUrl")+"makes?fmt=json&api_key="+ this.servletContext.getInitParameter("edmundsApiKey"));
-            InputStream in =  edmundsUrl.openStream();
+            URL edmundsUrl = new URL(this.servletContext.getInitParameter("edmundsApiUrl") + "makes?fmt=json&api_key=" + this.servletContext.getInitParameter("edmundsApiKey"));
+            InputStream in = edmundsUrl.openStream();
             try {
-                return new ResponseEntity<String>(IOUtils.toString( in ), HttpStatus.OK);
+                return new ResponseEntity<String>(IOUtils.toString(in), HttpStatus.OK);
             } finally {
                 IOUtils.closeQuietly(in);
             }
-
-
         } catch (Exception e) {
             return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @RequestMapping(value = "/models/{brand}", method = RequestMethod.GET)
-    public ResponseEntity<String> getCareModels(@PathVariable("brand") String brand )
-    {
-        try {
-            URL edmundsUrl = new URL(this.servletContext.getInitParameter("edmundsApiUrl")+brand+"/models?fmt=json&api_key="+ this.servletContext.getInitParameter("edmundsApiKey"));
-            InputStream in =  edmundsUrl.openStream();
-            try {
-                return new ResponseEntity<String>(IOUtils.toString( in ), HttpStatus.OK);
-            } finally {
-                IOUtils.closeQuietly(in);
-            }
-
-
-        } catch (Exception e) {
-            return new ResponseEntity<String>(e.toString(),HttpStatus.BAD_REQUEST);
         }
     }
 
