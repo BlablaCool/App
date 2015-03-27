@@ -1,18 +1,23 @@
 package info.fges.blablacool.controllers;
 
 import info.fges.blablacool.services.CarService;
+import org.apache.commons.io.IOUtils;
 import org.apache.tiles.request.servlet.ServletUtil;
 import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.ServletContext;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -34,13 +39,38 @@ public class CarController implements ServletContextAware {
     }
 
     @RequestMapping(value = "/brands", method = RequestMethod.GET)
-    public ResponseEntity<String> getCareMakes()
+    public ResponseEntity<String> getCareBrands()
     {
-        String url = "http://www.api.edmunds.com/api/vehicle/v2/makes";
         try {
-            URL edmundsURL = new URL("vehicle/v2/makes?fmt=json&api_key="+ this.servletContext.getInitParameter("emdundsApiKey"));
-        } catch (MalformedURLException e) {
+            URL edmundsUrl = new URL(this.servletContext.getInitParameter("edmundsApiUrl")+"makes?fmt=json&api_key="+ this.servletContext.getInitParameter("edmundsApiKey"));
+            InputStream in =  edmundsUrl.openStream();
+            try {
+                return new ResponseEntity<String>(IOUtils.toString( in ), HttpStatus.OK);
+            } finally {
+                IOUtils.closeQuietly(in);
+            }
+
+
+        } catch (Exception e) {
             return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/models/{brand}", method = RequestMethod.GET)
+    public ResponseEntity<String> getCareModels(@PathVariable("brand") String brand )
+    {
+        try {
+            URL edmundsUrl = new URL(this.servletContext.getInitParameter("edmundsApiUrl")+brand+"/models?fmt=json&api_key="+ this.servletContext.getInitParameter("edmundsApiKey"));
+            InputStream in =  edmundsUrl.openStream();
+            try {
+                return new ResponseEntity<String>(IOUtils.toString( in ), HttpStatus.OK);
+            } finally {
+                IOUtils.closeQuietly(in);
+            }
+
+
+        } catch (Exception e) {
+            return new ResponseEntity<String>(e.toString(),HttpStatus.BAD_REQUEST);
         }
     }
 

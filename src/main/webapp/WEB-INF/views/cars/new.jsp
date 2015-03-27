@@ -17,11 +17,9 @@
                 <fieldset>
                     <!-- Select Basic -->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="brand">Marque</label>
+                        <label class="col-md-4 control-label" for="brand" id="brand">Marque</label>
                         <div class="col-md-5">
-                            <select id="brand" name="brand" class="form-control">
-                                <option value="Option one">Option one</option>
-                                <option value="Option two">Option two</option>
+                            <select id="brands" name="brand" class="form-control">
                             </select>
                         </div>
                     </div>
@@ -30,9 +28,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="model">Modele</label>
                         <div class="col-md-5">
-                            <select id="model" name="model" class="form-control">
-                                <option value="Option one">Option one</option>
-                                <option value="Option two">Option two</option>
+                            <select id="models" name="model" class="form-control">
                             </select>
                         </div>
                     </div>

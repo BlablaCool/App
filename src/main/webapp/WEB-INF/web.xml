@@ -46,12 +46,13 @@
     </servlet-mapping>
 
     <context-param>
-        <param-name>emdundsApiKey</param-name>
+        <param-name>edmundsApiKey</param-name>
         <param-value>2w77fqtnwmsy43dj6h3s73zu</param-value>
     </context-param>
 
     <context-param>
-        <param-name></param-name>
+        <param-name>edmundsApiUrl</param-name>
+        <param-value>http://api.edmunds.com/api/vehicle/v2/</param-value>
     </context-param>
 
     <jsp-config>
