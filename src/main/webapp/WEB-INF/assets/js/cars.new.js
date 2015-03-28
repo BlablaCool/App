@@ -272,6 +272,7 @@ $( document ).ready(function() {
         trimSelect.trigger("change");
     });
 
+    // Event on Trim Select : change apid Content
     trimSelect.change(function(e) {
         $.each(cars.Trims, function(key, val) {
             if(val.model_name == modelsSelect.children(':selected').val()
