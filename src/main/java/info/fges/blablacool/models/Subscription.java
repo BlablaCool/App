@@ -17,6 +17,7 @@ public class Subscription {
     private DateTime to;
     private BigDecimal amount;
     private User user;
+    private String name;
 
     public Subscription()
     {
@@ -106,5 +107,15 @@ public class Subscription {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Basic
+    @Column(name = "name", nullable = true, insertable = true, updatable = true, length = 200)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

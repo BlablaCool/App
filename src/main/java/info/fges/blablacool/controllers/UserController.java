@@ -1,5 +1,6 @@
 package info.fges.blablacool.controllers;
 
+import info.fges.blablacool.models.Subscription;
 import info.fges.blablacool.models.User;
 import info.fges.blablacool.models.UserPreference;
 import info.fges.blablacool.services.UserService;
@@ -53,11 +54,22 @@ public class UserController {
         return modelAndView;
     }
 
+    @Secured("ROLE_USER")
     @RequestMapping(value = "/plans", method = RequestMethod.GET)
-    @ResponseBody
-    public String getPlans(ModelAndView modelAndView)
+    public ModelAndView getPlans(@AuthenticationPrincipal User user,
+                           ModelAndView modelAndView)
     {
-        return "plans";
+        modelAndView.setViewName("user/plans");
+        modelAndView.addObject("user", userService.findById(user.getId()));
+
+        System.out.println(user.hasActiveSubscription());
+
+        for(Subscription sub : user.getSubscriptions())
+        {
+            System.out.println(sub.getFrom());
+        }
+
+        return modelAndView;
     }
 
 
