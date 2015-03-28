@@ -12,9 +12,14 @@ public class Car {
     private String registration;
     private String brand;
     private String model;
-    private byte capacity;
+    private Short capacity;
     private User owner;
     private String image;
+    private Integer apiId;
+    private Integer year;
+    private String trim;
+    private Integer horsePower;
+    private Integer doors;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -69,11 +74,11 @@ public class Car {
 
     @Basic
     @Column(name = "capacity", nullable = false, insertable = true, updatable = true)
-    public byte getCapacity() {
+    public Short getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(byte capacity) {
+    public void setCapacity(Short capacity) {
         this.capacity = capacity;
     }
 
@@ -123,5 +128,55 @@ public class Car {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Basic
+    @Column(name = "api_id", nullable = true, insertable = true, updatable = true)
+    public Integer getApiId() {
+        return apiId;
+    }
+
+    public void setApiId(Integer apiId) {
+        this.apiId = apiId;
+    }
+
+    @Basic
+    @Column(name = "year", nullable = true, insertable = true, updatable = true)
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+
+    @Basic
+    @Column(name = "trim", nullable = true, insertable = true, updatable = true, length = 255)
+    public String getTrim() {
+        return trim;
+    }
+
+    public void setTrim(String trim) {
+        this.trim = trim;
+    }
+
+    @Basic
+    @Column(name = "horse_power", nullable = true, insertable = true, updatable = true)
+    public Integer getHorsePower() {
+        return horsePower;
+    }
+
+    public void setHorsePower(Integer horsePower) {
+        this.horsePower = horsePower;
+    }
+
+    @Basic
+    @Column(name = "doors", nullable = true, insertable = true, updatable = true)
+    public Integer getDoors() {
+        return doors;
+    }
+
+    public void setDoors(Integer doors) {
+        this.doors = doors;
     }
 }
