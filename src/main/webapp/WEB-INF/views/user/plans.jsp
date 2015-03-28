@@ -18,13 +18,14 @@
 
           <c:choose>
             <c:when test="${user.hasActiveSubscription() eq true}">
-              <p class="lead text-success"><strong>Vous disposez d'un abonnement en cours de validité !</strong><br>Vous pouvez donc accéder à toutes les fonctionnalités offertes par BlablaCool</p>
+              <p class="lead text-success"><strong>Vous disposez d'un abonnement en cours de validité !</strong><br>Vous pouvez donc accéder à toutes les fonctionnalités offertes par BlablaCool.</p>
             </c:when>
             <c:otherwise>
               <p class="lead text-danger"><strong>Votre abonnement est arrivé à échéance !</strong><br>Certaines fonctionnalités de BlablaCool sont donc restreintes...</p>
             </c:otherwise>
           </c:choose>
 
+          <h4>Historique</h4>
           <table class="table table-bordered table-striped table-booking-history">
             <thead>
               <tr>
