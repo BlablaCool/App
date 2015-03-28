@@ -45,9 +45,19 @@ public class TripController
     private StepService stepService;
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
-    public String getIndex()
+    public ModelAndView getIndex(ModelAndView modelAndView)
     {
-        return "trips/list";
+        modelAndView.setViewName("trips/list");
+        modelAndView.addObject("recentTrips", tripService.findRecents());
+
+        for (Trip trip : tripService.findRecents())
+        {
+            System.out.println(trip.getDepartureStep().getPlace().getCity());
+            trip.getCapacity();
+            trip.getDriver().getNickname();
+        }
+
+        return modelAndView;
     }
 
     @Secured("ROLE_SUBSCRIBED")

@@ -41,4 +41,18 @@ public class TripDao extends DaoInterface<Trip, Integer>
         currentSession.delete(tripToDelete);
         closeCurrentSessionWithTransaction();
     }
+
+    public List<Trip> findRecents()
+    {
+        List<Trip> tripList;
+
+        openCurrentSession();
+        Query query = currentSession
+                .createQuery("FROM Trip ORDER BY idTrip DESC")
+                .setMaxResults(20);
+        tripList = query.list();
+        closeCurrentSession();
+
+        return tripList;
+    }
 }

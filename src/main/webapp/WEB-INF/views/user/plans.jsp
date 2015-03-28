@@ -4,7 +4,7 @@
 <%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setLocale value="fr_FR"/>
+<fmt:setLocale value="fr_FR" />
 
 <tiles:insertDefinition name="blablacoolTemplate">
   <tiles:putAttribute name="body">
