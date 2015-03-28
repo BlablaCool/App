@@ -2,12 +2,14 @@ package info.fges.blablacool.dao;
 
 import info.fges.blablacool.models.UserPreference;
 import org.hibernate.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by Valentin on 27/03/15.
  */
+@Repository
 public class UserPreferenceDao extends DaoInterface<UserPreference, Integer>
 {
     @Override

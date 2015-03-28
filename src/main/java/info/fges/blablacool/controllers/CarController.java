@@ -48,45 +48,12 @@ public class CarController implements ServletContextAware {
 
     @RequestMapping(value = "/makes", method = RequestMethod.GET)
     public ResponseEntity<String> getCarMakes() {
-        try {
-            URL carQueryUrl = new URL(this.servletContext.getInitParameter("carQueryApiUrl")+"&cmd=getMakes");
-            String response = "";
-            InputStream in = carQueryUrl.openStream();
-            try {
-                response = IOUtils.toString(in);
-                response = response.substring(4);
-                response = response.substring(0,response.length()-2);
-            } finally {
-                IOUtils.closeQuietly(in);
-            }
-            return new ResponseEntity<String>(response, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
-        }
+        return getApiResponse(this.servletContext.getInitParameter("carQueryApiUrl")+"&cmd=getMakes");
     }
 
-    @RequestMapping(value = "/models/{make}", method = RequestMethod.GET)
-    public ResponseEntity<String> getCarModels(@PathVariable("make") String make) {
-        try {
-            URL carQueryUrl = new URL(this.servletContext.getInitParameter("carQueryApiUrl")+"&cmd=getModels&make="+make);
-
-            InputStream in = carQueryUrl.openStream();
-            String response = "";
-            try {
-                response = IOUtils.toString(in).substring(4);
-                response = response.substring(0,response.length()-2);
-            } finally {
-                IOUtils.closeQuietly(in);
-            }
-            return new ResponseEntity<String>(response, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @RequestMapping(value = "/model/{make}/{model}", method = RequestMethod.GET)
-    public ResponseEntity<String> getCarTrims(@PathVariable("make") String make, @PathVariable("model") String model) {
-        return getApiResponse("&cmd=getTrims&make="+make+"+&model"+model);
+    @RequestMapping(value = "/model/{make}", method = RequestMethod.GET)
+    public ResponseEntity<String> getCarTrims(@PathVariable("make") String make) {
+        return getApiResponse("&cmd=getTrims&make="+make);
     }
 
     public ResponseEntity<String> getApiResponse(String queryParams){
@@ -94,14 +61,11 @@ public class CarController implements ServletContextAware {
             URL carQueryUrl = new URL(this.servletContext.getInitParameter("carQueryApiUrl")+queryParams);
 
             InputStream in = carQueryUrl.openStream();
-            String response = "";
             try {
-                response = IOUtils.toString(in).substring(4);
-                response = response.substring(0,response.length()-2);
+                return new ResponseEntity<String>( IOUtils.toString(in), HttpStatus.OK);
             } finally {
                 IOUtils.closeQuietly(in);
             }
-            return new ResponseEntity<String>(response, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
         }

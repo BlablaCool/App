@@ -21,7 +21,6 @@
 
 # IntelliJ
 out/
-
 target/
 
 # mpeltonen/sbt-idea plugin
@@ -35,4 +34,4 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 
-
+src/main/resources/mandrill.properties

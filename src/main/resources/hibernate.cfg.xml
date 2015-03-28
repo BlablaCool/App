@@ -9,8 +9,6 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
         <property name="hibernate.show_sql">true</property>
-        <property name="connection.username">blablacool</property>
-        <property name="connection.password">blablacool</property>
         <mapping class="info.fges.blablacool.models.User"/>
         <mapping class="info.fges.blablacool.models.Place"/>
         <mapping class="info.fges.blablacool.models.Trip"/>
@@ -18,7 +16,6 @@
         <mapping class="info.fges.blablacool.models.Role"/>
         <mapping class="info.fges.blablacool.models.Step"/>
         <mapping class="info.fges.blablacool.models.Subscription"/>
-        <mapping class="info.fges.blablacool.models.UserPreference"/>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
     </session-factory>

@@ -2,6 +2,8 @@ package info.fges.blablacool.dao;
 
 import info.fges.blablacool.models.Car;
 import org.hibernate.Query;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

@@ -36,9 +36,64 @@
 
                     <!-- Select Basic -->
                     <div class="form-group">
+                        <label class="col-md-4 control-label" for="year">Année</label>
+                        <div class="col-md-5">
+                            <form:select path="year" id="year" name="year" cssClass="form-control" disabled="true">
+                            </form:select>
+                        </div>
+                    </div>
+
+                    <!-- Select Basic -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="model">Portes</label>
+                        <div class="col-md-5">
+                            <form:select path="doors" id="doors" name="doors" cssClass="form-control" disabled="true">
+                            </form:select>
+                        </div>
+                    </div>
+
+                    <!-- Select Basic -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="capacity">Places</label>
+                        <div class="col-md-5">
+                            <form:select path="capacity" id="capacity" name="capacity" cssClass="form-control" disabled="true">
+                            </form:select>
+                        </div>
+                    </div>
+
+                    <!-- Select Basic -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="fuel">Carburant</label>
+                        <div class="col-md-5">
+                            <form:select path="fuel" id="fuel" name="fuel" cssClass="form-control" disabled="true">
+                            </form:select>
+                        </div>
+                    </div>
+
+                    <!-- Select Basic -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="horsePower">Puissance</label>
+                        <div class="col-md-5">
+                            <form:select path="horsePower" id="horsePower" name="horsePower" cssClass="form-control" disabled="true">
+                            </form:select>
+                        </div>
+                    </div>
+
+                    <!-- Select Basic -->
+                    <div class="form-group">
                         <label class="col-md-4 control-label" for="type">Type</label>
                         <div class="col-md-4">
-                            <form:input path="type" cssClass="form-control" disabled="true"></form:input>
+                            <form:select path="type" id="type" name="type" cssClass="form-control" disabled="true">
+                            </form:select>
+                        </div>
+                    </div>
+
+                    <!-- Select Basic -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="model">Version</label>
+                        <div class="col-md-5">
+                            <form:select path="trim" id="trim" name="trim" cssClass="form-control" disabled="true">
+                            </form:select>
                         </div>
                     </div>
 
@@ -46,38 +101,12 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="registration">Immatriculation</label>
                         <div class="col-md-4">
-<%--
-                            <input id="registration" name="registration" type="text" placeholder="AA-111-AA" class="form-control input-md" required="">
---%>
                             <form:input path="registration" cssClass="form-control"></form:input>
                         </div>
                     </div>
 
-                    <!-- Select Basic -->
-                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="spots">Places</label>
-                        <div class="col-md-2">
-                            <form:select  path="capacity" id="capacity" name="capacity" class="form-control">
-                                <form:option value="1">1</form:option>
-                                <form:option value="2">2</form:option>
-                                <form:option value="3">3</form:option>
-                                <form:option value="4">4</form:option>
-                                <form:option value="5">5</form:option>
-                                <form:option value="6">6</form:option>
-                                <form:option value="7">7</form:option>
-                            </form:select>
-                        </div>
-                    </div>
+                    <form:hidden path="apiId" id="apiId" cssClass="form-control" disabled="true"></form:hidden>
 
-                    <!-- File Button -->
-<%--                    <div class="form-group">
-                        <label class="col-md-4 control-label" for="image">Image</label>
-                        <div class="col-md-4">
-                            <input id="image" name="image" class="input-file" type="file">
-                        </div>
-                    </div>--%>
-
-                    <!-- Button -->
                     <div class="form-group">
                         <label class="col-md-4 control-label"></label>
                         <div class="col-md-4">

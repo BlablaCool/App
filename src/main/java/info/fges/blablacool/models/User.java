@@ -125,7 +125,7 @@ public class User implements UserDetails
         this.cars = cars;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_has_roles", catalog = "blablacool", schema = "", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id_user", nullable = false), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id_role", nullable = false))
     public List<Role> getRoles() {
         return roles;

@@ -17,6 +17,20 @@ public class Subscription {
     private DateTime to;
     private BigDecimal amount;
     private User user;
+    private String name;
+
+    public Subscription()
+    {
+
+    }
+
+    public Subscription(User user, int daysToAdd)
+    {
+        this.from = DateTime.now();
+        this.to = DateTime.now().plusDays(daysToAdd);
+        this.amount = new BigDecimal(0);
+        this.user = user;
+    }
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -30,8 +44,8 @@ public class Subscription {
     }
 
     @Basic
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
-    @Column(name = "from", nullable = false, insertable = true, updatable = true)
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @Column(name = "`from`", nullable = false, insertable = true, updatable = true)
     public DateTime getFrom() {
         return from;
     }
@@ -41,8 +55,8 @@ public class Subscription {
     }
 
     @Basic
-    @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
-    @Column(name = "to", nullable = false, insertable = true, updatable = true)
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @Column(name = "`to`", nullable = false, insertable = true, updatable = true)
     public DateTime getTo() {
         return to;
     }
@@ -93,5 +107,15 @@ public class Subscription {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Basic
+    @Column(name = "name", nullable = true, insertable = true, updatable = true, length = 200)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
