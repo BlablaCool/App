@@ -182,7 +182,6 @@
                         </li>
                         <li rel="tooltip" data-placement="bottom" title="Animaux autorisés">
                           <i class="fa fa-paw isActivated-${trip.allowAnimals}"></i>
-                          <span class="booking-item-feature-sign isActivated-${trip.allowAnimals}">OUI</span>
                           <c:choose>
                             <c:when test="${trip.allowAnimals eq true}">
                               <span class="booking-item-feature-sign isActivated-${trip.allowAnimals}">OUI</span>
