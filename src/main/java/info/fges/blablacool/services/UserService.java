@@ -2,7 +2,11 @@ package info.fges.blablacool.services;
 
 import info.fges.blablacool.dao.UserDao;
 import info.fges.blablacool.models.User;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
+import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,10 +15,12 @@ import java.util.List;
  * Created by Valentin on 15/03/15.
  */
 @Service
-public class UserService extends ServiceInterface<User, Integer>
+public class UserService extends ServiceInterface<User, Integer> implements ApplicationListener<AuthenticationSuccessEvent>
 {
     @Autowired
     private UserDao userDao;
+
+    private static final Logger logger = Logger.getLogger(UserService.class);
 
     public User findByEmail(String email)
     {
@@ -60,5 +66,12 @@ public class UserService extends ServiceInterface<User, Integer>
     public boolean emailAlreadyExists(String email)
     {
         return userDao.emailAlreadyExists(email);
+    }
+
+    @Override
+    public void onApplicationEvent(AuthenticationSuccessEvent authenticationSuccessEvent) {
+            UserDetails userDetails = (UserDetails) authenticationSuccessEvent.getAuthentication().getPrincipal();
+            System.out.println("LISSSSSTENER");
+            logger.error("User:"+userDetails.getUsername()+" logged in");
     }
 }
