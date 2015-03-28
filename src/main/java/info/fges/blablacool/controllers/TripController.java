@@ -15,10 +15,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
@@ -68,6 +65,18 @@ public class TripController
         modelAndView.addObject("departureAddress", new Place());
         modelAndView.addObject("arrivalAddress", new Place());
         modelAndView.addObject("driver", userService.findById(user.getId()));
+
+        return modelAndView;
+    }
+
+    // @Secured("ROLE_SUBSCRIBED")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ModelAndView getTrip(@AuthenticationPrincipal User user,
+                                @PathVariable("id") Integer id,
+                                ModelAndView modelAndView)
+    {
+        modelAndView.setViewName("trips/get");
+        modelAndView.addObject("trip", tripService.findById(id));
 
         return modelAndView;
     }

@@ -9,3 +9,9 @@
 .isActivated-true {
     color: #5ebd6f !important;
 }
+#bigMapOnTripPage {
+    height: 420px;
+    background-position: center;
+    background-repeat: no-repeat;
+    /*background-size: cover;*/
+}

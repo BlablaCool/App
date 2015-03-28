@@ -1,6 +1,7 @@
 package info.fges.blablacool.models;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import javax.persistence.*;
@@ -172,5 +173,22 @@ public class Trip {
         }
 
         return null;
+    }
+
+    @Transient
+    public JSONArray getStepsInJson()
+    {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Step step : this.steps)
+        {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("lat", step.getPlace().getLatitude());
+            jsonObject.put("lon", step.getPlace().getLongitude());
+
+            jsonArray.add(jsonObject);
+        }
+
+        return jsonArray;
     }
 }
