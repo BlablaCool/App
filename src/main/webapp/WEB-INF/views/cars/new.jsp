@@ -38,15 +38,7 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="type">Type</label>
                         <div class="col-md-4">
-                            <form:select path="type" id="type" name="type" cssClass="form-control">
-                                <form:option value="Citadine">Citadine</form:option>
-                                <form:option value="Berline">Berline</form:option>
-                                <form:option value="Break">Break</form:option>
-                                <form:option value="Monospace">Monospace</form:option>
-                                <form:option value="SUV">SUV</form:option>
-                                <form:option value="Coupé">Coupé</form:option>
-                                <form:option value="Cabriolet">Cabriolet</form:option>
-                            </form:select>
+                            <form:input path="type" cssClass="form-control" disabled="true"></form:input>
                         </div>
                     </div>
 

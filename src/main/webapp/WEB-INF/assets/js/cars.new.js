@@ -6,34 +6,40 @@ $( document ).ready(function() {
     var brandsSelect =  $('#brands');
     var modelsSelect = $('#models');
     $.ajax({
-        url: "/cars/brands",
+        url: "/cars/makes",
         type: "GET",
         dataType: "json",
         success: function (data) {
             $('#brands').empty();
-            $.each(data.makes, function(key, val) {
+            $.each(data.Makes, function(key, val) {
                 cars = data;
-                brandsSelect.append('<option id="' + val.id + '">' + val.name + '</option>');
-                brandsSelect.prop("disabled", false);
-                brandsSelect.trigger( "change" );
-                modelsSelect.prop("disabled", false);
+                brandsSelect.append('<option id="' + val.make_id + '">' + val.make_display + '</option>');
             });
+            brandsSelect.prop("disabled", false);
+            brandsSelect.trigger( "change" );
         },
         complete: function(){}
     });
 
     brandsSelect.change(function(e) {
+        modelsSelect.prop("disabled", true);
         modelsSelect.empty();
         index = $(this).children(':selected').attr('id');
-        var brand;
-        for (i = 0; cars.makes.length > i; i += 1) {
-            if (cars.makes[i].id == index) {
-                brand = cars.makes[i];
+        $.ajax({
+            url: "/cars/models/"+index,
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                $('#models').empty();
+                $.each(data.Models, function(key, val) {
+                    modelsSelect.append('<option id="' + val.model_id + '">' + val.model_name + '</option>');
+                });
+            },
+            complete: function(){
+                modelsSelect.prop("disabled",false);
             }
-        }
-        $.each(brand.models, function(key, val) {
-            modelsSelect.append('<option id="' + val.id + '">' + val.name + '</option>');
         });
     });
+
 
 });

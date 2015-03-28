@@ -5,8 +5,9 @@ import info.fges.blablacool.models.User;
 import info.fges.blablacool.services.CarService;
 import org.apache.commons.io.IOUtils;
 import org.apache.tiles.request.servlet.ServletUtil;
-import org.json.simple.JSONArray;
+import org.hibernate.validator.internal.util.privilegedactions.GetMethod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -19,13 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -47,16 +46,62 @@ public class CarController implements ServletContextAware {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/brands", method = RequestMethod.GET)
-    public ResponseEntity<String> getCareBrands() {
+    @RequestMapping(value = "/makes", method = RequestMethod.GET)
+    public ResponseEntity<String> getCarMakes() {
         try {
-            URL edmundsUrl = new URL(this.servletContext.getInitParameter("edmundsApiUrl") + "makes?fmt=json&api_key=" + this.servletContext.getInitParameter("edmundsApiKey"));
-            InputStream in = edmundsUrl.openStream();
+            URL carQueryUrl = new URL(this.servletContext.getInitParameter("carQueryApiUrl")+"&cmd=getMakes");
+            String response = "";
+            InputStream in = carQueryUrl.openStream();
             try {
-                return new ResponseEntity<String>(IOUtils.toString(in), HttpStatus.OK);
+                response = IOUtils.toString(in);
+                response = response.substring(4);
+                response = response.substring(0,response.length()-2);
             } finally {
                 IOUtils.closeQuietly(in);
             }
+            return new ResponseEntity<String>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/models/{make}", method = RequestMethod.GET)
+    public ResponseEntity<String> getCarModels(@PathVariable("make") String make) {
+        try {
+            URL carQueryUrl = new URL(this.servletContext.getInitParameter("carQueryApiUrl")+"&cmd=getModels&make="+make);
+
+            InputStream in = carQueryUrl.openStream();
+            String response = "";
+            try {
+                response = IOUtils.toString(in).substring(4);
+                response = response.substring(0,response.length()-2);
+            } finally {
+                IOUtils.closeQuietly(in);
+            }
+            return new ResponseEntity<String>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/model/{make}/{model}", method = RequestMethod.GET)
+    public ResponseEntity<String> getCarTrims(@PathVariable("make") String make, @PathVariable("model") String model) {
+        return getApiResponse("&cmd=getTrims&make="+make+"+&model"+model);
+    }
+
+    public ResponseEntity<String> getApiResponse(String queryParams){
+        try {
+            URL carQueryUrl = new URL(this.servletContext.getInitParameter("carQueryApiUrl")+queryParams);
+
+            InputStream in = carQueryUrl.openStream();
+            String response = "";
+            try {
+                response = IOUtils.toString(in).substring(4);
+                response = response.substring(0,response.length()-2);
+            } finally {
+                IOUtils.closeQuietly(in);
+            }
+            return new ResponseEntity<String>(response, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
         }
