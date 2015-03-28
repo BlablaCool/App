@@ -155,7 +155,7 @@
                         <%--</div>--%>
                       </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-7">
                       <div class="booking-item-rating">
                         <a href="/users/${trip.driver.id}">${trip.driver.nickname}</a>
                         <ul class="icon-group booking-item-rating-stars" style="float: right; margin-left: 10px;">
@@ -165,26 +165,46 @@
                         </ul>
                       </div>
                       <h5 class="booking-item-title">
-                        <i class="fa fa-angle-right fa-fw"></i> ${trip.departureStep.place.city}<br />
-                        <i class="fa fa-angle-double-right fa-fw"></i> ${trip.arrivalStep.place.city}
+                        ${trip.departureStep.place.city} <i class="fa fa-angle-right fa-fw"></i> ${trip.arrivalStep.place.city}
                       </h5>
                       <ul class="booking-item-features booking-item-features-rentals booking-item-features-sign">
                         <li rel="tooltip" data-placement="bottom" title="Places disponibles">
                           <i class="fa fa-male"></i><span class="booking-item-feature-sign">${trip.capacity}</span>
                         </li>
                         <li rel="tooltip" data-placement="bottom" title="Bagages autorisés">
-                          <i class="fa fa-suitcase"></i><span class="booking-item-feature-sign">2</span>
+                          <i class="fa fa-suitcase"></i>
+                          <span class="booking-item-feature-sign">2</span>
                         </li>
                         <li rel="tooltip" data-placement="bottom" title="Animaux autorisés">
-                          <i class="fa fa-paw isActivated-${trip.allowSmoking}""></i><span class="booking-item-feature-sign isActivated-${trip.allowSmoking}">OUI</span>
+                          <i class="fa fa-paw isActivated-${trip.allowAnimals}"></i>
+                          <span class="booking-item-feature-sign isActivated-${trip.allowAnimals}">OUI</span>
+                          <c:choose>
+                            <c:when test="${trip.allowAnimals eq true}">
+                              <span class="booking-item-feature-sign isActivated-${trip.allowAnimals}">OUI</span>
+                            </c:when>
+                            <c:otherwise>
+                              <span class="booking-item-feature-sign isActivated-${trip.allowAnimals}">NON</span>
+                            </c:otherwise>
+                          </c:choose>
                         </li>
                         <li rel="tooltip" data-placement="bottom" title="Fumeurs autorisés">
-                          <i class="fa fa-cloud isActivated-${trip.allowSmoking}""></i><span class="booking-item-feature-sign isActivated-${trip.allowSmoking}">NON</span>
+                          <i class="fa fa-cloud isActivated-${trip.allowSmoking}"></i>
+                          <c:choose>
+                            <c:when test="${trip.allowSmoking eq true}">
+                              <span class="booking-item-feature-sign isActivated-${trip.allowSmoking}">OUI</span>
+                            </c:when>
+                            <c:otherwise>
+                              <span class="booking-item-feature-sign isActivated-${trip.allowSmoking}">NON</span>
+                            </c:otherwise>
+                          </c:choose>
                         </li>
                       </ul>
                     </div>
-                    <div class="col-md-4">
-                      <span class="booking-item-price"><fmt:formatNumber value="${trip.price}" type="currency"/></span><span>/passager</span><span class="btn btn-primary">Réserver</span>
+                    <div class="col-md-3 text-center">
+                      <span class="booking-item-price"><fmt:formatNumber value="${trip.price}" type="currency"/></span>
+                      <p style="margin-top: 5px; margin-bottom: 0;">
+                        <button class="btn btn-success btn-lg"><i class="fa fa-check"></i> Réserver</button>
+                      </p>
                     </div>
                   </div>
                 </div>
