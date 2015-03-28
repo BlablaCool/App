@@ -5,10 +5,10 @@ import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.view.MandrillMessage;
 import com.microtripit.mandrillapp.lutung.view.MandrillMessageStatus;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -17,49 +17,65 @@ import java.util.Properties;
 public class MailHelper
 {
     private Properties properties;
+    private HashMap<String, String> recipients;
+    private String title;
+    private String content;
+    private String summary;
 
-    public MailHelper()
+    public MailHelper(HashMap<String, String> recipients,
+                      String title,
+                      String content,
+                      String summary)
     {
-        this.properties = this.readProperties();
+        properties = readProperties();
 
-        sendTestMail();
+        this.recipients = recipients;
+        this.title = title;
+        this.content = content;
+        this.summary = summary;
     }
 
-    public void sendTestMail()
+    private void send()
     {
         MandrillApi mandrillApi = new MandrillApi(properties.get("key").toString());
 
         MandrillMessage message = new MandrillMessage();
-        message.setSubject("Hello World!");
-        message.setHtml("<h1>Hi pal!</h1><br />Really, I'm just saying hi!");
-        message.setAutoText(true);
-        message.setFromEmail("kitty@yourdomain.com");
-        message.setFromName("Kitty Katz");
+        message.setSubject(summary);
+        message.setFromEmail("no-reply@blablacool.com");
+        message.setFromName("BlablaCool");
 
-        ArrayList<MandrillMessage.Recipient> recipients = new ArrayList<MandrillMessage.Recipient>();
-        MandrillMessage.Recipient recipient = new MandrillMessage.Recipient();
-        recipient.setEmail("claireannette@someotherdomain.com");
-        recipient.setName("Claire Annette");
-        recipients.add(recipient);
+        ArrayList<MandrillMessage.Recipient> allRecipients = new ArrayList<MandrillMessage.Recipient>();
+        for (Map.Entry<String, String> recipient : this.recipients.entrySet())
+        {
+            MandrillMessage.Recipient recipientToAdd = new MandrillMessage.Recipient();
+            recipientToAdd.setEmail(properties.get("email").toString());
+            recipientToAdd.setName("Valentin Polo");
+            allRecipients.add(recipientToAdd);
+        }
 
-        message.setTo(recipients);
+        message.setTo(allRecipients);
         message.setPreserveRecipients(true);
-        ArrayList<String> tags = new ArrayList<String>();
-        tags.add("test");
-        tags.add("helloworld");
-        message.setTags(tags);
 
-        try {
-            MandrillMessageStatus[] messageStatusReports = mandrillApi.messages().send(message, true);
+        try
+        {
+            HashMap<String, String> parameters = new HashMap<String, String>();
+            parameters.put("title", this.title);
+            parameters.put("content", this.content);
+            parameters.put("summary", this.summary);
+
+            MandrillMessageStatus[] messageStatusReports = mandrillApi.messages().sendTemplate("blablacool", parameters, message, true);
 
             for (MandrillMessageStatus mandrillMessageStatus : messageStatusReports)
             {
                 System.out.println(mandrillMessageStatus.getStatus());
             }
-
-        } catch (MandrillApiError mandrillApiError) {
+        }
+        catch (MandrillApiError mandrillApiError)
+        {
             mandrillApiError.printStackTrace();
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
     }
