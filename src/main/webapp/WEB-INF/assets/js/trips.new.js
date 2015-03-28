@@ -135,13 +135,13 @@ $(function()
     {
         if ($(this).data("auto") == "auto")
         {
-            $('#price').removeAttr('disabled');
+            $('#price').removeAttr('readonly');
             $(this).text('DÉSACTIVÉ');
             $(this).data('auto', 'manual');
         }
         else
         {
-            $('#price').attr('disabled', 'disabled');
+            $('#price').attr('readonly', 'readonly');
             $(this).text('ACTIVÉ');
             $(this).data('auto', 'auto');
         }
