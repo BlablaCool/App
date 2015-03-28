@@ -1,5 +1,6 @@
 package info.fges.blablacool.controllers;
 
+import info.fges.blablacool.helpers.MailHelper;
 import info.fges.blablacool.models.Trip;
 import info.fges.blablacool.models.User;
 import info.fges.blablacool.services.TripService;
@@ -22,6 +23,8 @@ public class PageController
     @RequestMapping(method = RequestMethod.GET)
 	public String printWelcome()
     {
+		MailHelper mailHelper = new MailHelper();
+
 		return "home";
 	}
 }

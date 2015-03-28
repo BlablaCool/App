@@ -184,6 +184,12 @@
             <version>1.2.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.mandrillapp.wrapper.lutung</groupId>
+            <artifactId>lutung</artifactId>
+            <version>0.0.5</version>
+        </dependency>
+
     </dependencies>
 
     <build>
