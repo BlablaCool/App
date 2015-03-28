@@ -7,6 +7,11 @@
 <%--@elvariable id="trip" type="info.fges.blablacool.models.Trip"--%>
 
 <tiles:insertDefinition name="blablacoolTemplate">
+
+  <tiles:putAttribute name="footer-custom-js">
+    <script src="/assets/js/trips.list.js"></script>
+  </tiles:putAttribute>
+
   <tiles:putAttribute name="body">
     <div class="container" style="margin-top: 42px;">
       <form class="booking-item-dates-change mb40">
@@ -144,7 +149,7 @@
           <ul class="booking-list">
 
             <c:forEach items="${recentTrips}" var="trip">
-              <li>
+              <li class="trip-element" data-url="/trips/${trip.idTrip}">
                 <div class="booking-item">
                   <div class="row">
                     <div class="col-md-2">
@@ -157,7 +162,7 @@
                     </div>
                     <div class="col-md-7">
                       <div class="booking-item-rating">
-                        <a href="/users/${trip.driver.id}">${trip.driver.nickname}</a>
+                        <a class="trip-driver-link" href="/users/${trip.driver.id}">${trip.driver.nickname}</a>
                         <ul class="icon-group booking-item-rating-stars" style="float: right; margin-left: 10px;">
                           <li><i class="fa fa-star"></i></li>
                           <li><i class="fa fa-star"></i></li>
