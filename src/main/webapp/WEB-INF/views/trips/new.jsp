@@ -83,7 +83,7 @@
                                             <label class="col-md-4 control-label" for="price" style="padding-top: 12px;">Prix</label>
                                             <div class="col-md-6">
                                                 <div class="input-group input-group-lg">
-                                                    <input id="price" name="price" class="form-control" type="text" style="text-align: right;" disabled="disabled">
+                                                    <input id="price" name="price" class="form-control" type="text" style="text-align: right;" readonly>
                                                     <span class="input-group-addon">&euro;</span>
                                                 </div>
                                                 <p class="help-block"><sup>*</sup>calcul auto <span id="autoCalculationState" data-auto="auto" >ACTIVÉ</span></p>

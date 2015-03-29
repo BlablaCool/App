@@ -44,4 +44,9 @@ public class TripService extends ServiceInterface<Trip,Integer> {
     public void deleteById(Integer integer) {
         tripDao.deleteById(integer);
     }
+
+    public List<Trip> findRecents()
+    {
+        return tripDao.findRecents();
+    }
 }

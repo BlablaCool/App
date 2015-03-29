@@ -44,12 +44,20 @@ public class TripController
     @Autowired
     private StepService stepService;
 
-    @Secured("ROLE_USER")
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
-    @ResponseBody
-    public String getIndex()
+    public ModelAndView getIndex(ModelAndView modelAndView)
     {
-        return "Index Trips";
+        modelAndView.setViewName("trips/list");
+        modelAndView.addObject("recentTrips", tripService.findRecents());
+
+        for (Trip trip : tripService.findRecents())
+        {
+            System.out.println(trip.getDepartureStep().getPlace().getCity());
+            trip.getCapacity();
+            trip.getDriver().getNickname();
+        }
+
+        return modelAndView;
     }
 
     @Secured("ROLE_SUBSCRIBED")
@@ -59,7 +67,7 @@ public class TripController
         modelAndView.setViewName("trips/new");
         modelAndView.addObject("departureAddress", new Place());
         modelAndView.addObject("arrivalAddress", new Place());
-        modelAndView.addObject("driver", user);
+        modelAndView.addObject("driver", userService.findById(user.getId()));
 
         return modelAndView;
     }
