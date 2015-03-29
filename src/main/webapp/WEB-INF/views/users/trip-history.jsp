@@ -8,7 +8,7 @@
         </div>
         <div class="container">
             <div class="row">
-                <jsp:include page="/WEB-INF/views/user/blocks/sidebar.jsp"/>
+                <jsp:include page="/WEB-INF/views/users/blocks/sidebar.jsp"/>
                 <div class="col-md-9">
                     <div class="checkbox">
                         <label>
