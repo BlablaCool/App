@@ -15,12 +15,10 @@ import java.util.List;
  * Created by Valentin on 15/03/15.
  */
 @Service
-public class UserService extends ServiceInterface<User, Integer> implements ApplicationListener<AuthenticationSuccessEvent>
+public class UserService extends ServiceInterface<User, Integer>
 {
     @Autowired
     private UserDao userDao;
-
-    private static final Logger logger = Logger.getLogger(UserService.class);
 
     public User findByEmail(String email)
     {
@@ -66,12 +64,5 @@ public class UserService extends ServiceInterface<User, Integer> implements Appl
     public boolean emailAlreadyExists(String email)
     {
         return userDao.emailAlreadyExists(email);
-    }
-
-    @Override
-    public void onApplicationEvent(AuthenticationSuccessEvent authenticationSuccessEvent) {
-            UserDetails userDetails = (UserDetails) authenticationSuccessEvent.getAuthentication().getPrincipal();
-            System.out.println("LISSSSSTENER");
-            logger.error("User:"+userDetails.getUsername()+" logged in");
     }
 }
