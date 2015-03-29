@@ -39,7 +39,6 @@ public class User implements UserDetails
     @NotEmpty
     private String passwordConfirmation;
 
-    private List<Trip> trips;
     private List<Car> cars;
     private List<Role> roles;
 
@@ -53,6 +52,7 @@ public class User implements UserDetails
     private String postcode;
     private String country;
     private UserPreference preferences;
+    private List<Booking> booking;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -105,15 +105,6 @@ public class User implements UserDetails
         result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
         result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
         return result;
-    }
-
-    @ManyToMany(mappedBy = "passengers")
-    public List<Trip> getTrips() {
-        return trips;
-    }
-
-    public void setTrips(List<Trip> trips) {
-        this.trips = trips;
     }
 
     @OneToMany(mappedBy = "owner")
@@ -340,5 +331,14 @@ public class User implements UserDetails
 
     public void setPreferences(UserPreference preferences) {
         this.preferences = preferences;
+    }
+
+    @OneToMany(mappedBy = "user")
+    public List<Booking> getBooking() {
+        return booking;
+    }
+
+    public void setBooking(List<Booking> booking) {
+        this.booking = booking;
     }
 }

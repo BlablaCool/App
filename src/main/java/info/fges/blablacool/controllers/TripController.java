@@ -69,7 +69,7 @@ public class TripController
         return modelAndView;
     }
 
-    // @Secured("ROLE_SUBSCRIBED")
+    @Secured("ROLE_SUBSCRIBED")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ModelAndView getTrip(@AuthenticationPrincipal User user,
                                 @PathVariable("id") Integer id,

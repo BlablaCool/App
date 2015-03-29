@@ -20,7 +20,7 @@ public class Car {
     private String trim;
     private Integer horsePower;
     private Integer doors;
-    private String fuel;
+//    private String fuel;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -181,13 +181,13 @@ public class Car {
         this.doors = doors;
     }
 
-    @Basic
-    @Column(name = "fuel", nullable = true, insertable = true, updatable = true)
-    public String getFuel() {
-        return fuel;
-    }
-
-    public void setFuel(String fuel) {
-        this.fuel = fuel;
-    }
+//    @Basic
+//    @Column(name = "fuel", nullable = true, insertable = true, updatable = true)
+//    public String getFuel() {
+//        return fuel;
+//    }
+//
+//    public void setFuel(String fuel) {
+//        this.fuel = fuel;
+//    }
 }

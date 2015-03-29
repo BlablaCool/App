@@ -11,7 +11,8 @@ import java.util.List;
  * Created by Valentin on 15/03/15.
  */
 @Service
-public class CarService extends ServiceInterface<Car,Integer> {
+public class CarService extends ServiceInterface<Car,Integer>
+{
     @Autowired
     private CarDao carDao;
 
