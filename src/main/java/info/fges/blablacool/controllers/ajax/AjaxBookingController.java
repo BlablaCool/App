@@ -44,9 +44,10 @@ public class AjaxBookingController
 
         if (!bookingService.alreadyExists(trip.getIdTrip(), user.getId()))
         {
-            bookingService.create(new Booking(trip, user, "PENDING"));
+            Booking booking = new Booking(trip, user, "PENDING");
+            bookingService.create(booking);
 
-            return new ResponseEntity<String>(JSONObject.toString("created", true), HttpStatus.OK);
+            return new ResponseEntity<String>(JSONObject.toString("created", booking.getId()), HttpStatus.OK);
         }
 
         return new ResponseEntity<String>(JSONObject.toString("created", false), HttpStatus.CONFLICT);

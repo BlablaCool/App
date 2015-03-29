@@ -54,4 +54,17 @@ public class BookingDao extends DaoInterface<Booking, Integer>
 
         return !list.isEmpty();
     }
+
+    public List<Booking> findPendingForUser(Integer idUser)
+    {
+        openCurrentSession();
+        Query query = currentSession
+                .createQuery("from Booking where trip.driver.id = :idUser and status = :status")
+                .setParameter("idUser", idUser)
+                .setParameter("status", "PENDING");
+        List<Booking> list = query.list();
+        closeCurrentSession();
+
+        return list;
+    }
 }

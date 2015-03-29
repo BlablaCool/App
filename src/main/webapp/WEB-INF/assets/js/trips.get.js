@@ -28,7 +28,7 @@ $(function()
             context: this,
             data: {},
             success: function(response) {
-                console.log(response);
+                window.location.replace('/booking/' + response.created + '');
             },
             error: function() {
                 alert('Une erreur est survenue pendant la réservation de l\'itinéraire...');

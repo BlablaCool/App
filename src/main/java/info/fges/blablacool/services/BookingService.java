@@ -51,4 +51,9 @@ public class BookingService extends ServiceInterface<Booking, Integer>
     {
         return bookingDao.alreadyExists(idTrip, idUser);
     }
+
+    public List<Booking> findPendingForUser(Integer idUser)
+    {
+        return bookingDao.findPendingForUser(idUser);
+    }
 }

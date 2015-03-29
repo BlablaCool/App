@@ -3,6 +3,7 @@ package info.fges.blablacool.controllers;
 import info.fges.blablacool.models.Subscription;
 import info.fges.blablacool.models.User;
 import info.fges.blablacool.models.UserPreference;
+import info.fges.blablacool.services.BookingService;
 import info.fges.blablacool.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -28,12 +29,15 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private BookingService bookingService;
+
     @Secured("ROLE_USER")
     @RequestMapping(value = "/update", method = RequestMethod.GET)
     public ModelAndView getUserSettings(@AuthenticationPrincipal User user,
                                         ModelAndView modelAndView)
     {
-        modelAndView.setViewName("user/settings");
+        modelAndView.setViewName("users/settings");
         modelAndView.addObject("user", userService.findById(user.getId())); // We can't just use the User from Spring Security as it is not refreshed!
         modelAndView.addObject("musicStyles", UserPreference.getMusicStyles());
 
@@ -43,14 +47,14 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ModelAndView getUser(ModelAndView modelAndView , @PathVariable("id") Integer id )
     {
-        modelAndView.setViewName("user/profile");
+        modelAndView.setViewName("users/profile");
         return modelAndView;
     }
 
     @RequestMapping(value = "/{id}/history", method = RequestMethod.GET)
     public ModelAndView getUserPastTrips(ModelAndView modelAndView , @PathVariable("id") Integer id )
     {
-        modelAndView.setViewName("user/trip-history");
+        modelAndView.setViewName("users/trip-history");
         return modelAndView;
     }
 
@@ -59,7 +63,7 @@ public class UserController {
     public ModelAndView getPlans(@AuthenticationPrincipal User user,
                            ModelAndView modelAndView)
     {
-        modelAndView.setViewName("user/plans");
+        modelAndView.setViewName("users/plans");
         modelAndView.addObject("user", userService.findById(user.getId()));
 
         System.out.println(user.hasActiveSubscription());
@@ -68,6 +72,18 @@ public class UserController {
         {
             System.out.println(sub.getFrom());
         }
+
+        return modelAndView;
+    }
+
+    @Secured("ROLE_USER")
+    @RequestMapping(value = "/pending-booking", method = RequestMethod.GET)
+    public ModelAndView getPendingBooking(@AuthenticationPrincipal User user,
+                                          ModelAndView modelAndView)
+    {
+        modelAndView.setViewName("users/pending-booking");
+        modelAndView.addObject("user", userService.findById(user.getId()));
+        modelAndView.addObject("pendingBooking", bookingService.findPendingForUser(user.getId()));
 
         return modelAndView;
     }

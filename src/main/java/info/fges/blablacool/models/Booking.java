@@ -1,5 +1,8 @@
 package info.fges.blablacool.models;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
 
 /**
@@ -12,10 +15,11 @@ public class Booking {
     private Step step;
     private Trip trip;
     private User user;
+    private DateTime createdTime;
 
     public Booking()
     {
-
+        this.createdTime = DateTime.now();
     }
 
     public Booking(Trip _trip, User _user, String _status)
@@ -24,6 +28,7 @@ public class Booking {
         this.user = _user;
         this.step = _trip.getDepartureStep();
         this.status = _status;
+        this.createdTime = DateTime.now();
     }
 
     public Booking(Trip _trip, User _user, Step _step, String _status)
@@ -32,6 +37,7 @@ public class Booking {
         this.user = _user;
         this.step = _step;
         this.status = _status;
+        this.createdTime = DateTime.now();
     }
 
     @Id
@@ -103,5 +109,16 @@ public class Booking {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Basic
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @Column(name = "created_time", nullable = true, insertable = true, updatable = true)
+    public DateTime getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(DateTime createdTime) {
+        this.createdTime = createdTime;
     }
 }
