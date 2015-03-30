@@ -27,19 +27,19 @@ public class BookingService extends ServiceInterface<Booking, Integer>
     }
 
     @Override
-    public void create(Booking trip) {
-        bookingDao.create(trip);
+    public void create(Booking booking) {
+        bookingDao.create(booking);
     }
 
     @Override
-    public void update(Booking car)
+    public void update(Booking booking)
     {
-        bookingDao.update(car);
+        bookingDao.update(booking);
     }
 
     @Override
-    public void delete(Booking trip) {
-        bookingDao.delete(trip);
+    public void delete(Booking booking) {
+        bookingDao.delete(booking);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package info.fges.blablacool.controllers.ajax;
 
+import info.fges.blablacool.exceptions.AccessForbiddenException;
+import info.fges.blablacool.exceptions.ResourceNotFoundException;
 import info.fges.blablacool.models.Booking;
 import info.fges.blablacool.models.Trip;
 import info.fges.blablacool.models.User;
@@ -16,6 +18,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.awt.print.Book;
+import java.util.HashMap;
 
 /**
  * Created by Valentin on 29/03/15.
@@ -47,9 +52,35 @@ public class AjaxBookingController
             Booking booking = new Booking(trip, user, "PENDING");
             bookingService.create(booking);
 
-            return new ResponseEntity<String>(JSONObject.toString("created", booking.getId()), HttpStatus.OK);
+            HashMap<String, String> jsonContent = new HashMap<String, String>();
+            jsonContent.put("created", String.valueOf(booking.getId()));
+
+            return new ResponseEntity<String>(JSONObject.toJSONString(jsonContent), HttpStatus.OK);
         }
 
         return new ResponseEntity<String>(JSONObject.toString("created", false), HttpStatus.CONFLICT);
+    }
+
+    @Secured("ROLE_SUBSCRIBED")
+    @RequestMapping(value = "/new/{id}")
+    @ResponseBody
+    public String postAccept(@PathVariable("id") Integer idBooking,
+                                             @AuthenticationPrincipal User loggedUser)
+    {
+        Booking booking = bookingService.findById(idBooking);
+
+        if (booking == null)
+        {
+            throw new ResourceNotFoundException();
+        }
+        else if (booking.getTrip().getDriver().getId() != loggedUser.getId())
+        {
+            throw new AccessForbiddenException();
+        }
+
+        booking.setStatus("ACCEPTED");
+        bookingService.update(booking);
+
+        return "UPDATED";
     }
 }
