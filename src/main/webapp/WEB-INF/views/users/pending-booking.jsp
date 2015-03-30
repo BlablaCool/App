@@ -9,6 +9,11 @@
 <%--@elvariable id="booking" type="info.fges.blablacool.models.Booking"--%>
 
 <tiles:insertDefinition name="blablacoolTemplate">
+
+  <tiles:putAttribute name="footer-custom-js">
+    <script src="/assets/js/users.pending-booking.js"></script>
+  </tiles:putAttribute>
+
   <tiles:putAttribute name="body">
     <div class="container">
       <h1 class="page-title">Réservations en attente de validation</h1>

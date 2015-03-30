@@ -62,10 +62,10 @@ public class AjaxBookingController
     }
 
     @Secured("ROLE_SUBSCRIBED")
-    @RequestMapping(value = "/new/{id}")
+    @RequestMapping(value = "/{id}/accept")
     @ResponseBody
     public String postAccept(@PathVariable("id") Integer idBooking,
-                                             @AuthenticationPrincipal User loggedUser)
+                             @AuthenticationPrincipal User loggedUser)
     {
         Booking booking = bookingService.findById(idBooking);
 
@@ -79,6 +79,29 @@ public class AjaxBookingController
         }
 
         booking.setStatus("ACCEPTED");
+        bookingService.update(booking);
+
+        return "UPDATED";
+    }
+
+    @Secured("ROLE_SUBSCRIBED")
+    @RequestMapping(value = "/{id}/decline")
+    @ResponseBody
+    public String postDeny(@PathVariable("id") Integer idBooking,
+                           @AuthenticationPrincipal User loggedUser)
+    {
+        Booking booking = bookingService.findById(idBooking);
+
+        if (booking == null)
+        {
+            throw new ResourceNotFoundException();
+        }
+        else if (booking.getTrip().getDriver().getId() != loggedUser.getId())
+        {
+            throw new AccessForbiddenException();
+        }
+
+        booking.setStatus("DECLINED");
         bookingService.update(booking);
 
         return "UPDATED";
