@@ -16,13 +16,14 @@
 
   <tiles:putAttribute name="body">
     <div class="container">
-      <h1 class="page-title">Réservations en attente de validation</h1>
+      <h1 class="page-title">Mon profil Conducteur</h1>
     </div>
     <div class="container">
       <div class="row">
         <jsp:include page="/WEB-INF/views/users/blocks/sidebar.jsp"/>
         <div class="col-md-9">
 
+          <h4>Demandes de réservations en attente de validation</h4>
           <table id="pendingBookingTable" class="table table-bordered table-striped table-booking-history">
             <thead>
             <tr>

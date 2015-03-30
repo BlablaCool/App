@@ -77,11 +77,11 @@ public class UserController {
     }
 
     @Secured("ROLE_USER")
-    @RequestMapping(value = "/pending-booking", method = RequestMethod.GET)
+    @RequestMapping(value = "/driver", method = RequestMethod.GET)
     public ModelAndView getPendingBooking(@AuthenticationPrincipal User user,
                                           ModelAndView modelAndView)
     {
-        modelAndView.setViewName("users/pending-booking");
+        modelAndView.setViewName("users/driver");
         modelAndView.addObject("user", userService.findById(user.getId()));
         modelAndView.addObject("pendingBooking", bookingService.findPendingForUser(user.getId()));
 
