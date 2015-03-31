@@ -59,30 +59,85 @@ $(function()
     /**
      * We DO NOT WANT to submit the form directly, going through AJAX here!
      */
-    $(document).on('click', '#createTrip', function()
+    $(document).on('click', '#createTrip', function(e)
     {
-        var placesToSend = [];
-        $(".placeContainer").each(function() {
-            placesToSend.push($(this).serializeObject());
+        e.preventDefault();
+
+        // Validating infos
+        $("#infosForm").data('formValidation').validate();
+
+        // Validating steps
+        $('form.placeContainer').each(function(index)
+        {
+            $(this).data('formValidation').validate();
+            console.log('in');
         });
 
-        $.ajax({
-            type: "POST",
-            url: "/ajax/trips/add",
-            context: this,
-            data: {
-                infos: JSON.stringify($('#infosForm').serializeObject()),
-                places: JSON.stringify(placesToSend)
+        //e.preventDefault();
+        //
+        //var placesToSend = [];
+        //$(".placeContainer").each(function() {
+        //    placesToSend.push($(this).serializeObject());
+        //});
+        //
+        //$.ajax({
+        //    type: "POST",
+        //    url: "/ajax/trips/add",
+        //    context: this,
+        //    data: {
+        //        infos: JSON.stringify($('#infosForm').serializeObject()),
+        //        places: JSON.stringify(placesToSend)
+        //    },
+        //    success: function(response) {
+        //        $(this).attr('disabled');
+        //        console.log(response);
+        //    },
+        //    error: function() {
+        //        alert('Une erreur est survenue pendant la création de l\'itinéraire...')
+        //    },
+        //    dataType: 'html'
+        //});
+    });
+
+    /**
+     * Enabling validation on the Infos form
+     */
+    $('#infosForm').formValidation({
+        framework: 'bootstrap',
+        locale: 'fr_FR',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            availableSeats: {
+                validators: {
+                    notEmpty: true
+                }
             },
-            success: function(response) {
-                $(this).attr('disabled');
-                console.log(response);
+            price: {
+                validators: {
+                    notEmpty: true
+                }
             },
-            error: function() {
-                alert('Une erreur est survenue pendant la création de l\'itinéraire...')
-            },
-            dataType: 'html'
-        });
+            car: {
+                validators: {
+                    greaterThan: {
+                        value: 1,
+                        message: "Voiture manquante"
+                    }
+                }
+            }
+        }
+    });
+
+    /**
+     * Enabling validation on Addresses' Forms
+     */
+    $('form.placeContainer').each(function(index)
+    {
+        addValidationToAddressForm($(this));
     });
 
     /**
@@ -120,6 +175,9 @@ $(function()
         }).bind("geocode:result", function(event, result) {
             refreshMap(maPlace);
         });
+
+        // Adding validation to the address field
+        addValidationToAddressForm(clone.find('form').first());
     });
 
     /**
@@ -183,4 +241,34 @@ function refreshMap(map)
 function refreshPrice(kilometers)
 {
     $('#price').val(Math.ceil(0.0655 * kilometers));
+}
+
+function addValidationToAddressForm(formObject)
+{
+    formObject.formValidation({
+        framework: 'bootstrap',
+        locale: 'fr_FR',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            addressTyped: {
+                validators: {
+                    notEmpty: true
+                }
+            },
+            date: {
+                validators: {
+                    notEmpty: true
+                }
+            },
+            time: {
+                validators: {
+                    notEmpty: true
+                }
+            }
+        }
+    });
 }

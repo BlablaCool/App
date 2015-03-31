@@ -10,7 +10,11 @@
 
     <c:choose>
         <c:when test="${param.isModel eq 'yes'}">
-            <form id="${param.pointName}Form">
+            <form id="${param.pointName}Form"
+                data-fv-framework="bootstrap"
+                data-fv-icon-valid="glyphicon glyphicon-ok"
+                data-fv-icon-invalid="glyphicon glyphicon-remove"
+                data-fv-icon-validating="glyphicon glyphicon-refresh">
         </c:when>
         <c:otherwise>
             <form id="${param.pointName}Form" class="placeContainer">
@@ -21,7 +25,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Adresse, P.O.I., etc...</label>
-                    <input class="form-control" type="text" id="${param.pointName}Address" placeholder="Avenue des Champs-Elysées, Paris">
+                    <input class="form-control" type="text" id="${param.pointName}Address" name="addressTyped">
                 </div>
             </div>
             <div class="col-md-3">

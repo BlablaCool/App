@@ -6,12 +6,16 @@
 
     <tiles:putAttribute name="header-custom-css">
         <link type="text/css" rel="stylesheet" href="/assets/plugins/bower_components/animate.css/animate.min.css">
+        <link rel="stylesheet" href="/assets/plugins/formValidation/css/formValidation.min.css">
     </tiles:putAttribute>
 
     <tiles:putAttribute name="footer-custom-js">
         <script src="//maps.googleapis.com/maps/api/js?libraries=places"></script>
         <script src="/assets/js/jquery.geocomplete.min.js"></script>
         <script src="/assets/js/maplace.min.js"></script>
+        <script src="/assets/plugins/formValidation/js/formValidation.min.js"></script>
+        <script src="/assets/plugins/formValidation/js/framework/bootstrap.min.js"></script>
+        <script src="/assets/plugins/formValidation/js/language/fr_FR.js"></script>
         <script src="/assets/js/trips.new.js"></script>
     </tiles:putAttribute>
 
@@ -103,7 +107,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="row">
+                            <div class="row" style="margin-top: 28px;">
                                 <jsp:include page="/WEB-INF/views/trips/blocks/new-input.jsp">
                                     <jsp:param name="pointNameLong" value="de Départ" />
                                     <jsp:param name="pointName" value="departure" />
@@ -115,17 +119,19 @@
                                     <jsp:param name="pointName" value="arrival" />
                                     <jsp:param name="flag" value="fa-flag-checkered" />
                                 </jsp:include>
+
+                                <div class="clearfix"></div>
+
+                                <p class="text-center" style="margin-top: 30px;">
+                                    <button type="button" id="createTrip" class="btn btn-lg btn-success"><i class="fa fa-check"></i> Créer mon itinéraire</button>
+                                </p>
+
                             </div>
                         </div>
                         <div class="col-md-6" style="margin-bottom: 32px;">
                             <div id="globalMap" style="height: 520px;"></div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row" style="margin-top: 25px;">
-                <div class="col-md-6 col-md-offset-3" style="text-align: center;">
-                    <button id="createTrip" class="btn btn-lg btn- btn-success"><i class="fa fa-check"></i> Créer mon itinéraire</button>
                 </div>
             </div>
         </div>
