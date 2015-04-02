@@ -154,7 +154,7 @@
                   <div class="row">
                     <div class="col-md-2">
                       <div class="booking-item-img-wrap">
-                        <img src="http://placehold.it/420x420" />
+                        <img src="http://placehold.it/420x420" class="img-rounded" style="max-width: 100%; max-height: 120px;"/>
                         <%--<div class="booking-item-img-num">--%>
                           <%--<i class="fa fa-picture-o"></i>29--%>
                         <%--</div>--%>
@@ -174,7 +174,7 @@
                       </h5>
                       <ul class="booking-item-features booking-item-features-rentals booking-item-features-sign">
                         <li rel="tooltip" data-placement="bottom" title="Places disponibles">
-                          <i class="fa fa-male"></i><span class="booking-item-feature-sign">${trip.capacity}</span>
+                          <i class="fa fa-male"></i><span class="booking-item-feature-sign">${trip.leftSeats}/${trip.capacity}</span>
                         </li>
                         <li rel="tooltip" data-placement="bottom" title="Bagages autorisés">
                           <i class="fa fa-suitcase"></i>

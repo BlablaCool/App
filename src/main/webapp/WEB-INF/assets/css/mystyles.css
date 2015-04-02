@@ -15,7 +15,9 @@
     background-repeat: no-repeat;
     /*background-size: cover;*/
 }
-#pendingBookingTable td
-{
+#pendingBookingTable td {
     vertical-align: middle !important;
+}
+.step-wrapper {
+    margin-top: -28px;
 }

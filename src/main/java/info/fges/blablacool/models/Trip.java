@@ -25,19 +25,16 @@ public class Trip {
 
     public Trip()
     {
-        System.out.println("here we are");
     }
 
     public Trip(JSONObject jsonTrip, User user)
     {
         this.driver = user;
-        this.capacity = Short.valueOf((String) jsonTrip.get("availableSeats"));
+        this.capacity = Short.valueOf((String) jsonTrip.getOrDefault("availableSeats", "4"));
         this.allowSmoking = Boolean.parseBoolean((String) jsonTrip.getOrDefault("allowSmokers", "False"));
         this.allowAnimals = Boolean.parseBoolean((String) jsonTrip.getOrDefault("allowAnimals", "False"));
-        this.luggage = (String) jsonTrip.get("bags");
+        this.luggage = (String) jsonTrip.getOrDefault("bags", "HEAVY");
         this.price = new BigDecimal((String) jsonTrip.getOrDefault("price", 0));
-
-        System.out.println(this);
     }
 
     @Id
