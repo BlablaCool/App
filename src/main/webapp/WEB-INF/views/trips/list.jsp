@@ -9,12 +9,14 @@
 <tiles:insertDefinition name="blablacoolTemplate">
 
   <tiles:putAttribute name="footer-custom-js">
+    <script src="//maps.googleapis.com/maps/api/js?libraries=places"></script>
+    <script src="/assets/js/jquery.geocomplete.min.js"></script>
     <script src="/assets/js/trips.list.js"></script>
   </tiles:putAttribute>
 
   <tiles:putAttribute name="body">
     <div class="container" style="margin-top: 42px;">
-      <form class="booking-item-dates-change mb40">
+      <form id="infosForm" class="booking-item-dates-change mb40">
         <div class="row">
           <div class="col-md-8">
             <div class="row">
@@ -22,14 +24,14 @@
                 <div class="form-group form-group-icon-left">
                   <i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
                   <label>Départ</label>
-                  <input class="typeahead form-control" value="United States, New York" placeholder="City, Hotel Name or U.S. Zip Code" type="text"/>
+                  <input class="form-control" type="text" name="departureAddress" id="departureAddress" />
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group form-group-icon-left">
                   <i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
                   <label>Arrivée</label>
-                  <input class="typeahead form-control" value="United States, New York" placeholder="City, Hotel Name or U.S. Zip Code" type="text"/>
+                  <input class="form-control" type="text" name="arrivalAddress" id="arrivalAddress" />
                 </div>
               </div>
             </div>
@@ -38,44 +40,44 @@
             <div class="form-group form-group-icon-left">
               <i class="fa fa-calendar input-icon input-icon-hightlight"></i>
               <label>Date</label>
-              <input class="form-control" name="start" type="text"/>
+              <input class="form-control date-pick" name="departureTime" type="text"/>
             </div>
           </div>
-          <div class="col-md-2">
-            <div class="form-group form-group- form-group-select-plus">
-              <label>Guests</label>
-              <div class="btn-group btn-group-select-num" data-toggle="buttons">
-                <label class="btn btn-primary active">
-                  <input type="radio" name="options"/>1</label>
-                <label class="btn btn-primary">
-                  <input type="radio" name="options"/>2</label>
-                <label class="btn btn-primary">
-                  <input type="radio" name="options"/>3</label>
-                <label class="btn btn-primary">
-                  <input type="radio" name="options"/>4</label>
-                <label class="btn btn-primary">
-                  <input type="radio" name="options"/>4+</label>
-              </div>
-              <select class="form-control hidden">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option selected="selected">5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-                <option>11</option>
-                <option>12</option>
-                <option>13</option>
-                <option>14</option>
-              </select>
-            </div>
+          <div class="col-md-2 text-center" style="margin-top: 26px;">
+            <button id="goSearch" class="btn btn-success" type="button"><i class="fa fa-search"></i> Rechercher</button>
           </div>
         </div>
       </form>
+      
+      <form id="departureForm" style="display: none;">
+        <input type="hidden" name="name">
+        <input type="hidden" name="lat">
+        <input type="hidden" name="lng">
+        <input type="hidden" name="location">
+        <input type="hidden" name="formatted_address">
+        <input type="hidden" name="street_number">
+        <input type="hidden" name="postal_code">
+        <input type="hidden" name="locality">
+        <input type="hidden" name="country">
+        <input type="hidden" name="country_short">
+        <input type="hidden" name="administrative_area_level_1">
+        <input type="hidden" name="place_id">
+      </form>
+      <form id="arrivalForm" style="display: none;">
+        <input type="hidden" name="name">
+        <input type="hidden" name="lat">
+        <input type="hidden" name="lng">
+        <input type="hidden" name="location">
+        <input type="hidden" name="formatted_address">
+        <input type="hidden" name="street_number">
+        <input type="hidden" name="postal_code">
+        <input type="hidden" name="locality">
+        <input type="hidden" name="country">
+        <input type="hidden" name="country_short">
+        <input type="hidden" name="administrative_area_level_1">
+        <input type="hidden" name="place_id">
+      </form>
+      
       <div class="row">
         <div class="col-md-3">
           <aside class="booking-filters text-white">
