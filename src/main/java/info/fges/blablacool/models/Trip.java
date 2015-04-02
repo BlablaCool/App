@@ -1,6 +1,7 @@
 package info.fges.blablacool.models;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import javax.persistence.*;
@@ -15,12 +16,12 @@ public class Trip {
     private int idTrip;
     private Short capacity;
     private User driver;
-    private List<User> passengers;
     private List<Step> steps;
     private boolean allowSmoking;
     private boolean allowAnimals;
     private String luggage;
     private BigDecimal price;
+    private List<Booking> booking;
 
     public Trip()
     {
@@ -87,20 +88,10 @@ public class Trip {
         this.driver = driver;
     }
 
-    @ManyToMany
-    @JoinTable(name = "trip_has_passengers", catalog = "blablacool", schema = "", joinColumns = @JoinColumn(name = "trip_id", referencedColumnName = "id_trip", nullable = false), inverseJoinColumns = @JoinColumn(name = "passenger_id", referencedColumnName = "id_user", nullable = false))
-    public List<User> getPassengers() {
-        return passengers;
-    }
-
-    public void setPassengers(List<User> passengers) {
-        this.passengers = passengers;
-    }
-
     @Transient
     public int getLeftSeats()
     {
-        return (this.capacity - this.passengers.size());
+        return (this.capacity - this.booking.size());
     }
 
     @OneToMany(mappedBy = "trip")
@@ -172,5 +163,31 @@ public class Trip {
         }
 
         return null;
+    }
+
+    @Transient
+    public JSONArray getStepsInJson()
+    {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Step step : this.steps)
+        {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("lat", step.getPlace().getLatitude());
+            jsonObject.put("lon", step.getPlace().getLongitude());
+
+            jsonArray.add(jsonObject);
+        }
+
+        return jsonArray;
+    }
+
+    @OneToMany(mappedBy = "trip")
+    public List<Booking> getBooking() {
+        return booking;
+    }
+
+    public void setBooking(List<Booking> booking) {
+        this.booking = booking;
     }
 }

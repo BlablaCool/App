@@ -6,3 +6,16 @@
     border-bottom: 1px dashed #999;
     cursor: pointer;
 }
+.isActivated-true {
+    color: #5ebd6f !important;
+}
+#bigMapOnTripPage {
+    height: 420px;
+    background-position: center;
+    background-repeat: no-repeat;
+    /*background-size: cover;*/
+}
+#pendingBookingTable td
+{
+    vertical-align: middle !important;
+}

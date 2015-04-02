@@ -39,6 +39,13 @@ public class AjaxTripController
     @Autowired
     private StepService stepService;
 
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    @ResponseBody
+    public String getTest()
+    {
+        return "test";
+    }
+
     @Secured("ROLE_USER")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody

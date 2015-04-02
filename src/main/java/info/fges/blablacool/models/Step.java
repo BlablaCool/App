@@ -4,6 +4,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Valentin on 24/03/15.
@@ -15,6 +16,7 @@ public class Step {
     private Place place;
     private Trip trip;
     private int idStep;
+    private List<Booking> booking;
 
     public Step()
     {
@@ -113,5 +115,14 @@ public class Step {
 
     public void setIdStep(int idStep) {
         this.idStep = idStep;
+    }
+
+    @OneToMany(mappedBy = "step")
+    public List<Booking> getBooking() {
+        return booking;
+    }
+
+    public void setBooking(List<Booking> booking) {
+        this.booking = booking;
     }
 }

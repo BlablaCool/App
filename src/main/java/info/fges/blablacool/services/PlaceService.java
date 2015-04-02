@@ -28,8 +28,8 @@ public class PlaceService extends ServiceInterface<Place,Integer>
     }
 
     @Override
-    public void create(Place trip) {
-        placeDao.create(trip);
+    public void create(Place place) {
+        placeDao.create(place);
     }
 
     @Override
@@ -38,8 +38,8 @@ public class PlaceService extends ServiceInterface<Place,Integer>
     }
 
     @Override
-    public void delete(Place trip) {
-        placeDao.delete(trip);
+    public void delete(Place place) {
+        placeDao.delete(place);
     }
 
     @Override

@@ -27,19 +27,19 @@ public class SubscriptionService extends ServiceInterface<Subscription,Integer>
     }
 
     @Override
-    public void create(Subscription trip) {
-        subscriptionDao.create(trip);
+    public void create(Subscription subscription) {
+        subscriptionDao.create(subscription);
     }
 
     @Override
-    public void update(Subscription car)
+    public void update(Subscription subscription)
     {
-        subscriptionDao.update(car);
+        subscriptionDao.update(subscription);
     }
 
     @Override
-    public void delete(Subscription trip) {
-        subscriptionDao.delete(trip);
+    public void delete(Subscription subscription) {
+        subscriptionDao.delete(subscription);
     }
 
     @Override
