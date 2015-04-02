@@ -2,6 +2,8 @@
  * Created by Nicolas on 3/26/2015.
  */
 $( document ).ready(function() {
+    $("#carForm").css({visibility: "hidden", display: ""});
+    $("#spinner").css({visibility: "visible", display: ""});
     var cars;
     var brandsSelect =  $('#brands');
     var modelsSelect = $('#models');
@@ -21,6 +23,8 @@ $( document ).ready(function() {
     var trims = [];
     var bodies= [];
     var horsePowers = [];
+    var make;
+    var model;
 
     $.ajax({
         url: "/cars/makes",
@@ -39,6 +43,8 @@ $( document ).ready(function() {
 
     // Event on Brand Select : change Model Select Content
     brandsSelect.change(function(e) {
+        $("#carForm").css({visibility: "hidden", display: ""});
+        $("#spinner").css({visibility: "visible", display: ""});
         modelsSelect.prop("disabled", true);
         yearSelect.prop("disabled", true);
         doorsSelect.prop("disabled", true);
@@ -56,15 +62,14 @@ $( document ).ready(function() {
         bodySelect.empty();
         trimSelect.empty();
         models.length = 0;
-        brand = brandsSelect.children(':selected').attr('id');
+        make = brandsSelect.children(':selected').attr('id');
         $.ajax({
-            url: "/cars/model/"+brand,
+            url: "/cars/models/"+make,
             type: "GET",
             dataType: "json",
             success: function (data) {
-                cars = data;
                 $('#models').empty();
-                $.each(cars.Trims, function(key, val) {
+                $.each(data.Models, function(key, val) {
                     if( $.inArray(val.model_name, models) === -1) {
                         models.push(val.model_name);
                         modelsSelect.append('<option id="' + val.model_name + '">' + val.model_name + '</option>');
@@ -81,6 +86,8 @@ $( document ).ready(function() {
 
     // Event on Model Select : change Year Select Content
     modelsSelect.change(function(e) {
+        $("#carForm").css({visibility: "hidden", display: ""});
+        $("#spinner").css({visibility: "visible", display: ""});
         yearSelect.prop("disabled", true);
         doorsSelect.prop("disabled", true);
         capacitySelect.prop("disabled", true);
@@ -97,18 +104,28 @@ $( document ).ready(function() {
         bodySelect.empty();
         trimSelect.empty();
 
-       $.each(cars.Trims, function(key, val) {
-            if ($.inArray(val.model_year, years) === -1
-                && val.model_name == modelsSelect.children(':selected').val()) {
-                years.push(val.model_year);
-                yearSelect.append('<option id="' +key+ '">' + val.model_year + '</option>')
-                sortASelect(yearSelect);
+        model = modelsSelect.children(':selected').val()
+        $.ajax({
+            url: "/cars/model/"+make+"/"+model,
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                cars = data;
+                $.each(cars.Trims, function(key, val) {
+                    if( $.inArray(val.model_year, years) === -1) {
+                        years.push(val.model_year);
+                        yearSelect.append('<option id="' + val.model_year + '">' + val.model_year + '</option>');
+                        sortASelect(yearSelect);
+                    }
+                });
+            },
+            complete: function(){
+                $("#carForm").css({visibility: "visible", display: ""});
+                $("#spinner").css({visibility: "hidden", display: ""});
+                yearSelect.prop("disabled",false);
+                yearSelect.trigger("change");
             }
         });
-        yearSelect.prop("disabled",false);
-        yearSelect.trigger("change");
-
-
     });
 
     // Event on Year Select : change Door Select Content
@@ -135,9 +152,9 @@ $( document ).ready(function() {
                 doors.push(val.model_doors);
                 doorsSelect.append('<option id="' + key+ '">' + val.model_doors + '</option>');
                 sortASelect(doorsSelect);
+                doorsSelect.prop("disabled", false);
             }
         });
-        doorsSelect.prop("disabled", false);
         doorsSelect.trigger("change");
     });
 
@@ -164,9 +181,9 @@ $( document ).ready(function() {
                 capacities.push(val.model_seats);
                 capacitySelect.append('<option id="' + key+ '">' + val.model_seats + '</option>');
                 sortASelect(capacitySelect);
+                capacitySelect.prop("disabled", false);
             }
         });
-        capacitySelect.prop("disabled", false);
         capacitySelect.trigger("change");
     });
 
@@ -191,9 +208,9 @@ $( document ).ready(function() {
                 fuels.push(val.model_engine_fuel);
                 fuelSelect.append('<option id="' + key+ '">' + val.model_engine_fuel + '</option>');
                 sortASelect(fuelSelect);
+                fuelSelect.prop("disabled", false);
             }
         });
-        fuelSelect.prop("disabled", false);
         fuelSelect.trigger("change");
     });
 
@@ -217,9 +234,10 @@ $( document ).ready(function() {
                 horsePowers.push(val.model_engine_power_ps);
                 powerSelect.append('<option id="' + key+ '">' + val.model_engine_power_ps + '</option>');
                 sortASelect(powerSelect);
+                powerSelect.prop("disabled", false);
+
             }
         });
-        powerSelect.prop("disabled", false);
         powerSelect.trigger("change");
     });
 
@@ -242,9 +260,9 @@ $( document ).ready(function() {
                 bodies.push(val.model_body);
                 bodySelect.append('<option id="' + key+ '">' + val.model_body + '</option>');
                 sortASelect(bodySelect);
+                bodySelect.prop("disabled", false);
             }
         });
-        bodySelect.prop("disabled", false);
         bodySelect.trigger("change");
     });
 
@@ -266,9 +284,9 @@ $( document ).ready(function() {
                 trims.push(val.model_trim);
                 trimSelect.append('<option id="' + key+ '">' + val.model_trim + '</option>');
                 sortASelect(trimSelect);
+                trimSelect.prop("disabled", false);
             }
         });
-        trimSelect.prop("disabled", false);
         trimSelect.trigger("change");
     });
 
