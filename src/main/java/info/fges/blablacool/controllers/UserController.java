@@ -13,10 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -32,6 +29,13 @@ public class UserController {
     @Autowired
     private BookingService bookingService;
 
+/*
+    @ExceptionHandler(Throwable.class)
+    public String handleException(Throwable t) {
+        return "redirect:/errors/500.jsp";
+    }
+*/
+
     @Secured("ROLE_USER")
     @RequestMapping(value = "/update", method = RequestMethod.GET)
     public ModelAndView getUserSettings(@AuthenticationPrincipal User user,
@@ -44,13 +48,18 @@ public class UserController {
         return modelAndView;
     }
 
+    @Secured("ROLE_USER")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ModelAndView getUser(ModelAndView modelAndView , @PathVariable("id") Integer id )
+    public ModelAndView getUser(@AuthenticationPrincipal User user,
+                                ModelAndView modelAndView, @PathVariable("id") Integer id )
     {
         modelAndView.setViewName("users/profile");
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("viewedUser",userService.findById(id));
         return modelAndView;
     }
 
+    @Secured("ROLE_USER")
     @RequestMapping(value = "/{id}/history", method = RequestMethod.GET)
     public ModelAndView getUserPastTrips(ModelAndView modelAndView , @PathVariable("id") Integer id )
     {
