@@ -24,6 +24,7 @@ public class Search
     private SearchPoint departurePoint;
     private SearchPoint arrivalPoint;
     private DateTime departureTime;
+    private Boolean withGeolocation;
 
     public DateTime getDepartureTime() {
         return departureTime;
@@ -59,5 +60,14 @@ public class Search
         this.departurePoint = _departurePoint;
         this.arrivalPoint = _arrivalPoint;
         this.departureTime = _departureTime;
+        this.withGeolocation = false;
+    }
+
+    public Search(SearchPoint _departurePoint, SearchPoint _arrivalPoint, DateTime _departureTime, Boolean _withGeolocation)
+    {
+        this.departurePoint = _departurePoint;
+        this.arrivalPoint = _arrivalPoint;
+        this.departureTime = _departureTime;
+        this.withGeolocation = _withGeolocation;
     }
 }

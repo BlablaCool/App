@@ -59,7 +59,8 @@ $(function()
             data: {
                 infos: JSON.stringify($('#infosForm').serializeObject()),
                 departure: JSON.stringify($('#departureForm').serializeObject()),
-                arrival: JSON.stringify($('#arrivalForm').serializeObject())
+                arrival: JSON.stringify($('#arrivalForm').serializeObject()),
+                geolocation: JSON.stringify($('#geolocationForm').serializeObject())
             },
             success: function(response) {
                 $(this).attr('disabled');
@@ -70,5 +71,47 @@ $(function()
             },
             dataType: 'json'
         });
+    });
+
+    /**
+     * The magic of Geolocation is here!
+     */
+    $(document).on('change', '#enableGeolocation', function()
+    {
+        if (this.checked)
+        {
+            $('#departureAddress').attr('readonly', 'readonly');
+            $('.geolocationWaiting').show();
+
+            if (navigator.geolocation)
+            {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    console.log(position.coords);
+
+                    $('#geolocationForm input[name="latitude"]').val(position.coords.latitude);
+                    $('#geolocationForm input[name="longitude"]').val(position.coords.longitude);
+
+                    $('.geolocationWaiting').hide();
+                    $('.geolocationDone').show();
+                    $('.geolocationError').hide();
+                }, function() { // When geolocation doesn't work
+                    $('.geolocationWaiting').hide();
+                    $('.geolocationDone').hide();
+                    $('.geolocationError').show();
+                    $('#departureAddress').removeAttr('readonly');
+                    $('#enableGeolocation').removeAttr('checked');
+                }, {
+                    timeout: 10000
+                });
+            }
+            else
+            {
+                console.log('error');
+            }
+        }
+        else
+        {
+            $('#departureAddress').removeAttr('readonly');
+        }
     });
 })

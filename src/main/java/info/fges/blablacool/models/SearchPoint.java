@@ -19,12 +19,11 @@ public class SearchPoint
     private String city;
     private String country;
     private String state;
+    private Boolean withGeolocation;
 
     public SearchPoint(JSONObject jsonObject)
     {
         this.input = (String) jsonObject.getOrDefault("name", "");
-        this.latitude = new BigDecimal((String) jsonObject.getOrDefault("lat", "0"));
-        this.longitude = new BigDecimal((String) jsonObject.getOrDefault("lng", "0"));
         this.location = (String) jsonObject.getOrDefault("location", "");
         this.streetNumber = (String) jsonObject.getOrDefault("street_number", "");
         this.formattedAddress = (String) jsonObject.getOrDefault("formatted_address", "");
@@ -32,7 +31,25 @@ public class SearchPoint
         this.city = (String) jsonObject.getOrDefault("locality", "");
         this.country = (String) jsonObject.getOrDefault("country", "");
         this.state = (String) jsonObject.getOrDefault("administrative_area_level_1", "");
+        this.withGeolocation = false;
+
+        if (jsonObject.containsKey("lat") && !((String) jsonObject.get("lat")).contentEquals(""))
+            this.latitude = new BigDecimal((String) jsonObject.get("lat"));
+        else
+            this.latitude = new BigDecimal(0.0);
+
+        if (jsonObject.containsKey("lng") && !((String) jsonObject.get("lng")).contentEquals(""))
+            this.longitude = new BigDecimal((String) jsonObject.get("lng"));
+        else
+            this.longitude = new BigDecimal(0.0);
      }
+
+    public SearchPoint(String _latitude, String _longitude)
+    {
+        this.latitude = new BigDecimal(_latitude);
+        this.longitude = new BigDecimal(_longitude);
+        this.withGeolocation = true;
+    }
 
     public String getInput() {
         return input;

@@ -30,11 +30,35 @@ public class SearchService
         JSONObject jsonObjectInfos = (JSONObject) JSONValue.parse(_infosJson);
         DateTime departureDateTime = DateTime.parse((String) jsonObjectInfos.get("departureTime"), DateTimeFormat.forPattern("dd/MM/yyyy"));
 
-        SearchPoint departureSearchPoint = new SearchPoint( (JSONObject) JSONValue.parse(_departurePointJson) );
-        SearchPoint arrivalSearchPoint = new SearchPoint( (JSONObject) JSONValue.parse(_arrivalPointJson) );
+        SearchPoint departureSearchPoint = new SearchPoint((JSONObject) JSONValue.parse(_departurePointJson));
+        SearchPoint arrivalSearchPoint = new SearchPoint((JSONObject) JSONValue.parse(_arrivalPointJson));
 
         Search search = new Search(departureSearchPoint, arrivalSearchPoint, departureDateTime);
 
-        return searchDao.findTripsWithAddresses(search.getDeparturePoint().getCity(), search.getArrivalPoint().getCity(), search.getDepartureTime());
+        return searchDao.findTripsWithAddresses(search.getDeparturePoint().getCity(),
+                search.getArrivalPoint().getCity(),
+                search.getDepartureTime());
+    }
+
+    public List<Trip> findTripsNearbyLocation(String _departureGeolocationJson, String _arrivalPointJson, String _infosJson)
+    {
+        // Infos about trip
+        JSONObject jsonObjectInfos = (JSONObject) JSONValue.parse(_infosJson);
+        DateTime departureDateTime = DateTime.parse((String) jsonObjectInfos.get("departureTime"), DateTimeFormat.forPattern("dd/MM/yyyy"));
+
+        // Departure point with Geolocation
+        JSONObject jsonObjectGeolocation = (JSONObject) JSONValue.parse(_departureGeolocationJson);
+        SearchPoint departureSearchPoint = new SearchPoint((String) jsonObjectGeolocation.get("latitude"), (String) jsonObjectGeolocation.get("longitude"));
+
+        // Arrival point with geolocation
+        SearchPoint arrivalSearchPoint = new SearchPoint((JSONObject) JSONValue.parse(_arrivalPointJson));
+
+        // Global search
+        Search search = new Search(departureSearchPoint, arrivalSearchPoint, departureDateTime);
+
+        return searchDao.findTripsNearbyLocation(search.getDeparturePoint().getLatitude(),
+                search.getDeparturePoint().getLongitude(),
+                search.getArrivalPoint().getCity(),
+                search.getDepartureTime());
     }
 }

@@ -21,3 +21,6 @@
 .step-wrapper {
     margin-top: -28px;
 }
+.geolocationWaiting, .geolocationDone, .geolocationError {
+    display: none;
+}

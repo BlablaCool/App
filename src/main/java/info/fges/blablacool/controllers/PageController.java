@@ -1,5 +1,6 @@
 package info.fges.blablacool.controllers;
 
+import info.fges.blablacool.services.SearchService;
 import info.fges.blablacool.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,9 @@ public class PageController
 {
 	@Autowired
     private UserService uS;
+
+	@Autowired
+	SearchService searchService;
 
     @RequestMapping(method = RequestMethod.GET)
 	@ResponseBody

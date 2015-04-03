@@ -21,10 +21,17 @@
           <div class="col-md-8">
             <div class="row">
               <div class="col-md-6">
-                <div class="form-group form-group-icon-left">
+                <div class="form-group form-group-icon-left" style="margin-bottom: 2px;">
                   <i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
                   <label>Départ</label>
                   <input class="form-control" type="text" name="departureAddress" id="departureAddress" />
+                  <p class="help-block" style="font-weight: bold; font-size: 16px; margin-bottom: 0; margin-left: 10px;">
+                    <input type="checkbox" name="enableGeolocation" id="enableGeolocation">
+                    <label for="enableGeolocation" style="display: inline; font-weight: bold; cursor: pointer;"> &nbsp;Trouver un point autour de moi &nbsp;
+                      <i class="fa fa-map-marker geolocationDone"></i>
+                      <i class="fa fa-exclamation-triangle geolocationError"></i>
+                      <i class="fa fa-refresh fa-spin geolocationWaiting"></i></label>
+                  </p>
                 </div>
               </div>
               <div class="col-md-6">
@@ -76,6 +83,10 @@
         <input type="hidden" name="country_short">
         <input type="hidden" name="administrative_area_level_1">
         <input type="hidden" name="place_id">
+      </form>
+      <form id="geolocationForm" style="display: none;">
+        <input type="hidden" name="latitude">
+        <input type="hidden" name="longitude">
       </form>
       
       <div class="row">
