@@ -43,11 +43,19 @@ public class BookingController
         {
             throw new AccessForbiddenException();
         }
-        else if (booking.getStatus().contentEquals("PENDING"))
+        else if (booking.isAccepted())
+        {
+            modelAndView.setViewName("booking/accepted");
+        }
+        else if (booking.isPending())
         {
             modelAndView.setViewName("booking/pending");
         }
-        else if (booking.getStatus().contentEquals("CANCELLED"))
+        else if (booking.isDeclined())
+        {
+            modelAndView.setViewName("booking/declined");
+        }
+        else if (booking.isCancelled())
         {
             modelAndView.setViewName("booking/cancelled");
         }

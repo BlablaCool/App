@@ -121,4 +121,28 @@ public class Booking {
     public void setCreatedTime(DateTime createdTime) {
         this.createdTime = createdTime;
     }
+
+    @Transient
+    public Boolean isAccepted()
+    {
+        return this.status.contentEquals("ACCEPTED");
+    }
+
+    @Transient
+    public Boolean isDeclined()
+    {
+        return this.status.contentEquals("DECLINED");
+    }
+
+    @Transient
+    public Boolean isPending()
+    {
+        return this.status.contentEquals("PENDING");
+    }
+
+    @Transient
+    public Boolean isCancelled()
+    {
+        return this.status.contentEquals("CANCELLED");
+    }
 }

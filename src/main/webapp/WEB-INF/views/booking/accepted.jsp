@@ -9,14 +9,15 @@
 <%--@elvariable id="user" type="info.fges.blablacool.models.User"--%>
 
 <tiles:insertDefinition name="blablacoolTemplate">
+
   <tiles:putAttribute name="body">
     <div class="gap"></div>
     <div class="container">
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
-          <i class="fa fa-ticket round box-icon-large box-icon-center box-icon-warning mb30"></i>
-          <h2 class="text-center">C'est enregistré, ${user.firstname} !</h2>
-          <h5 class="text-center mb30">Vous serez prévenu par email dès que votre réservation sera validée par <em>${booking.trip.driver.nickname}</em>.</h5>
+          <i class="fa fa-thumbs-up round box-icon-large box-icon-center box-icon-success mb30"></i>
+          <h2 class="text-center">Bienvenue à bord ${user.firstname} !</h2>
+          <h5 class="text-center mb30">Votre demande de réservation a été validée par <em>${booking.trip.driver.nickname}</em>, en avant toute !</h5>
           <ul class="order-payment-list list mb30">
             <li>
               <div class="row">
