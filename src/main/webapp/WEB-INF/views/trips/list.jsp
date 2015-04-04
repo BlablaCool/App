@@ -92,7 +92,7 @@
       <div class="row">
         <div class="col-md-3">
           <aside class="booking-filters text-white">
-            <h3>Filter By:</h3>
+            <h3>Filtrer :</h3>
             <ul class="list booking-filters-list">
               <li>
                 <h5 class="booking-filters-title">Price</h5>
@@ -140,27 +140,26 @@
           </aside>
         </div>
         <div class="col-md-9">
-          <div class="nav-drop booking-sort">
-            <h5 class="booking-sort-title"><a href="rentals-search-results-3.html#">Sort: Price (low to high)<i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></a></h5>
-            <ul class="nav-drop-menu">
-              <li><a href="rentals-search-results-3.html#">Price (hight to low)</a>
-              </li>
-              <li><a href="rentals-search-results-3.html#">Ranking</a>
-              </li>
-              <li><a href="rentals-search-results-3.html#">Bedrooms (Most to Least)</a>
-              </li>
-              <li><a href="rentals-search-results-3.html#">Bedrooms (Least to Most)</a>
-              </li>
-              <li><a href="rentals-search-results-3.html#">Number of Reviews</a>
-              </li>
-              <li><a href="rentals-search-results-3.html#">Number of Photos</a>
-              </li>
-              <li><a href="rentals-search-results-3.html#">Just Added</a>
-              </li>
-            </ul>
-          </div>
+          <%--<div class="nav-drop booking-sort">--%>
+            <%--<h5 class="booking-sort-title"><a href="rentals-search-results-3.html#">Sort: Price (low to high)<i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></a></h5>--%>
+            <%--<ul class="nav-drop-menu">--%>
+              <%--<li><a href="rentals-search-results-3.html#">Price (hight to low)</a>--%>
+              <%--</li>--%>
+              <%--<li><a href="rentals-search-results-3.html#">Ranking</a>--%>
+              <%--</li>--%>
+              <%--<li><a href="rentals-search-results-3.html#">Bedrooms (Most to Least)</a>--%>
+              <%--</li>--%>
+              <%--<li><a href="rentals-search-results-3.html#">Bedrooms (Least to Most)</a>--%>
+              <%--</li>--%>
+              <%--<li><a href="rentals-search-results-3.html#">Number of Reviews</a>--%>
+              <%--</li>--%>
+              <%--<li><a href="rentals-search-results-3.html#">Number of Photos</a>--%>
+              <%--</li>--%>
+              <%--<li><a href="rentals-search-results-3.html#">Just Added</a>--%>
+              <%--</li>--%>
+            <%--</ul>--%>
+          <%--</div>--%>
           <ul class="booking-list">
-
             <c:forEach items="${trips}" var="trip">
               <li class="trip-element" data-url="/trips/${trip.idTrip}">
                 <div class="booking-item">
@@ -228,39 +227,39 @@
               </li>
             </c:forEach>
           </ul>
-          <div class="row">
-            <div class="col-md-6">
-              <p>
-                <small>320 vacation rentals found in New York. &nbsp;&nbsp;Showing 1 – 15</small>
-              </p>
-              <ul class="pagination">
-                <li class="active"><a href="rentals-search-results-3.html#">1</a>
-                </li>
-                <li><a href="rentals-search-results-3.html#">2</a>
-                </li>
-                <li><a href="rentals-search-results-3.html#">3</a>
-                </li>
-                <li><a href="rentals-search-results-3.html#">4</a>
-                </li>
-                <li><a href="rentals-search-results-3.html#">5</a>
-                </li>
-                <li><a href="rentals-search-results-3.html#">6</a>
-                </li>
-                <li><a href="rentals-search-results-3.html#">7</a>
-                </li>
-                <li class="dots">...</li>
-                <li><a href="rentals-search-results-3.html#">43</a>
-                </li>
-                <li class="next"><a href="rentals-search-results-3.html#">Next Page</a>
-                </li>
-              </ul>
-            </div>
-            <div class="col-md-6 text-right">
-              <p>
-                Not what you're looking for? <a class="popup-text" href="rentals-search-results-3.html#search-dialog" data-effect="mfp-zoom-out">Try your search again</a>
-              </p>
-            </div>
-          </div>
+          <%--<div class="row">--%>
+            <%--<div class="col-md-6">--%>
+              <%--<p>--%>
+                <%--<small>320 vacation rentals found in New York. &nbsp;&nbsp;Showing 1 – 15</small>--%>
+              <%--</p>--%>
+              <%--<ul class="pagination">--%>
+                <%--<li class="active"><a href="rentals-search-results-3.html#">1</a>--%>
+                <%--</li>--%>
+                <%--<li><a href="rentals-search-results-3.html#">2</a>--%>
+                <%--</li>--%>
+                <%--<li><a href="rentals-search-results-3.html#">3</a>--%>
+                <%--</li>--%>
+                <%--<li><a href="rentals-search-results-3.html#">4</a>--%>
+                <%--</li>--%>
+                <%--<li><a href="rentals-search-results-3.html#">5</a>--%>
+                <%--</li>--%>
+                <%--<li><a href="rentals-search-results-3.html#">6</a>--%>
+                <%--</li>--%>
+                <%--<li><a href="rentals-search-results-3.html#">7</a>--%>
+                <%--</li>--%>
+                <%--<li class="dots">...</li>--%>
+                <%--<li><a href="rentals-search-results-3.html#">43</a>--%>
+                <%--</li>--%>
+                <%--<li class="next"><a href="rentals-search-results-3.html#">Next Page</a>--%>
+                <%--</li>--%>
+              <%--</ul>--%>
+            <%--</div>--%>
+            <%--&lt;%&ndash;<div class="col-md-6 text-right">&ndash;%&gt;--%>
+              <%--&lt;%&ndash;<p>&ndash;%&gt;--%>
+                <%--&lt;%&ndash;Not what you're looking for? <a class="popup-text" href="rentals-search-results-3.html#search-dialog" data-effect="mfp-zoom-out">Try your search again</a>&ndash;%&gt;--%>
+              <%--&lt;%&ndash;</p>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+          <%--</div>--%>
         </div>
       </div>
       <div class="gap"></div>

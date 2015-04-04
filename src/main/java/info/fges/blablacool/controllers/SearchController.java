@@ -53,7 +53,11 @@ public class SearchController
                                          ModelAndView modelAndView)
     {
         modelAndView.setViewName("trips/list");
-        modelAndView.addObject("trips", searchService.findTripsWithAddresses(URLDecoder.decode(departureCity), URLDecoder.decode(arrivalCity), departureTime));
+        modelAndView.addObject("trips", searchService.findTripsWithAddresses(
+                URLDecoder.decode(departureCity),
+                URLDecoder.decode(arrivalCity),
+                departureTime)
+        );
 
         return modelAndView;
     }
