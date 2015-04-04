@@ -1,14 +1,29 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <tiles:insertDefinition name="blablacoolTemplate">
     <tiles:putAttribute name="body">
         <div class="container">
-            <h1 class="page-title">Profile</h1>
+            <h1 class="page-title">
+                <c:choose>
+                    <c:when test="${viewedUser.id==user.id}">
+                        Profile
+                    </c:when>
+                    <c:when test="${viewedUser.id!=user.id}">
+                        <a class="booking-item-review-person-avatar round" href="rentals-details.html#">
+                            <img src="/assets/img/good_job_100x100.jpg" alt="Image Alternative text" title="Afro">
+                        </a>
+                        <c:out value="${viewedUser.firstname} ${viewedUser.lastname}"/>
+                    </c:when>
+                </c:choose>
+            </h1>
         </div>
         <div class="container">
             <div class="row">
-                <jsp:include page="/WEB-INF/views/users/blocks/sidebar.jsp"/>
+                <c:if test="${viewedUser.id==user.id}">
+                    <jsp:include page="/WEB-INF/views/users/blocks/sidebar.jsp"/>
+                </c:if>
                 <div class="col-md-9">
                     <h4>Statistiques</h4>
                     <ul class="list list-inline user-profile-statictics mb30">
