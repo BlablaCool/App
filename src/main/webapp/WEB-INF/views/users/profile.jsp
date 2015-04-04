@@ -8,6 +8,9 @@
             <h1 class="page-title">
                 <c:choose>
                     <c:when test="${viewedUser.id==user.id}">
+                        <a class="booking-item-review-person-avatar round" href="rentals-details.html#">
+                            <img src="/assets/img/good_job_100x100.jpg" alt="Image Alternative text" title="Afro">
+                        </a>
                         Profile
                     </c:when>
                     <c:when test="${viewedUser.id!=user.id}">
