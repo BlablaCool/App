@@ -45,14 +45,7 @@ public class TripController
     public ModelAndView getIndex(ModelAndView modelAndView)
     {
         modelAndView.setViewName("trips/list");
-        modelAndView.addObject("recentTrips", tripService.findRecents());
-
-        for (Trip trip : tripService.findRecents())
-        {
-            System.out.println(trip.getDepartureStep().getPlace().getCity());
-            trip.getCapacity();
-            trip.getDriver().getNickname();
-        }
+        modelAndView.addObject("trips", tripService.findRecents());
 
         return modelAndView;
     }

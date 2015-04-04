@@ -161,7 +161,7 @@
           </div>
           <ul class="booking-list">
 
-            <c:forEach items="${recentTrips}" var="trip">
+            <c:forEach items="${trips}" var="trip">
               <li class="trip-element" data-url="/trips/${trip.idTrip}">
                 <div class="booking-item">
                   <div class="row">

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -60,40 +61,17 @@ public class SearchService
                 departureDateTime.toString("dd-MM-yyyy");
     }
 
-    public List<Trip> findTripsWithAddresses(String _departurePointJson, String _arrivalPointJson, String _infosJson)
+    public List<Trip> findTripsWithAddresses(String departureCity, String arrivalCity, String departureTimeAsString)
     {
-        JSONObject jsonObjectInfos = (JSONObject) JSONValue.parse(_infosJson);
-        DateTime departureDateTime = DateTime.parse((String) jsonObjectInfos.get("departureTime"), DateTimeFormat.forPattern("dd/MM/yyyy"));
+        DateTime departureDateTime = DateTime.parse(departureTimeAsString, DateTimeFormat.forPattern("dd-MM-yyyy"));
 
-        SearchPoint departureSearchPoint = new SearchPoint((JSONObject) JSONValue.parse(_departurePointJson));
-        SearchPoint arrivalSearchPoint = new SearchPoint((JSONObject) JSONValue.parse(_arrivalPointJson));
-
-        Search search = new Search(departureSearchPoint, arrivalSearchPoint, departureDateTime);
-
-        return searchDao.findTripsWithAddresses(search.getDeparturePoint().getCity(),
-                search.getArrivalPoint().getCity(),
-                search.getDepartureTime());
+        return searchDao.findTripsWithAddresses(departureCity, arrivalCity, departureDateTime);
     }
 
-    public List<Trip> findTripsNearbyLocation(String _departureGeolocationJson, String _arrivalPointJson, String _infosJson)
+    public List<Trip> findTripsNearbyLocation(BigDecimal departureLatitude, BigDecimal departureLongitude, String arrivalCity, String departureTimeAsString)
     {
-        // Infos about trip
-        JSONObject jsonObjectInfos = (JSONObject) JSONValue.parse(_infosJson);
-        DateTime departureDateTime = DateTime.parse((String) jsonObjectInfos.get("departureTime"), DateTimeFormat.forPattern("dd/MM/yyyy"));
+        DateTime departureDateTime = DateTime.parse(departureTimeAsString, DateTimeFormat.forPattern("dd-MM-yyyy"));
 
-        // Departure point with Geolocation
-        JSONObject jsonObjectGeolocation = (JSONObject) JSONValue.parse(_departureGeolocationJson);
-        SearchPoint departureSearchPoint = new SearchPoint((String) jsonObjectGeolocation.get("latitude"), (String) jsonObjectGeolocation.get("longitude"));
-
-        // Arrival point with geolocation
-        SearchPoint arrivalSearchPoint = new SearchPoint((JSONObject) JSONValue.parse(_arrivalPointJson));
-
-        // Global search
-        Search search = new Search(departureSearchPoint, arrivalSearchPoint, departureDateTime);
-
-        return searchDao.findTripsNearbyLocation(search.getDeparturePoint().getLatitude(),
-                search.getDeparturePoint().getLongitude(),
-                search.getArrivalPoint().getCity(),
-                search.getDepartureTime());
+        return searchDao.findTripsNearbyLocation(departureLatitude, departureLongitude, arrivalCity, departureDateTime);
     }
 }

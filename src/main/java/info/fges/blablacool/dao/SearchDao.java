@@ -21,23 +21,6 @@ public class SearchDao
     @Autowired
     private SessionFactory sessionFactory;
 
-    public List<Trip> findTrips(String _departurePointJson, String _arrivalPointJson, String _infosJson)
-    {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-
-        List<Trip> tripList;
-        Query query = session
-                .createQuery("FROM Trip")
-                .setMaxResults(20);
-        tripList = query.list();
-
-        transaction.commit();
-        session.close();
-
-        return tripList;
-    }
-
     public List<Trip> findTripsWithAddresses(String _departureCity, String _arrivalCity, DateTime _departureTime)
     {
         Session session = sessionFactory.openSession();
@@ -45,7 +28,7 @@ public class SearchDao
 
         List<Trip> tripList;
         Query query = session
-                .createQuery("FROM Trip trip, Trip trip2\n" +
+                .createQuery("SELECT trip FROM Trip trip, Trip trip2\n" +
                         "INNER JOIN trip.steps AS step\n" +
                         "INNER JOIN trip2.steps AS step2\n" +
                         "WHERE DATE(step.estimatedTime) > DATE('1970-01-01') " +

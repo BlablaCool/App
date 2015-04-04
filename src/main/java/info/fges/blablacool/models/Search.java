@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -18,12 +19,39 @@ import java.util.List;
 @Component
 public class Search
 {
-    @Resource()
-    private SessionFactory sessionFactory;
-
     private SearchPoint departurePoint;
     private SearchPoint arrivalPoint;
     private DateTime departureTime;
+
+    public Search()
+    {
+
+    }
+
+    public Search(SearchPoint _departurePoint, SearchPoint _arrivalPoint, DateTime _departureTime)
+    {
+        this.departurePoint = _departurePoint;
+        this.arrivalPoint = _arrivalPoint;
+        this.departureTime = _departureTime;
+        this.withGeolocation = false;
+    }
+
+    public Search(SearchPoint _departurePoint, SearchPoint _arrivalPoint, DateTime _departureTime, Boolean _withGeolocation)
+    {
+        this.departurePoint = _departurePoint;
+        this.arrivalPoint = _arrivalPoint;
+        this.departureTime = _departureTime;
+        this.withGeolocation = _withGeolocation;
+    }
+
+    public Boolean isWithGeolocation() {
+        return withGeolocation;
+    }
+
+    public void setWithGeolocation(Boolean withGeolocation) {
+        this.withGeolocation = withGeolocation;
+    }
+
     private Boolean withGeolocation;
 
     public DateTime getDepartureTime() {
@@ -48,26 +76,5 @@ public class Search
 
     public void setArrivalPoint(SearchPoint arrivalPoint) {
         this.arrivalPoint = arrivalPoint;
-    }
-
-    public Search()
-    {
-
-    }
-
-    public Search(SearchPoint _departurePoint, SearchPoint _arrivalPoint, DateTime _departureTime)
-    {
-        this.departurePoint = _departurePoint;
-        this.arrivalPoint = _arrivalPoint;
-        this.departureTime = _departureTime;
-        this.withGeolocation = false;
-    }
-
-    public Search(SearchPoint _departurePoint, SearchPoint _arrivalPoint, DateTime _departureTime, Boolean _withGeolocation)
-    {
-        this.departurePoint = _departurePoint;
-        this.arrivalPoint = _arrivalPoint;
-        this.departureTime = _departureTime;
-        this.withGeolocation = _withGeolocation;
     }
 }
