@@ -10,10 +10,6 @@
 
 <tiles:insertDefinition name="blablacoolTemplate">
 
-  <tiles:putAttribute name="footer-custom-js">
-    <script src="/assets/js/booking.pending.js"></script>
-  </tiles:putAttribute>
-
   <tiles:putAttribute name="body">
     <div class="gap"></div>
     <div class="container">
