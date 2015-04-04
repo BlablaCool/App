@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -36,21 +37,13 @@ public class AjaxSearchController
     {
         JSONObject jsonObject = (JSONObject) JSONValue.parse(stringifiedJsonInfos);
 
-        // Checking if Geolocation is enabled
         if (jsonObject.containsKey("enableGeolocation"))
         {
-            List<Trip> trips = searchService.findTripsNearbyLocation(stringifiedJsonGeolocation, stringifiedJsonArrival, stringifiedJsonInfos);
-
-            for (Trip trip : trips)
-            {
-                System.out.println(trip.getDepartureStep().getPlace().getCity() + " --> " + trip.getArrivalStep().getPlace().getCity());
-            }
+            return JSONValue.toJSONString(searchService.getSearchUrlForTripsNearbyLocation(stringifiedJsonGeolocation, stringifiedJsonArrival, stringifiedJsonInfos));
         }
         else
         {
-            System.out.println(searchService.findTripsWithAddresses(stringifiedJsonDeparture, stringifiedJsonArrival, stringifiedJsonInfos));
+            return JSONValue.toJSONString(searchService.getSearchUrlForTripsWithAddresses(stringifiedJsonDeparture, stringifiedJsonArrival, stringifiedJsonInfos));
         }
-
-        return "ok";
     }
 }

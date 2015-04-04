@@ -63,8 +63,7 @@ $(function()
                 geolocation: JSON.stringify($('#geolocationForm').serializeObject())
             },
             success: function(response) {
-                $(this).attr('disabled');
-                console.log(response);
+                window.location.href = response;
             },
             error: function() {
                 alert('Une erreur est survenue pendant la recherche...')
