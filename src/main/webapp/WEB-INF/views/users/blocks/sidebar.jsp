@@ -3,7 +3,7 @@
 <div class="col-md-3">
     <aside class="user-profile-sidebar">
         <div class="user-profile-avatar text-center">
-            <h5><c:out value="${viewedUser.firstname} ${viewedUser.lastname}"/></h5>
+            <h3 style="color:#ffffff"><c:out value="${viewedUser.firstname} ${viewedUser.lastname}"/></h3>
         </div>
         <ul class="list user-profile-nav">
             <s:url var="url_profile" value="/users/1"/>
