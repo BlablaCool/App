@@ -78,8 +78,7 @@ public class AjaxBookingController
             throw new AccessForbiddenException();
         }
 
-        booking.setStatus("ACCEPTED");
-        bookingService.update(booking);
+        bookingService.acceptBooking(booking);
 
         return "UPDATED";
     }
@@ -101,8 +100,7 @@ public class AjaxBookingController
             throw new AccessForbiddenException();
         }
 
-        booking.setStatus("DECLINED");
-        bookingService.update(booking);
+        bookingService.declineBooking(booking);
 
         return "UPDATED";
     }

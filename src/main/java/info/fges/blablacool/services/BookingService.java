@@ -1,11 +1,14 @@
 package info.fges.blablacool.services;
 
 import info.fges.blablacool.dao.BookingDao;
+import info.fges.blablacool.helpers.MailHelper;
 import info.fges.blablacool.models.Booking;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Valentin on 29/03/15.
@@ -55,5 +58,43 @@ public class BookingService extends ServiceInterface<Booking, Integer>
     public List<Booking> findPendingForUser(Integer idUser)
     {
         return bookingDao.findPendingForUser(idUser);
+    }
+
+    public void acceptBooking(Booking booking)
+    {
+        booking.setStatus("ACCEPTED");
+        bookingDao.update(booking);
+
+        // Sending the notification...
+        HashMap<String, String> mailPlaceholders = new HashMap<String, String>();
+        mailPlaceholders.put("passengerNickname", booking.getUser().getNickname());
+        mailPlaceholders.put("driverNickname", booking.getTrip().getDriver().getNickname());
+        mailPlaceholders.put("bookingUrl", "http://localhost:8080/booking/" + booking.getId());
+
+        MailHelper mailHelper = new MailHelper(booking.getTrip().getDriver().getNickname(),
+                booking.getTrip().getDriver().getEmail(),
+                "booking/accepted",
+                mailPlaceholders,
+                "Réservation confirmée !",
+                "Votre réservation sur BlablaCool est confirmée");
+        mailHelper.send();
+    }
+
+    public void declineBooking(Booking booking)
+    {
+        booking.setStatus("DECLINED");
+        bookingDao.update(booking);
+
+        // Sending the notification...
+        //TODO
+    }
+
+    public void cancelBooking(Booking booking)
+    {
+        booking.setStatus("CANCELLED");
+        bookingDao.update(booking);
+
+        // Sending the notification...
+        //TODO
     }
 }

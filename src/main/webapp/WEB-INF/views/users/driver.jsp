@@ -23,7 +23,7 @@
         <jsp:include page="/WEB-INF/views/users/blocks/sidebar.jsp"/>
         <div class="col-md-9">
 
-          <h4>Demandes de réservations en attente de validation</h4>
+          <h4>Réservations en attente...</h4>
           <table id="pendingBookingTable" class="table table-bordered table-striped table-booking-history">
             <thead>
             <tr>
@@ -37,8 +37,8 @@
             <c:forEach items="${pendingBooking}" var="booking">
               <tr>
                 <td><strong><joda:format value="${booking.createdTime}" pattern="dd/MM/yyyy - HH:mm:ss" /></strong></td>
-                <td><a href="/users/${booking.user.id}">${booking.user.nickname}</a></td>
-                <td>${booking.step.place.city} <i class="fa fa-angle-right fa-fw"></i>${booking.trip.arrivalStep.place.city}</td>
+                <td><a href="/users/${booking.user.id}" target="_blank">${booking.user.nickname}</a></td>
+                <td><a href="/trips/${booking.trip.idTrip}" target="_blank">${booking.step.place.city} <i class="fa fa-angle-right fa-fw"></i>${booking.trip.arrivalStep.place.city}</a></td>
                 <td style="text-align: center;">
                   <div class="btn-group btn-group-sm" style="margin: 9px 0;">
                     <button class="btn btn-success accept-booking" data-booking="${booking.id}">Accepter</button>
