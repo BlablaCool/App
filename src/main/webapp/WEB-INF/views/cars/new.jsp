@@ -4,6 +4,11 @@
 
 <tiles:insertDefinition name="blablacoolTemplate">
 
+    <tiles:putAttribute name="header-custom-css">
+        <link type="text/css" rel="stylesheet" href="/assets/css/spinkit.css">
+        <link type="text/css" rel="stylesheet" href="/assets/css/fade.css">
+    </tiles:putAttribute>
+
     <tiles:putAttribute name="footer-custom-js">
         <script src="/assets/js/cars.new.js"></script>
     </tiles:putAttribute>
@@ -14,7 +19,7 @@
         </div>
                 <spring:url var="addCarUrl" value="/cars/create" />
         <div class="container">
-                <form:form action="${addCarUrl}" method="POST" modelAttribute="newCar" class="form-horizontal">
+                <form:form action="${addCarUrl}" method="POST" modelAttribute="newCar" class="form-horizontal" id="carForm">
                 <fieldset>
                     <!-- Select Basic -->
                     <div class="form-group">
@@ -116,8 +121,11 @@
 
                 </fieldset>
             </form:form>
+            <div class="spinner sk-spinner sk-spinner-wandering-cubes" id="spinner">
+                <div class="sk-cube1"></div>
+                <div class="sk-cube2"></div>
+            </div>
         </div>
-
         <div class="gap"></div>
 
     </tiles:putAttribute>
