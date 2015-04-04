@@ -24,3 +24,20 @@
 .geolocationWaiting, .geolocationDone, .geolocationError {
     display: none;
 }
+#participantsList {
+    list-style-type: none;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    display: inline;
+    margin-left: 42px;
+}
+#participantsList li {
+    display: inline;
+    margin-right: 20px;
+}
+#participantsList li:last-child {
+    display: inline;
+    margin-right: 0;
+
+}
