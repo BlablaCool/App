@@ -19,9 +19,9 @@
     <div class="container">
       <div class="row">
         <div class="col-md-8 col-md-offset-2">
-          <i class="fa fa-ticket round box-icon-large box-icon-center box-icon-warning mb30"></i>
-          <h2 class="text-center">C'est enregistré, ${user.firstname} !</h2>
-          <h5 class="text-center mb30">Vous serez prévenu par email dès que votre réservation sera validée par <em>${booking.trip.driver.nickname}</em>.</h5>
+          <i class="fa fa-exclamation round box-icon-large box-icon-center box-icon-danger mb30"></i>
+          <h2 class="text-center">Réservation annulée !</h2>
+          <h5 class="text-center mb30">Vous avez choisi d'annuler cette réservation et celle-ci n'est donc plus disponible.</h5>
           <ul class="order-payment-list list mb30">
             <li>
               <div class="row">
@@ -48,15 +48,6 @@
                   </p>
                 </div>
               </div>
-            </li>
-          </ul>
-          <%--<h4 class="text-center">Vous avez un regret ?</h4>--%>
-          <ul class="list list-inline list-center">
-            <li>
-              <form name="cancelBooking" method="POST">
-                <button type="submit" id="cancelBooking" class="btn btn-danger" name="cancelBooking" value="yes" data-booking="${booking.id}" ><i class="fa fa-times"></i> Annuler ma réservation</button>
-              </form>
-              <p class="text-center lh1em mt5"><small>possible jusqu'à deux heures<br>avant l'heure de départ</small></p>
             </li>
           </ul>
         </div>

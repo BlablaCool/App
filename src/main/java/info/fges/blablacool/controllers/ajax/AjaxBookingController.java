@@ -42,7 +42,7 @@ public class AjaxBookingController
     @RequestMapping(value = "/new/{id}")
     @ResponseBody
     public ResponseEntity<String> postNew(@PathVariable("id") Integer idTrip,
-                          @AuthenticationPrincipal User loggedUser)
+                                          @AuthenticationPrincipal User loggedUser)
     {
         Trip trip = tripService.findById(idTrip);
         User user = userService.findById(loggedUser.getId());

@@ -10,8 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -28,7 +27,7 @@ public class BookingController
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/{id}")
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ModelAndView getConfirmationPage(@AuthenticationPrincipal User principal,
                                             @PathVariable("id") Integer idBooking,
                                             ModelAndView modelAndView) throws ResourceNotFoundException
@@ -48,10 +47,37 @@ public class BookingController
         {
             modelAndView.setViewName("booking/pending");
         }
+        else if (booking.getStatus().contentEquals("CANCELLED"))
+        {
+            modelAndView.setViewName("booking/cancelled");
+        }
 
         modelAndView.addObject("booking", booking);
         modelAndView.addObject("user", user);
 
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    public String postDeleteBooking(@AuthenticationPrincipal User principal,
+                                    @PathVariable("id") Integer idBooking,
+                                    @RequestParam(value = "cancelBooking", required = true) String cancelBooking,
+                                    ModelAndView modelAndView) throws ResourceNotFoundException
+    {
+        Booking booking = bookingService.findById(idBooking);
+
+        if (booking == null)
+        {
+            throw new ResourceNotFoundException();
+        }
+        else if (booking.getUser().getId() != principal.getId())
+        {
+            throw new AccessForbiddenException();
+        }
+
+        booking.setStatus("CANCELLED");
+        bookingService.update(booking);
+
+        return "redirect:/booking/" + booking.getId();
     }
 }
