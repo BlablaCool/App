@@ -83,8 +83,7 @@ public class BookingController
             throw new AccessForbiddenException();
         }
 
-        booking.setStatus("CANCELLED");
-        bookingService.update(booking);
+        bookingService.cancelBooking(booking);
 
         return "redirect:/booking/" + booking.getId();
     }

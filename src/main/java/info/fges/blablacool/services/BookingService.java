@@ -71,8 +71,8 @@ public class BookingService extends ServiceInterface<Booking, Integer>
         mailPlaceholders.put("driverNickname", booking.getTrip().getDriver().getNickname());
         mailPlaceholders.put("bookingUrl", "http://localhost:8080/booking/" + booking.getId());
 
-        MailHelper mailHelper = new MailHelper(booking.getTrip().getDriver().getNickname(),
-                booking.getTrip().getDriver().getEmail(),
+        MailHelper mailHelper = new MailHelper(booking.getUser().getNickname(),
+                booking.getUser().getEmail(),
                 "booking/accepted",
                 mailPlaceholders,
                 "Réservation confirmée !",
@@ -95,6 +95,18 @@ public class BookingService extends ServiceInterface<Booking, Integer>
         bookingDao.update(booking);
 
         // Sending the notification...
-        //TODO
+        HashMap<String, String> mailPlaceholders = new HashMap<String, String>();
+        mailPlaceholders.put("passengerNickname", booking.getUser().getNickname());
+        mailPlaceholders.put("driverNickname", booking.getTrip().getDriver().getNickname());
+        mailPlaceholders.put("tripSummary", booking.getTrip().getDepartureStep().getPlace().getCity() + " > " + booking.getTrip().getArrivalStep().getPlace().getCity());
+        mailPlaceholders.put("bookingUrl", "http://localhost:8080/booking/" + booking.getId());
+
+        MailHelper mailHelper = new MailHelper(booking.getTrip().getDriver().getNickname(),
+                booking.getTrip().getDriver().getEmail(),
+                "booking/cancelled",
+                mailPlaceholders,
+                "Réservation annulée",
+                "Un passager a annulé sa réservation");
+        mailHelper.send();
     }
 }
