@@ -1,5 +1,6 @@
 package info.fges.blablacool.controllers;
 
+import info.fges.blablacool.exceptions.AccessForbiddenException;
 import info.fges.blablacool.models.Place;
 import info.fges.blablacool.models.Step;
 import info.fges.blablacool.models.Trip;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,9 +36,6 @@ public class TripController
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private PlaceService placeService;
 
     @Autowired
     private StepService stepService;
@@ -74,23 +73,29 @@ public class TripController
         return modelAndView;
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public ModelAndView getSearch()
+    @Secured("ROLE_SUBSCRIBED")
+    @RequestMapping(value = "/copy/{id}", method = RequestMethod.GET)
+    public String getCopyTrip(@AuthenticationPrincipal User user,
+                              @PathVariable("id") Integer id,
+                              ModelAndView modelAndView)
     {
-        ModelAndView mv = new ModelAndView("trips/search");
+        Trip tripToClone = tripService.findById(id);
 
-        List<Trip> trips;
-        trips = tripService.findAll();
+        if (tripToClone.getDriver().getId() != user.getId())
+        {
+            throw new AccessForbiddenException();
+        }
 
-        /*for (Trip trip : trips) {
-            trip.getTripHasPlaces().get().getPlace().getPublicName()
-            /*User user = trip.getDriver();
-            Car car = trip.;
-        }*/
+        // Creating architecture...
+        Trip clonedTrip = new Trip(tripToClone);
+        tripService.create(clonedTrip);
 
-        mv.addObject("lTrips", trips);
+        // Adding Steps...
+        for (Step stepToClone : tripToClone.getSteps())
+        {
+            stepService.create(new Step(stepToClone, clonedTrip));
+        }
 
-        return mv;
+        return "redirect:/trips/" + clonedTrip.getIdTrip() + "/edit";
     }
-
 }

@@ -77,7 +77,6 @@
 
                     <h3 class="mb20">Prochains voyages</h3>
                     <div class="row">
-
                         <c:choose>
                             <c:when test="${viewedUser.driverUpcomingTrips.size() == 0}">
                                 <p class="lead text-center">Aucun voyage à l'horizon !</p>

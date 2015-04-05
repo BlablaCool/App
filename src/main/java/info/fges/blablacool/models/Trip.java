@@ -16,15 +16,25 @@ public class Trip {
     private int idTrip;
     private Short capacity;
     private User driver;
-    private List<Step> steps;
     private boolean allowSmoking;
     private boolean allowAnimals;
     private String luggage;
     private BigDecimal price;
+    private List<Step> steps;
     private List<Booking> booking;
 
     public Trip()
     {
+    }
+
+    public Trip(Trip trip)
+    {
+        this.driver = trip.getDriver();
+        this.capacity = trip.getCapacity();
+        this.allowSmoking = trip.isAllowSmoking();
+        this.allowAnimals = trip.isAllowAnimals();
+        this.luggage = trip.getLuggage();
+        this.price = trip.getPrice();
     }
 
     public Trip(JSONObject jsonTrip, User user)

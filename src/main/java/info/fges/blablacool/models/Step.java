@@ -10,17 +10,26 @@ import java.util.List;
  * Created by Valentin on 24/03/15.
  */
 @Entity
-public class Step {
+public class Step
+{
+    private int idStep;
     private Integer position;
     private DateTime estimatedTime;
     private Place place;
     private Trip trip;
-    private int idStep;
     private List<Booking> booking;
 
     public Step()
     {
 
+    }
+
+    public Step(Step step, Trip trip)
+    {
+        this.position = step.getPosition();
+        this.estimatedTime = step.getEstimatedTime();
+        this.place = step.getPlace();
+        this.trip = trip;
     }
 
     public Step(Trip trip, Place place)
