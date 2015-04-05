@@ -7,27 +7,33 @@
         <div class="container">
             <h1 class="page-title">
                 <c:choose>
-                    <c:when test="${viewedUser.id==user.id}">
+                    <c:when test="${viewedUser.id == user.id}">
                         <a class="booking-item-review-person-avatar round" href="rentals-details.html#">
-                            <img src="/assets/img/good_job_100x100.jpg" alt="Image Alternative text" title="Afro">
+                            <img src="/assets/img/good_job_100x100.jpg">&nbsp;
                         </a>
-                        Profile
+                        Mon compte
                     </c:when>
-                    <c:when test="${viewedUser.id!=user.id}">
+                    <c:when test="${viewedUser.id != user.id}">
                         <a class="booking-item-review-person-avatar round" href="rentals-details.html#">
-                            <img src="/assets/img/good_job_100x100.jpg" alt="Image Alternative text" title="Afro">
+                            <img src="/assets/img/good_job_100x100.jpg">&nbsp;
                         </a>
-                        <c:out value="${viewedUser.firstname} ${viewedUser.lastname}"/>
+                        ${viewedUser.nickname}
                     </c:when>
                 </c:choose>
             </h1>
         </div>
         <div class="container">
             <div class="row">
-                <c:if test="${viewedUser.id==user.id}">
-                    <jsp:include page="/WEB-INF/views/users/blocks/sidebar.jsp"/>
-                </c:if>
-                <div class="col-md-9">
+                <c:choose>
+                    <c:when test="${viewedUser.id == user.id}">
+                        <jsp:include page="/WEB-INF/views/users/blocks/sidebar.jsp"/>
+                        <div class="col-md-9">
+                    </c:when>
+                    <c:otherwise>
+                        <div class="col-md-8 col-md-offset-2">
+                    </c:otherwise>
+                </c:choose>
+
                     <h4>Statistiques</h4>
                     <ul class="list list-inline user-profile-statictics mb30">
                         <li><i class="fa fa-dashboard user-profile-statictics-icon"></i>

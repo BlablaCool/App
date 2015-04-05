@@ -44,10 +44,16 @@ public class UserController {
         return modelAndView;
     }
 
+    @Secured("ROLE_USER")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ModelAndView getUser(ModelAndView modelAndView , @PathVariable("id") Integer id )
+    public ModelAndView getUser(@AuthenticationPrincipal User user,
+                                @PathVariable("id") Integer id,
+                                ModelAndView modelAndView)
     {
         modelAndView.setViewName("users/profile");
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("viewedUser", userService.findById(id));
+
         return modelAndView;
     }
 
