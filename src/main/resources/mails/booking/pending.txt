@@ -2,8 +2,7 @@ Bonjour {{ driverNickname }},
 
 {{ passengerNickname }} demande une place en covoiturage pour le voyage {{ tripSummary }} !
 
-Cliquez sur le lien suivant pour afficher les détails, accepter ou refuser cette demande :
-<a href="{{ adminBookingUrl }}">voir les détails de la réservation</a>.
+Cliquez sur le lien suivant pour afficher les détails, accepter ou refuser cette demande : <a href="{{ adminBookingUrl }}">voir les détails de la réservation</a>.
 
 À très bientôt !
 L'équipe BlablaCool.

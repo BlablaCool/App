@@ -102,7 +102,19 @@ public class BookingService extends ServiceInterface<Booking, Integer>
         bookingDao.update(booking);
 
         // Sending the notification...
-        //TODO
+        HashMap<String, String> mailPlaceholders = new HashMap<String, String>();
+        mailPlaceholders.put("passengerNickname", booking.getUser().getNickname());
+        mailPlaceholders.put("driverNickname", booking.getTrip().getDriver().getNickname());
+        mailPlaceholders.put("tripSummary", booking.getTrip().getDepartureStep().getPlace().getCity() + " > " + booking.getTrip().getArrivalStep().getPlace().getCity());
+        mailPlaceholders.put("bookingUrl", "http://localhost:8080/booking/" + booking.getId());
+
+        MailHelper mailHelper = new MailHelper(booking.getTrip().getDriver().getNickname(),
+                booking.getTrip().getDriver().getEmail(),
+                "booking/declined",
+                mailPlaceholders,
+                "Réservation déclinée",
+                "Le conducteur ne donne pas suite à votre réservation");
+        mailHelper.send();
     }
 
     public void cancelBooking(Booking booking)
