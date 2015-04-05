@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -53,6 +54,7 @@ public class User implements UserDetails
     private String country;
     private UserPreference preferences;
     private List<Booking> booking;
+    private List<Trip> trips;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -340,5 +342,50 @@ public class User implements UserDetails
 
     public void setBooking(List<Booking> booking) {
         this.booking = booking;
+    }
+
+    @OneToMany(mappedBy = "driver")
+    public List<Trip> getTrips() {
+        return trips;
+    }
+
+    public void setTrips(List<Trip> trips) {
+        this.trips = trips;
+    }
+
+    @Transient
+    public List<Trip> getDriverUpcomingTrips()
+    {
+        List<Trip> tripList = new ArrayList<Trip>(this.trips);
+
+        for (Iterator<Trip> iterator = tripList.iterator(); iterator.hasNext();)
+        {
+            Trip trip = iterator.next();
+
+            if (trip.getDepartureStep().getEstimatedTime().isBeforeNow())
+            {
+                iterator.remove();
+            }
+        }
+
+        return tripList;
+    }
+
+    @Transient
+    public List<Trip> getDriverLastTrips()
+    {
+        List<Trip> tripList = new ArrayList<Trip>(this.trips);
+
+        for (Iterator<Trip> iterator = tripList.iterator(); iterator.hasNext();)
+        {
+            Trip trip = iterator.next();
+
+            if (trip.getArrivalStep().getEstimatedTime().isAfterNow())
+            {
+                iterator.remove();
+            }
+        }
+
+        return tripList;
     }
 }

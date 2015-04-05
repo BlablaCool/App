@@ -15,6 +15,9 @@
     background-repeat: no-repeat;
     /*background-size: cover;*/
 }
+#pendingBookingTable {
+    margin-bottom: 0;
+}
 #pendingBookingTable td {
     vertical-align: middle !important;
 }

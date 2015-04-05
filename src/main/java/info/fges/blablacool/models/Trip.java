@@ -75,6 +75,7 @@ public class Trip {
         this.capacity = capacity;
     }
 
+    @ManyToOne
     @OneToOne
     @JoinColumn(name = "driver_id", referencedColumnName = "id_user", nullable = false)
     public User getDriver() {
