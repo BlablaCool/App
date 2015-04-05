@@ -1,9 +1,11 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 
 <%--@elvariable id="viewedUser" type="info.fges.blablacool.models.User"--%>
 <%--@elvariable id="user" type="info.fges.blablacool.models.User"--%>
+<%--@elvariable id="trip" type="info.fges.blablacool.models.Trip"--%>
 
 <tiles:insertDefinition name="blablacoolTemplate">
     <tiles:putAttribute name="body">
@@ -73,7 +75,33 @@
 
                     <div class="gap gap-small"></div>
 
-                    <h3 class="mb20">Avis covoitureurs</h3>
+                    <h3 class="mb20">Prochains voyages</h3>
+                    <div class="row">
+
+                        <c:choose>
+                            <c:when test="${viewedUser.driverUpcomingTrips.size() == 0}">
+                                <p class="lead text-center">Aucun voyage à l'horizon !</p>
+                            </c:when>
+                            <c:otherwise>
+                                <c:forEach items="${viewedUser.driverUpcomingTrips}" var="trip">
+                                    <div class="col-md-4">
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <p class="mb0">
+                                                    <a href="/trips/${trip.idTrip}"><strong>${trip.departureStep.place.city} <em> vers</em> ${trip.arrivalStep.place.city}</strong></a><br />
+                                                    <small>le <joda:format value="${trip.departureStep.estimatedTime}" pattern="dd/MM/yyyy" /></small>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+
+                    <div class="gap gap-small"></div>
+
+                    <h3 class="mb20">Avis des membres</h3>
                     <div class="row row-wrap">
                         <div class="col-md-12">
                             <ul class="booking-item-reviews list">
