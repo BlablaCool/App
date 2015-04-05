@@ -1,5 +1,5 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
-<%@taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <tiles:insertDefinition name="blablacoolTemplate">
@@ -34,26 +34,33 @@
                     </c:otherwise>
                 </c:choose>
 
-                    <h4>Statistiques</h4>
-                    <ul class="list list-inline user-profile-statictics mb30">
-                        <li><i class="fa fa-dashboard user-profile-statictics-icon"></i>
-                            <h5>12540</h5>
-                            <p>Kilometres parcourus</p>
-                        </li>
-                        <li><i class="fa fa-car user-profile-statictics-icon"></i>
-                            <h5>21</h5>
-                            <p>Trajets Passager</p>
-                        </li>
-                        <li><i class="fa fa-car user-profile-statictics-icon"></i>
-                            <h5>15</h5>
-                            <p>Trajets Conducteur</p>
-                        </li>
-                        <li><i class="fa fa-smile-o user-profile-statictics-icon"></i>
-                            <h5>4.5/5</h5>
-                            <p>Satisfaction</p>
-                        </li>
-                    </ul>
+                    <div class="text-center">
+                        <ul class="list list-inline user-profile-statictics mb30">
+                            <li><i class="fa fa-dashboard user-profile-statictics-icon"></i>
+                                <h5>12 540</h5>
+                                <p><strong>kilomètres</strong> parcourus</p>
+                            </li>
+                            <li><i class="fa fa-car user-profile-statictics-icon"></i>
+                                <h5>21</h5>
+                                <p>trajets comme <strong>passager</strong></p>
+                            </li>
+                            <li><i class="fa fa-car user-profile-statictics-icon"></i>
+                                <h5>15</h5>
+                                <p>trajets comme <strong>conducteur</strong></p>
+                            </li>
+                            <li><i class="fa fa-smile-o user-profile-statictics-icon"></i>
+                                <h5>4.5/5</h5>
+                                <p><strong>satisfaction</strong> des autres membres</p>
+                            </li>
+                            <li><i class="fa fa-trophy user-profile-statictics-icon"></i>
+                                <h5>VIP</h5>
+                                <p>possède un <strong>abonnement</strong></p>
+                            </li>
+                        </ul>
+                    </div>
+
                     <div class="gap gap-small"></div>
+
                     <h3 class="mb20">Avis covoitureurs</h3>
                     <div class="row row-wrap">
                         <div class="col-md-12">
