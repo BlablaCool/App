@@ -30,8 +30,24 @@ public class BookingService extends ServiceInterface<Booking, Integer>
     }
 
     @Override
-    public void create(Booking booking) {
+    public void create(Booking booking)
+    {
         bookingDao.create(booking);
+
+        // Sending the notification...
+        HashMap<String, String> mailPlaceholders = new HashMap<String, String>();
+        mailPlaceholders.put("passengerNickname", booking.getUser().getNickname());
+        mailPlaceholders.put("driverNickname", booking.getTrip().getDriver().getNickname());
+        mailPlaceholders.put("tripSummary", booking.getTrip().getDepartureStep().getPlace().getCity() + " > " + booking.getTrip().getArrivalStep().getPlace().getCity());
+        mailPlaceholders.put("adminBookingUrl", "http://localhost:8080/users/driver");
+
+        MailHelper mailHelper = new MailHelper(booking.getTrip().getDriver().getNickname(),
+                booking.getTrip().getDriver().getEmail(),
+                "booking/pending",
+                mailPlaceholders,
+                "Réservation en attente",
+                "Un passager demande à rejoindre votre voyage !");
+        mailHelper.send();
     }
 
     @Override
