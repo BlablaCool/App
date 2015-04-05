@@ -2,6 +2,9 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%--@elvariable id="viewedUser" type="info.fges.blablacool.models.User"--%>
+<%--@elvariable id="user" type="info.fges.blablacool.models.User"--%>
+
 <tiles:insertDefinition name="blablacoolTemplate">
     <tiles:putAttribute name="body">
         <div class="container">
@@ -41,20 +44,29 @@
                                 <p><strong>kilomètres</strong> parcourus</p>
                             </li>
                             <li><i class="fa fa-car user-profile-statictics-icon"></i>
-                                <h5>21</h5>
+                                <h5>${viewedUser.booking.size()}</h5>
                                 <p>trajets comme <strong>passager</strong></p>
                             </li>
                             <li><i class="fa fa-car user-profile-statictics-icon"></i>
-                                <h5>15</h5>
+                                <h5>${viewedUser.trips.size()}</h5>
                                 <p>trajets comme <strong>conducteur</strong></p>
                             </li>
-                            <li><i class="fa fa-smile-o user-profile-statictics-icon"></i>
+                            <li>
+                                <i class="fa fa-smile-o user-profile-statictics-icon"></i>
                                 <h5>4.5/5</h5>
                                 <p><strong>satisfaction</strong> des autres membres</p>
                             </li>
-                            <li><i class="fa fa-trophy user-profile-statictics-icon"></i>
-                                <h5>VIP</h5>
-                                <p>possède un <strong>abonnement</strong></p>
+                            <li>
+                                <c:if test="${viewedUser.hasActiveSubscription()}">
+                                    <i class="fa fa-trophy user-profile-statictics-icon"></i>
+                                    <h5>VIP</h5>
+                                    <p>possède un <strong>abonnement</strong></p>
+                                </c:if>
+                                <c:if test="${!viewedUser.hasActiveSubscription()}">
+                                    <i class="fa fa-star-half-o user-profile-statictics-icon"></i>
+                                    <h5>Membre</h5>
+                                    <p>ne possède pas d'abonnement</p>
+                                </c:if>
                             </li>
                         </ul>
                     </div>
