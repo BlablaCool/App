@@ -12,7 +12,7 @@
         <div class="full-page">
             <div class="bg-holder full">
                 <div class="bg-mask"></div>
-                <div class="bg-img" style="background-image:url('/assets/img/background-login-register.jpg');"></div>
+                <div class="bg-img" style="background-image:url('/assets/img/background-full-2.jpg');"></div>
                 <div class="bg-holder-content full text-white">
                     <a class="logo-holder" href="/">
                         <img src="/assets/img/logo-white.png" />
