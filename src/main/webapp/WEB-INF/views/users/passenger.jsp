@@ -30,8 +30,8 @@
 
                 <c:choose>
                   <c:when test="${bookingWaitingReviews.size() == 0}">
-                    <p class="lead text-center text-success">
-                      Aucun voyage passé à évaluer !
+                    <p class="lead text-center text-success mt20">
+                      Aucun voyage
                     </p>
                   </c:when>
                   <c:otherwise>

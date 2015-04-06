@@ -150,6 +150,20 @@ public class Booking
         return this.status.contentEquals("CANCELLED");
     }
 
+    @Transient
+    public Boolean hasBeenReviewedByUser(Integer idUser)
+    {
+        for (Review review : this.reviews)
+        {
+            if (review.getReviewer().getId() == idUser)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     @OneToMany(mappedBy = "booking")
     public List<Review> getReviews() {
         return reviews;

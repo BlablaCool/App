@@ -42,5 +42,12 @@
 #participantsList li:last-child {
     display: inline;
     margin-right: 0;
-
+}
+#bookingReviewStarsWrapper {
+    color: rgb(255, 212, 0);
+    text-align: center;
+    cursor: pointer;
+}
+#stars-existing {
+    font-size: 34px;
 }

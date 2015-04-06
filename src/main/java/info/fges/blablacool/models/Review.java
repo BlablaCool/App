@@ -4,6 +4,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by Valentin on 06/04/15.
@@ -17,6 +18,20 @@ public class Review
     private User reviewer;
     private DateTime createdAt;
     private Booking booking;
+
+    public Review()
+    {
+
+    }
+
+    public Review(Integer _note, String _comment, User _reviewer, Booking _booking)
+    {
+        this.note = _note;
+        this.comment = _comment;
+        this.reviewer = _reviewer;
+        this.booking = _booking;
+        this.createdAt = DateTime.now();
+    }
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)

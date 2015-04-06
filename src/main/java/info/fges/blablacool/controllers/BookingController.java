@@ -3,15 +3,20 @@ package info.fges.blablacool.controllers;
 import info.fges.blablacool.exceptions.AccessForbiddenException;
 import info.fges.blablacool.exceptions.ResourceNotFoundException;
 import info.fges.blablacool.models.Booking;
+import info.fges.blablacool.models.Review;
 import info.fges.blablacool.models.User;
 import info.fges.blablacool.services.BookingService;
+import info.fges.blablacool.services.ReviewService;
 import info.fges.blablacool.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.awt.print.Book;
 
 /**
  * Created by Valentin on 29/03/15.
@@ -26,6 +31,9 @@ public class BookingController
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ReviewService reviewService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ModelAndView getConfirmationPage(@AuthenticationPrincipal User principal,
@@ -66,7 +74,7 @@ public class BookingController
         return modelAndView;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/delete", method = RequestMethod.POST)
     public String postDeleteBooking(@AuthenticationPrincipal User principal,
                                     @PathVariable("id") Integer idBooking,
                                     @RequestParam(value = "cancelBooking", required = true) String cancelBooking,
@@ -86,5 +94,49 @@ public class BookingController
         bookingService.cancelBooking(booking);
 
         return "redirect:/booking/" + booking.getId();
+    }
+
+    @RequestMapping(value = "/{id}/review", method = RequestMethod.GET)
+    public ModelAndView getReview(@AuthenticationPrincipal User user,
+                                  @PathVariable("id") Integer idBooking,
+                                  ModelAndView modelAndView)
+    {
+        Booking booking = bookingService.findById(idBooking);
+
+        if (booking.getUser().getId() != user.getId() || booking.hasBeenReviewedByUser(user.getId()))
+        {
+            throw new AccessForbiddenException();
+        }
+
+        modelAndView.setViewName("booking/review");
+        modelAndView.addObject("booking", bookingService.findById(idBooking));
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/{id}/review", method = RequestMethod.POST)
+    public ModelAndView postReview(@AuthenticationPrincipal User user,
+                                   @PathVariable("id") Integer idBooking,
+                                   @RequestParam(value = "rating", required = true) Integer rating,
+                                   @RequestParam(value = "comment", required = false) String comment,
+                                   ModelAndView modelAndView)
+    {
+        Booking booking = bookingService.findById(idBooking);
+
+        if (booking.getUser().getId() != user.getId() || booking.hasBeenReviewedByUser(user.getId()))
+        {
+            throw new AccessForbiddenException();
+        }
+
+        if (comment.contentEquals(""))
+        {
+            comment = null;
+        }
+
+        reviewService.create(new Review(rating, comment, user, booking));
+
+        modelAndView.setViewName("booking/review-success");
+
+        return modelAndView;
     }
 }

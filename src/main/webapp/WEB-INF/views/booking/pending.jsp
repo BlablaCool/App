@@ -48,7 +48,7 @@
           <%--<h4 class="text-center">Vous avez un regret ?</h4>--%>
           <ul class="list list-inline list-center">
             <li>
-              <form name="cancelBooking" method="POST">
+              <form name="cancelBooking" method="POST" action="/booking/${booking.id}/delete">
                 <button type="submit" id="cancelBooking" class="btn btn-danger" name="cancelBooking" value="yes" data-booking="${booking.id}" ><i class="fa fa-times"></i> Annuler ma réservation</button>
               </form>
               <p class="text-center lh1em mt5"><small>possible jusqu'à deux heures<br>avant l'heure de départ</small></p>
