@@ -1,20 +1,26 @@
 package info.fges.blablacool.models;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
 
 /**
  * Created by Valentin on 06/04/15.
  */
 @Entity
-public class Review {
+public class Review
+{
     private int idReview;
     private Integer note;
     private String comment;
     private User reviewee;
     private User reviewer;
+    private DateTime createdAt;
 
     @Id
-    @Column(name = "id_review", nullable = false, insertable = true, updatable = true)
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id_review", nullable = false, insertable = false, updatable = false)
     public int getIdReview() {
         return idReview;
     }
@@ -83,5 +89,16 @@ public class Review {
 
     public void setReviewer(User reviewer) {
         this.reviewer = reviewer;
+    }
+
+    @Basic
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @Column(name = "created_at", nullable = true, insertable = true, updatable = true)
+    public DateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(DateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

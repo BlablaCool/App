@@ -1,37 +1,32 @@
 package info.fges.blablacool.models;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 /**
  * Created by Valentin on 06/04/15.
  */
 @Entity
-public class Message {
+@Table(name = "message")
+public class Message
+{
     private int idMessage;
-    private Timestamp postedDate;
     private String message;
     private Trip trip;
     private User reviewer;
+    private DateTime createdAt;
 
     @Id
-    @Column(name = "id_message", nullable = false, insertable = true, updatable = true)
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id_message", nullable = false, insertable = false, updatable = false)
     public int getIdMessage() {
         return idMessage;
     }
 
     public void setIdMessage(int idMessage) {
         this.idMessage = idMessage;
-    }
-
-    @Basic
-    @Column(name = "posted_date", nullable = true, insertable = true, updatable = true)
-    public Timestamp getPostedDate() {
-        return postedDate;
-    }
-
-    public void setPostedDate(Timestamp postedDate) {
-        this.postedDate = postedDate;
     }
 
     @Basic
@@ -52,7 +47,6 @@ public class Message {
         Message message1 = (Message) o;
 
         if (idMessage != message1.idMessage) return false;
-        if (postedDate != null ? !postedDate.equals(message1.postedDate) : message1.postedDate != null) return false;
         if (message != null ? !message.equals(message1.message) : message1.message != null) return false;
 
         return true;
@@ -61,7 +55,6 @@ public class Message {
     @Override
     public int hashCode() {
         int result = idMessage;
-        result = 31 * result + (postedDate != null ? postedDate.hashCode() : 0);
         result = 31 * result + (message != null ? message.hashCode() : 0);
         return result;
     }
@@ -84,5 +77,16 @@ public class Message {
 
     public void setReviewer(User reviewer) {
         this.reviewer = reviewer;
+    }
+
+    @Basic
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @Column(name = "created_at", nullable = true, insertable = true, updatable = true)
+    public DateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(DateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }
