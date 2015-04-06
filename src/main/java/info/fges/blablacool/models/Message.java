@@ -15,8 +15,21 @@ public class Message
     private int idMessage;
     private String message;
     private Trip trip;
-    private User reviewer;
     private DateTime createdAt;
+    private User sender;
+
+    public Message()
+    {
+
+    }
+
+    public Message(String _message, Trip _trip, User _sender)
+    {
+        this.message = _message;
+        this.trip = _trip;
+        this.sender = _sender;
+        this.createdAt = DateTime.now();
+    }
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -69,16 +82,6 @@ public class Message
         this.trip = trip;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id_user", nullable = false)
-    public User getReviewer() {
-        return reviewer;
-    }
-
-    public void setReviewer(User reviewer) {
-        this.reviewer = reviewer;
-    }
-
     @Basic
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "created_at", nullable = true, insertable = true, updatable = true)
@@ -88,5 +91,15 @@ public class Message
 
     public void setCreatedAt(DateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id_user", nullable = false)
+    public User getSender() {
+        return sender;
+    }
+
+    public void setSender(User sender) {
+        this.sender = sender;
     }
 }

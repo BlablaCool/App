@@ -393,7 +393,7 @@ public class User implements UserDetails
         return tripList;
     }
 
-    @OneToMany(mappedBy = "reviewer")
+    @OneToMany(mappedBy = "sender")
     public List<Message> getMessages() {
         return messages;
     }

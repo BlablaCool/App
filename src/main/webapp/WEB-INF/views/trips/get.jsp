@@ -6,6 +6,7 @@
 <fmt:setLocale value="fr_FR" />
 
 <%--@elvariable id="trip" type="info.fges.blablacool.models.Trip"--%>
+<%--@elvariable id="message" type="info.fges.blablacool.models.Message"--%>
 
 <tiles:insertDefinition name="blablacoolTemplate">
 
@@ -81,83 +82,38 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row mt15">
         <div class="col-md-8 col-md-offset-2">
-          <h4 style="font-weight: 600; text-transform: uppercase; display: inline;">Messages</h4>
-          <ul class="comments-list">
-            <li>
-              <div class="article comment" inline_comment="comment">
-                <div class="comment-author">
-                  <img src="/assets/img/gamer_chick_50x50.jpg" alt="Image Alternative text" title="Gamer Chick"/>
-                </div>
-                <div class="comment-inner">
-                  <span class="comment-author-name">Alison Mackenzie</span>
-                  <p class="comment-content">
-                    Sociosqu mi nascetur sapien magna vitae aenean nulla auctor imperdiet primis risus at tempor tempor congue lacinia adipiscing dis vestibulum nunc ultricies tristique dignissim ornare diam praesent
-                  </p>
-                  <span class="comment-time">15 seconds ago</span><a class="comment-reply" href="feature-elements.html#"><i class="fa fa-reply"></i> Reply</a><a class="comment-like" href="feature-elements.html#"><i class="fa fa-heart"></i> 22</a>
+          <h4 class="ml10" style="font-weight: 600; text-transform: uppercase; display: inline;">Messages</h4>
+
+          <form class="form-horizontal mt20" method="POST" action="/trips/${trip.idTrip}/add-message" accept-charset="UTF-8">
+            <fieldset>
+              <div class="form-group">
+                <div class="col-md-12">
+                  <textarea class="form-control" id="message" name="message" style="height: 84px;"></textarea>
                 </div>
               </div>
-            </li>
-            <li>
-              <div class="article comment" inline_comment="comment">
-                <div class="comment-author">
-                  <img src="/assets/img/4_strokes_of_fun_50x50.jpg" alt="Image Alternative text" title="4 Strokes of Fun"/>
-                </div>
-                <div class="comment-inner">
-                  <span class="comment-author-name">Brandon Burgess</span>
-                  <p class="comment-content">
-                    Hendrerit dolor aenean hac gravida nisl ornare viverra nullam ac ante integer morbi tempor fusce sociosqu vestibulum dictum commodo ac duis in lacinia conubia cum lorem ultrices ullamcorper commodo
-                  </p>
-                  <span class="comment-time">15 seconds ago</span><a class="comment-reply" href="feature-elements.html#"><i class="fa fa-reply"></i> Reply</a><a class="comment-like" href="feature-elements.html#"><i class="fa fa-heart"></i> 44</a>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="article comment" inline_comment="comment">
-                <div class="comment-author">
-                  <img src="/assets/img/spidy_50x50.jpg" alt="Image Alternative text" title="Spidy"/>
-                </div>
-                <div class="comment-inner">
-                  <span class="comment-author-name">Brandon Burgess</span>
-                  <p class="comment-content">
-                    Sed urna neque primis sociosqu class elit sociosqu ut taciti eros ullamcorper mus feugiat suspendisse sagittis phasellus auctor purus sed rhoncus dolor curabitur
-                  </p>
-                  <span class="comment-time">15 seconds ago</span><a class="comment-reply" href="feature-elements.html#"><i class="fa fa-reply"></i> Reply</a><a class="comment-like" href="feature-elements.html#"><i class="fa fa-heart"></i> 30</a>
-                </div>
-              </div>
-              <ul>
-                <li>
-                  <div class="article comment" inline_comment="comment">
-                    <div class="comment-author">
-                      <img src="/assets/img/good_job_50x50.jpg" alt="Image Alternative text" title="Good job"/>
-                    </div>
-                    <div class="comment-inner">
-                      <span class="comment-author-name">Dylan Taylor</span>
-                      <p class="comment-content">
-                        Magnis metus dis consequat sed tristique lorem magna dis lectus nascetur arcu mauris condimentum auctor morbi congue habitasse blandit dictum semper cursus dis per vivamus ac
-                      </p>
-                      <span class="comment-time">15 seconds ago</span><a class="comment-reply" href="feature-elements.html#"><i class="fa fa-reply"></i> Reply</a><a class="comment-like" href="feature-elements.html#"><i class="fa fa-heart"></i> 15</a>
-                    </div>
+              <button id="send" name="send" class="btn btn-success pull-right">Envoyer</button>
+            </fieldset>
+          </form>
+
+          <ul id="messagesList" class="comments-list mt10">
+            <c:forEach items="${trip.messages}" var="message">
+              <li>
+                <div class="article comment" inline_comment="comment">
+                  <div class="comment-author">
+                    <img src="http://lorempixel.com/420/420/people/" style="max-width: 42px; max-height: 42px;" />
                   </div>
-                  <ul>
-                    <li>
-                      <div class="article comment" inline_comment="comment">
-                        <div class="comment-author">
-                          <img src="/assets/img/ana_29_50x50.jpg" alt="Image Alternative text" title="Ana 29"/>
-                        </div>
-                        <div class="comment-inner">
-                          <span class="comment-author-name">Cheryl Gustin</span>
-                          <p class="comment-content">
-                            Ultricies phasellus augue amet curabitur primis gravida purus ultrices fermentum ac pellentesque faucibus phasellus
-                          </p>
-                          <span class="comment-time">15 seconds ago</span><a class="comment-reply" href="feature-elements.html#"><i class="fa fa-reply"></i> Reply</a><a class="comment-like" href="feature-elements.html#"><i class="fa fa-heart"></i> 22</a>
-                        </div>
-                      </div>
-                      <ul>
-                      </ul>
-                  </ul>
-              </ul>
+                  <div class="comment-inner">
+                    <span class="comment-author-name">${message.sender.nickname}</span>
+                    <p class="comment-content">
+                      ${message.message}
+                    </p>
+                    <span class="comment-time">le <joda:format value="${message.createdAt}" pattern="dd/MM/yyyy à HH:mm:ss" /></span>
+                  </div>
+                </div>
+              </li>
+            </c:forEach>
           </ul>
         </div>
       </div>

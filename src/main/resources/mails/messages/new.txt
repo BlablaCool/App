@@ -1,0 +1,8 @@
+Bonjour {{ driverNickname }},
+
+{{ passengerNickname }} vient de poser une question pour le voyage {{ tripSummary }} !
+
+Cliquez sur le lien suivant y accéder et y répondre : <a href="{{ messagesTripUrl }}">voir la question</a>.
+
+À très bientôt !
+L'équipe BlablaCool.

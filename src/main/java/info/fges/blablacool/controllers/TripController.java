@@ -1,14 +1,8 @@
 package info.fges.blablacool.controllers;
 
 import info.fges.blablacool.exceptions.AccessForbiddenException;
-import info.fges.blablacool.models.Place;
-import info.fges.blablacool.models.Step;
-import info.fges.blablacool.models.Trip;
-import info.fges.blablacool.models.User;
-import info.fges.blablacool.services.PlaceService;
-import info.fges.blablacool.services.StepService;
-import info.fges.blablacool.services.TripService;
-import info.fges.blablacool.services.UserService;
+import info.fges.blablacool.models.*;
+import info.fges.blablacool.services.*;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -39,6 +35,9 @@ public class TripController
 
     @Autowired
     private StepService stepService;
+
+    @Autowired
+    private MessageService messageService;
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
     public ModelAndView getIndex(ModelAndView modelAndView)
@@ -71,6 +70,31 @@ public class TripController
         modelAndView.addObject("trip", tripService.findById(id));
 
         return modelAndView;
+    }
+
+    @Secured("ROLE_SUBSCRIBED")
+    @RequestMapping(value = "/{id}/add-message", method = RequestMethod.POST)
+    public String addMessageToTrip(@AuthenticationPrincipal User _user,
+                                         @PathVariable("id") Integer _idTrip,
+                                         @RequestParam("message") String _message,
+                                         HttpServletRequest request,
+                                         ModelAndView modelAndView)
+    {
+        try {
+            request.setCharacterEncoding("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        if (!_message.contentEquals(""))
+        {
+            _message = _message.replaceAll("[\r\n]+", "\n");
+            _message = _message.replaceAll("\n", "<br />");
+            System.out.println(_message);
+            messageService.create(new Message(_message, tripService.findById(_idTrip), _user));
+        }
+
+        return "redirect:/trips/" + _idTrip + "#messagesList";
     }
 
     @Secured("ROLE_SUBSCRIBED")

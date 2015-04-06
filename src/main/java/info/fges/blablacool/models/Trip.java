@@ -203,6 +203,7 @@ public class Trip
     }
 
     @OneToMany(mappedBy = "trip")
+    @OrderBy("createdAt DESC")
     public List<Message> getMessages() {
         return messages;
     }
