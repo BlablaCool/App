@@ -13,11 +13,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 /**
  * Created by Nicolas on 3/25/2015.
@@ -52,7 +52,7 @@ public class UserController {
     {
         modelAndView.setViewName("users/profile");
         modelAndView.addObject("user", user);
-        modelAndView.addObject("viewedUser", userService.findById(id));
+        modelAndView.addObject("viewedUser", userService.findById(1));
 
         return modelAndView;
     }
@@ -62,12 +62,7 @@ public class UserController {
     public ModelAndView getLoggedInUser(@AuthenticationPrincipal User principal,
                                         ModelAndView modelAndView)
     {
-        User user = userService.findById(principal.getId());
-
         modelAndView.setViewName("users/profile");
-        modelAndView.addObject("user", user);
-        modelAndView.addObject("viewedUser", user);
-
         return modelAndView;
     }
 
@@ -98,7 +93,7 @@ public class UserController {
 
     @Secured("ROLE_USER")
     @RequestMapping(value = "/driver", method = RequestMethod.GET)
-    public ModelAndView getDriver(@AuthenticationPrincipal User user,
+    public ModelAndView getPendingBooking(@AuthenticationPrincipal User user,
                                           ModelAndView modelAndView)
     {
         modelAndView.setViewName("users/driver");
@@ -107,7 +102,6 @@ public class UserController {
 
         return modelAndView;
     }
-
 
     @Secured("ROLE_USER")
     @RequestMapping(value = "/passenger", method = RequestMethod.GET)
@@ -119,6 +113,16 @@ public class UserController {
         modelAndView.addObject("bookingWaitingReviews", bookingService.findToReviewForUser(user.getId()));
 
         return modelAndView;
+    }
+
+    @Secured("ROLE_USER")
+    @RequestMapping(value = "/updateInfo", method = RequestMethod.POST)
+    public String getUserUpdate(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,ModelAndView modelAndView)
+    {
+        userService.update(user);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(user,user.getPassword(),user.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return "redirect:/users/me";
     }
 
 }
