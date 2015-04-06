@@ -4,6 +4,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Valentin on 29/03/15.
@@ -18,6 +19,7 @@ public class Booking
     private Trip trip;
     private User user;
     private DateTime createdTime;
+    private List<Review> reviews;
 
     public Booking()
     {
@@ -146,5 +148,14 @@ public class Booking
     public Boolean isCancelled()
     {
         return this.status.contentEquals("CANCELLED");
+    }
+
+    @OneToMany(mappedBy = "booking")
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }

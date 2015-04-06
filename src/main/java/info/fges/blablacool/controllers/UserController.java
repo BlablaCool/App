@@ -84,7 +84,7 @@ public class UserController {
 
     @Secured("ROLE_USER")
     @RequestMapping(value = "/driver", method = RequestMethod.GET)
-    public ModelAndView getPendingBooking(@AuthenticationPrincipal User user,
+    public ModelAndView getDriver(@AuthenticationPrincipal User user,
                                           ModelAndView modelAndView)
     {
         modelAndView.setViewName("users/driver");
@@ -94,5 +94,17 @@ public class UserController {
         return modelAndView;
     }
 
+
+    @Secured("ROLE_USER")
+    @RequestMapping(value = "/passenger", method = RequestMethod.GET)
+    public ModelAndView getPassenger(@AuthenticationPrincipal User user,
+                                     ModelAndView modelAndView)
+    {
+        modelAndView.setViewName("users/passenger");
+        modelAndView.addObject("user", userService.findById(user.getId()));
+        modelAndView.addObject("bookingWaitingReviews", bookingService.findToReviewForUser(user.getId()));
+
+        return modelAndView;
+    }
 
 }

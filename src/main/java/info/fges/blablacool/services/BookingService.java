@@ -29,6 +29,11 @@ public class BookingService extends ServiceInterface<Booking, Integer>
         return bookingDao.findAll();
     }
 
+    public List<Booking> findToReviewForUser(Integer idUser)
+    {
+        return bookingDao.findToReviewForUser(idUser);
+    }
+
     @Override
     public void create(Booking booking)
     {

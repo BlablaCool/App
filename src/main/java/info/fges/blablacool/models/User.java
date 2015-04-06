@@ -402,15 +402,6 @@ public class User implements UserDetails
         this.messages = messages;
     }
 
-    @OneToMany(mappedBy = "reviewee")
-    public List<Review> getReviewsReceived() {
-        return reviewsReceived;
-    }
-
-    public void setReviewsReceived(List<Review> reviewsReceived) {
-        this.reviewsReceived = reviewsReceived;
-    }
-
     @OneToOne(mappedBy = "reviewer")
     public Review getReviewsGiven() {
         return reviewsGiven;

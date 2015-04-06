@@ -14,9 +14,9 @@ public class Review
     private int idReview;
     private Integer note;
     private String comment;
-    private User reviewee;
     private User reviewer;
     private DateTime createdAt;
+    private Booking booking;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -71,16 +71,6 @@ public class Review
         return result;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "reviewee_id", referencedColumnName = "id_user", nullable = false)
-    public User getReviewee() {
-        return reviewee;
-    }
-
-    public void setReviewee(User reviewee) {
-        this.reviewee = reviewee;
-    }
-
     @OneToOne
     @JoinColumn(name = "reviewer_id", referencedColumnName = "id_user", nullable = false)
     public User getReviewer() {
@@ -100,5 +90,15 @@ public class Review
 
     public void setCreatedAt(DateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "booking_id", referencedColumnName = "id", nullable = false)
+    public Booking getBooking() {
+        return booking;
+    }
+
+    public void setBooking(Booking booking) {
+        this.booking = booking;
     }
 }
