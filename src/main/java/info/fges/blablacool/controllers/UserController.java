@@ -57,6 +57,20 @@ public class UserController {
         return modelAndView;
     }
 
+    @Secured("ROLE_USER")
+    @RequestMapping(value = "/me", method = RequestMethod.GET)
+    public ModelAndView getLoggedInUser(@AuthenticationPrincipal User principal,
+                                        ModelAndView modelAndView)
+    {
+        User user = userService.findById(principal.getId());
+
+        modelAndView.setViewName("users/profile");
+        modelAndView.addObject("user", user);
+        modelAndView.addObject("viewedUser", user);
+
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/{id}/history", method = RequestMethod.GET)
     public ModelAndView getUserPastTrips(ModelAndView modelAndView , @PathVariable("id") Integer id )
     {

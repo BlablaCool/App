@@ -4,6 +4,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class Booking
     private Trip trip;
     private User user;
     private DateTime createdTime;
-    private List<Review> reviews;
+    private Review review;
 
     public Booking()
     {
@@ -153,23 +154,15 @@ public class Booking
     @Transient
     public Boolean hasBeenReviewedByUser(Integer idUser)
     {
-        for (Review review : this.reviews)
-        {
-            if (review.getReviewer().getId() == idUser)
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return this.getReview() != null;
     }
 
-    @OneToMany(mappedBy = "booking")
-    public List<Review> getReviews() {
-        return reviews;
+    @OneToOne(mappedBy = "booking")
+    public Review getReview() {
+        return review;
     }
 
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
+    public void setReview(Review review) {
+        this.review = review;
     }
 }

@@ -6,6 +6,7 @@
 <%--@elvariable id="viewedUser" type="info.fges.blablacool.models.User"--%>
 <%--@elvariable id="user" type="info.fges.blablacool.models.User"--%>
 <%--@elvariable id="trip" type="info.fges.blablacool.models.Trip"--%>
+<%--@elvariable id="review" type="info.fges.blablacool.models.Review"--%>
 
 <tiles:insertDefinition name="blablacoolTemplate">
     <tiles:putAttribute name="body">
@@ -101,129 +102,45 @@
                     <div class="gap gap-small"></div>
 
                     <h3 class="mb20">Avis des membres</h3>
+
                     <div class="row row-wrap">
                         <div class="col-md-12">
                             <ul class="booking-item-reviews list">
-                                <li>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <div class="booking-item-review-person">
-                                                <p class="booking-item-review-person-name"><a href="rentals-details.html#">John Doe</a>
-                                                </p>
-                                                <p class="booking-item-review-person-loc">Palm Beach, FL</p><small><a href="rentals-details.html#">98 Reviews</a></small>
+                                <c:forEach items="${user.reviewsReceived}" var="review">
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="booking-item-review-person">
+                                                    <p class="booking-item-review-person-name"><a href="/users/${review.reviewer.id}">${review.reviewer.nickname}</a></p>
+                                                    <p class="booking-item-review-person-loc"><i class="fa fa-car"> ${review.reviewer.trips.size()} voyage(s) </i></p>
+                                                    <p class="booking-item-review-person-loc"><i class="fa fa-users"> ${review.reviewer.booking.size()} voyage(s)</i></p>
+                                                    <p class="booking-item-review-person-loc"><i class="fa fa-star"> ${review.reviewer.reviewsReceived.size()} avis reçu(s)</i></p>
+                                                    <small><joda:format value="${review.createdAt}" pattern="dd/MM/yyyy à HH:mm" /></small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <div class="booking-item-review-content">
+                                                    <h5>${review.booking.trip.departureStep.place.city} <em> vers</em> ${review.booking.trip.arrivalStep.place.city}</h5>
+                                                    <ul class="icon-group booking-item-rating-stars">
+                                                        <c:forEach begin="1" end="5" varStatus="loop">
+                                                            <c:choose>
+                                                                <c:when test="${review.note >= loop.count}">
+                                                                    <li><i class="fa fa-star"></i></li>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <li><i class="fa fa-star-o"></i></li>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </c:forEach>
+                                                    </ul>
+                                                    <p>
+                                                        ${review.comment}
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-10">
-                                            <div class="booking-item-review-content">
-                                                <h5>"Tempus vestibulum mus imperdiet nibh sem"</h5>
-                                                <ul class="icon-group booking-item-rating-stars">
-                                                    <li><i class="fa fa-star"></i>
-                                                    </li>
-                                                    <li><i class="fa fa-star"></i>
-                                                    </li>
-                                                    <li><i class="fa fa-star"></i>
-                                                    </li>
-                                                    <li><i class="fa fa-star"></i>
-                                                    </li>
-                                                    <li><i class="fa fa-star"></i>
-                                                    </li>
-                                                </ul>
-                                                <p>Pharetra quis netus vel vehicula class vestibulum nisl donec hendrerit fermentum magna sed amet purus sit nec class sit fringilla tellus volutpat per eget molestie<span class="booking-item-review-more"> Platea suspendisse eget tortor pharetra magna nam senectus tristique cursus ut odio sollicitudin venenatis natoque dis maecenas magna dignissim sociosqu et sociis accumsan interdum dictum netus quis enim phasellus suscipit nunc donec purus dui himenaeos nulla sociosqu rhoncus dictumst fusce ultricies congue sapien porttitor maecenas fringilla ipsum nam lorem aliquam rhoncus elit himenaeos</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <div class="booking-item-review-person">
-                                                <p class="booking-item-review-person-name"><a href="rentals-details.html#">Minnie Aviles</a>
-                                                </p>
-                                                <p class="booking-item-review-person-loc">Palm Beach, FL</p><small><a href="rentals-details.html#">64 Reviews</a></small>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="booking-item-review-content">
-                                                <h5>"Varius massa maecenas et id dictumst mattis"</h5>
-                                                <ul class="icon-group booking-item-rating-stars">
-                                                    <li><i class="fa fa-star"></i>
-                                                    </li>
-                                                    <li><i class="fa fa-star"></i>
-                                                    </li>
-                                                    <li><i class="fa fa-star"></i>
-                                                    </li>
-                                                    <li><i class="fa fa-star"></i>
-                                                    </li>
-                                                    <li><i class="fa fa-star"></i>
-                                                    </li>
-                                                </ul>
-                                                <p>Donec fringilla ac parturient posuere id phasellus erat elementum nullam lacus cursus rhoncus parturient vitae praesent quisque nascetur molestie quis dignissim vel sit odio metus tristique auctor dictumst primis ad viverra quisque etiam in rutrum donec cras non<span class="booking-item-review-more"> Dis suscipit risus ridiculus lacus mus cursus luctus donec pellentesque rhoncus sem quam vulputate mus hendrerit risus ultrices a elementum massa est at aenean parturient in egestas senectus lectus convallis lectus dui neque sit dignissim facilisis fames feugiat laoreet pharetra felis vitae ornare lacus sodales non sapien curae nisl nec habitant velit semper pretium et ipsum dolor in amet nunc vestibulum lacus nulla dis sollicitudin diam luctus dolor ante</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <div class="booking-item-review-person">
-                                                <p class="booking-item-review-person-name"><a href="rentals-details.html#">Cyndy Naquin</a>
-                                                </p>
-                                                <p class="booking-item-review-person-loc">Palm Beach, FL</p><small><a href="rentals-details.html#">80 Reviews</a></small>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="booking-item-review-content">
-                                                <h5>"Curabitur senectus blandit parturient quam fames sem"</h5>
-                                                <ul class="icon-group booking-item-rating-stars">
-                                                    <li><i class="fa fa-star"></i>
-                                                    </li>
-                                                    <li><i class="fa fa-star"></i>
-                                                    </li>
-                                                    <li><i class="fa fa-star"></i>
-                                                    </li>
-                                                    <li><i class="fa fa-star"></i>
-                                                    </li>
-                                                    <li><i class="fa fa-star"></i>
-                                                    </li>
-                                                </ul>
-                                                <p>Nec interdum id torquent litora nibh curae morbi cum etiam duis malesuada viverra ultricies pellentesque vestibulum sed mattis augue penatibus venenatis malesuada nam semper facilisis taciti posuere convallis curae auctor non sodales iaculis blandit taciti pellentesque faucibus id<span class="booking-item-review-more"> Nam scelerisque sapien ultricies euismod viverra diam dictum curabitur laoreet facilisi conubia purus taciti malesuada eget cum malesuada nunc libero vestibulum aptent aliquam eros facilisi purus mus odio praesent facilisi molestie</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <div class="booking-item-review-person">
-                                                <p class="booking-item-review-person-name"><a href="rentals-details.html#">Carol Blevins</a>
-                                                </p>
-                                                <p class="booking-item-review-person-loc">Palm Beach, FL</p><small><a href="rentals-details.html#">71 Reviews</a></small>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="booking-item-review-content">
-                                                <h5>"Parturient cursus sem"</h5>
-                                                <ul class="icon-group booking-item-rating-stars">
-                                                    <li><i class="fa fa-star"></i>
-                                                    </li>
-                                                    <li><i class="fa fa-star"></i>
-                                                    </li>
-                                                    <li><i class="fa fa-star"></i>
-                                                    </li>
-                                                    <li><i class="fa fa-star"></i>
-                                                    </li>
-                                                    <li><i class="fa fa-star"></i>
-                                                    </li>
-                                                </ul>
-                                                <p>Tempor ligula a at ultrices commodo nibh potenti feugiat morbi molestie litora leo eu ullamcorper montes consectetur eros fringilla per placerat velit<span class="booking-item-review-more"> Tincidunt aptent vulputate gravida curae lacinia imperdiet tempus erat vulputate posuere mollis quisque magna facilisi sagittis ridiculus consequat a nisl tincidunt nisl dapibus leo dignissim dapibus odio eu eu mi quam nibh erat tortor habitasse fringilla porttitor a sapien vivamus praesent arcu turpis malesuada tortor rutrum ante hac fringilla inceptos ante molestie nostra nulla est maecenas sodales per mi dictum nisl eros dignissim commodo a</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                </c:forEach>
                             </ul>
                         </div>
                     </div>

@@ -26,7 +26,7 @@
                         </sec:authorize>
                         <sec:authorize access="isAuthenticated()">
                             <li class="top-user-area-avatar">
-                                <s:url var="url_profile" value="/users/${userFromSecurity.id}"/>
+                                <s:url var="url_profile" value="/users/me"/>
                                 <a href="${url_profile}">
                                     Compte de <strong>${userFromSecurity.nickname}</strong>
                                 </a>

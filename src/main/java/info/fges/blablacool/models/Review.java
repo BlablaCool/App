@@ -15,9 +15,9 @@ public class Review
     private int idReview;
     private Integer note;
     private String comment;
-    private User reviewer;
     private DateTime createdAt;
     private Booking booking;
+    private User reviewer;
 
     public Review()
     {
@@ -86,16 +86,6 @@ public class Review
         return result;
     }
 
-    @OneToOne
-    @JoinColumn(name = "reviewer_id", referencedColumnName = "id_user", nullable = false)
-    public User getReviewer() {
-        return reviewer;
-    }
-
-    public void setReviewer(User reviewer) {
-        this.reviewer = reviewer;
-    }
-
     @Basic
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "created_at", nullable = true, insertable = true, updatable = true)
@@ -107,6 +97,7 @@ public class Review
         this.createdAt = createdAt;
     }
 
+    @OneToOne
     @ManyToOne
     @JoinColumn(name = "booking_id", referencedColumnName = "id", nullable = false)
     public Booking getBooking() {
@@ -115,5 +106,15 @@ public class Review
 
     public void setBooking(Booking booking) {
         this.booking = booking;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "reviewer_id", referencedColumnName = "id_user", nullable = false)
+    public User getReviewer() {
+        return reviewer;
+    }
+
+    public void setReviewer(User reviewer) {
+        this.reviewer = reviewer;
     }
 }

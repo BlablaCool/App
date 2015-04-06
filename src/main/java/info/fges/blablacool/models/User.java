@@ -57,8 +57,7 @@ public class User implements UserDetails
     private List<Booking> booking;
     private List<Trip> trips;
     private List<Message> messages;
-    private List<Review> reviewsReceived;
-    private Review reviewsGiven;
+    private List<Review> reviewsGiven;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -393,6 +392,22 @@ public class User implements UserDetails
         return tripList;
     }
 
+    @Transient
+    public List<Review> getReviewsReceived()
+    {
+        List<Review> reviews = new ArrayList<Review>();
+
+        for (Booking booking : this.booking)
+        {
+            if (booking.getUser().getId() == this.id)
+            {
+                reviews.add(booking.getReview());
+            }
+        }
+
+        return reviews;
+    }
+
     @OneToMany(mappedBy = "sender")
     public List<Message> getMessages() {
         return messages;
@@ -402,12 +417,12 @@ public class User implements UserDetails
         this.messages = messages;
     }
 
-    @OneToOne(mappedBy = "reviewer")
-    public Review getReviewsGiven() {
+    @OneToMany(mappedBy = "reviewer")
+    public List<Review> getReviewsGiven() {
         return reviewsGiven;
     }
 
-    public void setReviewsGiven(Review reviewsGiven) {
+    public void setReviewsGiven(List<Review> reviewsGiven) {
         this.reviewsGiven = reviewsGiven;
     }
 }
