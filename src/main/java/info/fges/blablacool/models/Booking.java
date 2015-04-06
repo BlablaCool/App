@@ -9,7 +9,9 @@ import javax.persistence.*;
  * Created by Valentin on 29/03/15.
  */
 @Entity
-public class Booking {
+@Table(name = "booking")
+public class Booking
+{
     private int id;
     private String status;
     private Step step;

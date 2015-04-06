@@ -12,7 +12,9 @@ import java.util.List;
  * Created by Valentin on 15/03/15.
  */
 @Entity
-public class Trip {
+@Table(name = "trip")
+public class Trip
+{
     private int idTrip;
     private Short capacity;
     private User driver;
@@ -22,6 +24,7 @@ public class Trip {
     private BigDecimal price;
     private List<Step> steps;
     private List<Booking> booking;
+    private List<Message> messages;
 
     public Trip()
     {
@@ -197,5 +200,14 @@ public class Trip {
 
     public void setBooking(List<Booking> booking) {
         this.booking = booking;
+    }
+
+    @OneToMany(mappedBy = "trip")
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 }

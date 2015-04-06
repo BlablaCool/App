@@ -6,7 +6,9 @@ import javax.persistence.*;
  * Created by Valentin on 15/03/15.
  */
 @Entity
-public class Car {
+@Table(name = "car")
+public class Car
+{
     private int id;
     private String type;
     private String registration;

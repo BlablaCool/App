@@ -17,6 +17,7 @@ import java.util.List;
  * Created by Valentin on 15/03/15.
  */
 @Entity
+@Table(name = "user")
 public class User implements UserDetails
 {
     private int id;
@@ -55,6 +56,9 @@ public class User implements UserDetails
     private UserPreference preferences;
     private List<Booking> booking;
     private List<Trip> trips;
+    private List<Message> messages;
+    private List<Review> reviewsReceived;
+    private Review reviewsGiven;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -387,5 +391,32 @@ public class User implements UserDetails
         }
 
         return tripList;
+    }
+
+    @OneToMany(mappedBy = "reviewer")
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+
+    @OneToMany(mappedBy = "reviewee")
+    public List<Review> getReviewsReceived() {
+        return reviewsReceived;
+    }
+
+    public void setReviewsReceived(List<Review> reviewsReceived) {
+        this.reviewsReceived = reviewsReceived;
+    }
+
+    @OneToOne(mappedBy = "reviewer")
+    public Review getReviewsGiven() {
+        return reviewsGiven;
+    }
+
+    public void setReviewsGiven(Review reviewsGiven) {
+        this.reviewsGiven = reviewsGiven;
     }
 }

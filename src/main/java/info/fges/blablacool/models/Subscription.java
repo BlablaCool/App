@@ -11,7 +11,9 @@ import java.sql.Timestamp;
  * Created by Valentin on 24/03/15.
  */
 @Entity
-public class Subscription {
+@Table(name = "subscription")
+public class Subscription
+{
     private int idSubscription;
     private DateTime from;
     private DateTime to;

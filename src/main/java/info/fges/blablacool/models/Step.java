@@ -10,6 +10,7 @@ import java.util.List;
  * Created by Valentin on 24/03/15.
  */
 @Entity
+@Table(name = "step")
 public class Step
 {
     private int idStep;
