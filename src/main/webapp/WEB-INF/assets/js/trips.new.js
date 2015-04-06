@@ -63,40 +63,48 @@ $(function()
     {
         e.preventDefault();
 
+        var formsAreValid = true;
+
         // Validating infos
         $("#infosForm").data('formValidation').validate();
+        formsAreValid = $("#infosForm").data('formValidation').isValid();
 
         // Validating steps
         $('form.placeContainer').each(function(index)
         {
             $(this).data('formValidation').validate();
-            console.log('in');
+
+            if (!$(this).data('formValidation').isValid())
+            {
+                formsAreValid = false;
+            }
         });
 
-        //e.preventDefault();
-        //
-        //var placesToSend = [];
-        //$(".placeContainer").each(function() {
-        //    placesToSend.push($(this).serializeObject());
-        //});
-        //
-        //$.ajax({
-        //    type: "POST",
-        //    url: "/ajax/trips/add",
-        //    context: this,
-        //    data: {
-        //        infos: JSON.stringify($('#infosForm').serializeObject()),
-        //        places: JSON.stringify(placesToSend)
-        //    },
-        //    success: function(response) {
-        //        $(this).attr('disabled');
-        //        console.log(response);
-        //    },
-        //    error: function() {
-        //        alert('Une erreur est survenue pendant la création de l\'itinéraire...')
-        //    },
-        //    dataType: 'html'
-        //});
+        if (formsAreValid)
+        {
+            var placesToSend = [];
+            $(".placeContainer").each(function() {
+                placesToSend.push($(this).serializeObject());
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "/ajax/trips/add",
+                context: this,
+                data: {
+                    infos: JSON.stringify($('#infosForm').serializeObject()),
+                    places: JSON.stringify(placesToSend)
+                },
+                success: function(response) {
+                    $(this).attr('disabled');
+                    console.log(response);
+                },
+                error: function() {
+                    alert('Une erreur est survenue pendant la création de l\'itinéraire...')
+                },
+                dataType: 'html'
+            });
+        }
     });
 
     /**
