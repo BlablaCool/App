@@ -74,9 +74,8 @@ public class BookingDao extends DaoInterface<Booking, Integer>
         Query query = currentSession
                 .createQuery("SELECT booking \n" +
                         "FROM Booking booking \n" +
-                        "LEFT OUTER JOIN booking.reviews AS review \n" +
                         "LEFT OUTER JOIN booking.trip.steps AS step\n" +
-                        "WHERE review.id IS NULL AND booking.user.id = :idUser AND booking.status = 'ACCEPTED' AND step.estimatedTime < CURRENT_DATE \n" +
+                        "WHERE booking.review.id IS NULL AND booking.user.id = :idUser AND booking.status = 'ACCEPTED' AND step.estimatedTime < CURRENT_DATE \n" +
                         "GROUP BY booking")
                 .setParameter("idUser", idUser);
         List<Booking> list = query.list();
