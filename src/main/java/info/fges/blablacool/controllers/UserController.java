@@ -148,9 +148,11 @@ public class UserController {
 
     @Secured("ROLE_USER")
     @RequestMapping(value = "/updateUserPreferences", method = RequestMethod.POST)
-    public String getUserUpdatePreferences(@Valid @ModelAttribute("preferences") UserPreference preferences, BindingResult bindingResult,ModelAndView modelAndView)
+    public String getUserUpdatePreferences(@AuthenticationPrincipal User user,@Valid @ModelAttribute("preferences") UserPreference preferences, BindingResult bindingResult,ModelAndView modelAndView)
     {
         System.out.println(preferences.getTemperament());
+        preferences.setIdUserPreference(user.getPreferences().getIdUserPreference());
+        preferences.setUser(user);
         userPreferenceService.update(preferences);
         return "redirect:/users/me";
     }
