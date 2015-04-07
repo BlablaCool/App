@@ -27,18 +27,18 @@ public class UserPreferenceService extends ServiceInterface<UserPreference, Inte
     }
 
     @Override
-    public void create(UserPreference trip) {
-        userPreferenceDao.create(trip);
+    public void create(UserPreference preference) {
+        userPreferenceDao.create(preference);
     }
 
     @Override
-    public void update(UserPreference role) {
-        userPreferenceDao.update(role);
+    public void update(UserPreference preference) {
+        userPreferenceDao.update(preference);
     }
 
     @Override
-    public void delete(UserPreference trip) {
-        userPreferenceDao.delete(trip);
+    public void delete(UserPreference preference) {
+        userPreferenceDao.delete(preference);
     }
 
     @Override

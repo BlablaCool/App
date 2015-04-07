@@ -4,6 +4,7 @@ import info.fges.blablacool.models.Subscription;
 import info.fges.blablacool.models.User;
 import info.fges.blablacool.models.UserPreference;
 import info.fges.blablacool.services.BookingService;
+import info.fges.blablacool.services.UserPreferenceService;
 import info.fges.blablacool.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -30,6 +31,9 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    private UserPreferenceService userPreferenceService;
+
+    @Autowired
     private BookingService bookingService;
 
     @Secured("ROLE_USER")
@@ -37,8 +41,10 @@ public class UserController {
     public ModelAndView getUserSettings(@AuthenticationPrincipal User user,
                                         ModelAndView modelAndView)
     {
+        User userToUpdate = userService.findById(user.getId());
         modelAndView.setViewName("users/settings");
-        modelAndView.addObject("user", userService.findById(user.getId())); // We can't just use the User from Spring Security as it is not refreshed!
+        modelAndView.addObject("user",userToUpdate); // We can't just use the User from Spring Security as it is not refreshed!
+        modelAndView.addObject("preferences", userPreferenceService.findById(userToUpdate.getPreferences().getIdUserPreference()));
         modelAndView.addObject("musicStyles", UserPreference.getMusicStyles());
 
         return modelAndView;
@@ -116,12 +122,30 @@ public class UserController {
     }
 
     @Secured("ROLE_USER")
-    @RequestMapping(value = "/updateInfo", method = RequestMethod.POST)
-    public String getUserUpdate(@Valid @ModelAttribute("user") User user, BindingResult bindingResult,ModelAndView modelAndView)
+    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+    public String getUserUpdate(@AuthenticationPrincipal User loggedUser,@Valid @ModelAttribute("user") User user, BindingResult bindingResult,ModelAndView modelAndView)
     {
+        User userToUpdate = userService.findById(loggedUser.getId());
+        user.setId(userToUpdate.getId());
+        user.setNickname(userToUpdate.getNickname());
+        user.setPassword(userToUpdate.getPassword());
+        user.setPasswordConfirmation(userToUpdate.getPassword());
+        for (int i = 0; i < userToUpdate.getAuthorities().size(); i++) {
+            user.getAuthorities().add(userToUpdate.getAuthorities().get(i));
+        }
+        // System.out.println(userToUpdate.getPassword());
         userService.update(user);
-        Authentication authentication = new UsernamePasswordAuthenticationToken(user,user.getPassword(),user.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+       // Authentication authentication = new UsernamePasswordAuthenticationToken(user,user.getPassword(),user.getAuthorities());
+       // SecurityContextHolder.getContext().setAuthentication(authentication);
+        return "redirect:/users/me";
+    }
+
+    @Secured("ROLE_USER")
+    @RequestMapping(value = "/updateUserPreferences", method = RequestMethod.POST)
+    public String getUserUpdatePreferences(@Valid @ModelAttribute("preferences") UserPreference preferences, BindingResult bindingResult,ModelAndView modelAndView)
+    {
+        System.out.println(preferences.getTemperament());
+        userPreferenceService.update(preferences);
         return "redirect:/users/me";
     }
 

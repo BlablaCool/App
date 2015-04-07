@@ -14,7 +14,7 @@
                 <div class="col-md-9">
                     <div class="row">
                         <div class="col-md-5">
-                            <form:form action="/users/update" modelAttribute="user">
+                            <form:form action="/users/updateUser" modelAttribute="user">
                                 <h4>Informations personelles</h4>
                                 <div class="form-group form-group-icon-left"><i class="fa fa-user input-icon"></i>
                                     <label>Prénom</label>
@@ -54,24 +54,27 @@
                                     <label>Pays</label>
                                     <form:input path="country" cssClass="form-control"></form:input>
                                 </div>
+                                <input type="submit" class="btn btn-primary" value="Sauvegarder">
+                            </form:form>
                                 <div class="gap gap-small"></div>
                                 <h4>Traits de caractère</h4>
+                            <form:form action="/users/updateUserPreferences" method="POST" modelAttribute="preferences">
                                 <div class="form-group">
                                     <label>Possède un animal</label>
                                     <div class="radio-inline">
                                         <label>
-                                            <form:radiobutton path="preferences.likeAnimals" value="1" cssClass="i-radio" /> Oui
+                                            <form:radiobutton path="likeAnimals" value="1" cssClass="i-radio" /> Oui
                                         </label>
                                     </div>
                                     <div class="radio-inline">
                                         <label>
-                                            <form:radiobutton path="preferences.likeAnimals" value="0" cssClass="i-radio" /> Non
+                                            <form:radiobutton path="likeAnimals" value="0" cssClass="i-radio" /> Non
                                         </label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Style de musique</label>
-                                    <form:select path="preferences.musicStyle" cssClass="form-control">
+                                    <form:select path="musicStyle" cssClass="form-control">
                                         <form:option value="none" label="Choisir un style de musique..."/>
                                         <form:options items="${musicStyles}" />
                                     </form:select>
@@ -80,45 +83,47 @@
                                     <label>Fumeur</label>
                                     <div class="radio-inline">
                                         <label>
-                                            <form:radiobutton path="preferences.likeSmoking" value="1" cssClass="i-radio" /> Oui
+                                            <form:radiobutton path="likeSmoking" value="1" cssClass="i-radio" /> Oui
                                         </label>
                                     </div>
                                     <div class="radio-inline">
                                         <label>
-                                            <form:radiobutton path="preferences.likeSmoking" value="0" cssClass="i-radio" /> Non
+                                            <form:radiobutton path="likeSmoking" value="0" cssClass="i-radio" /> Non
                                         </label>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Tempérament</label>
-                                    <select name="personnality" class="form-control">
-                                        <option value="calme">Calme</option>
-                                        <option value="avenant">Avenant</option>
-                                        <option value="decontracte">Decontracté</option>
-                                    </select>
+                                    <form:select path="temperament" cssClass="form-control">
+                                        <form:option value="none" label="Choisir votre personnalité..."/>
+                                        <form:option value="calme" label="Calme"/>
+                                        <form:option value="avenant" label="Avenant"/>
+                                        <form:option value="decontracte" label="Decontracté"/>
+                                    </form:select>
                                 </div>
                                 <div class="form-group">
                                     <label>J'ai tendance a beaucoup parler</label>
                                     <div class="radio-inline">
                                         <label>
-                                            <input class="i-radio" type="radio" name="talkative" />Oui</label>
+                                            <form:radiobutton path="talkingLevel" value="1" cssClass="i-radio" /> Oui
                                     </div>
                                     <div class="radio-inline">
                                         <label>
-                                            <input class="i-radio" type="radio" name="talkative" />Non</label>
+                                            <form:radiobutton path="talkingLevel" value="0" cssClass="i-radio" /> Non
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Style de conduite</label>
-                                    <select name="drivingStyle" class="form-control">
-                                        <option value="calme">Calme</option>
-                                        <option value="sprotif">Sptortif</option>
-                                        <option value="prudent">Prudent</option>
-                                    </select>
+                                    <form:select path="drivingStyle" cssClass="form-control">
+                                        <form:option value="none" label="Choisir un style de conduite..."/>
+                                        <form:option value="calme" label="Calme"/>
+                                        <form:option value="sportif" label="Sportif"/>
+                                        <form:option value="prudent" label="Prudent"/>
+                                    </form:select>
                                 </div>
                                 <div class="form-group">
                                     <label>Informations supplémentaires:</label>
-                                    <textarea class="form-control" rows="5" name="description"></textarea>
+                                    <form:textarea path="others" rows="5"/>
                                 </div>
                                 <hr>
                                 <input type="submit" class="btn btn-primary" value="Savegarder">
