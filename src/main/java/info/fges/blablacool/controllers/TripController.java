@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
@@ -35,6 +36,9 @@ public class TripController
 
     @Autowired
     private StepService stepService;
+
+    @Autowired
+    private ServletContext servletContext;
 
     @Autowired
     private MessageService messageService;
@@ -66,7 +70,9 @@ public class TripController
                                 @PathVariable("id") Integer id,
                                 ModelAndView modelAndView)
     {
+        String stripeApiPublicKey = servletContext.getInitParameter("stripePublicKey");
         modelAndView.setViewName("trips/get");
+        modelAndView.addObject("stripePublicKey",stripeApiPublicKey);
         modelAndView.addObject("trip", tripService.findById(id));
 
         return modelAndView;

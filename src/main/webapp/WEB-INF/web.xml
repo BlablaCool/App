@@ -64,18 +64,18 @@
     </servlet-mapping>
 
     <context-param>
-        <param-name>edmundsApiKey</param-name>
-        <param-value>2w77fqtnwmsy43dj6h3s73zu</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>edmundsApiUrl</param-name>
-        <param-value>http://api.edmunds.com/api/vehicle/v2/</param-value>
-    </context-param>
-
-    <context-param>
         <param-name>carQueryApiUrl</param-name>
         <param-value>http://www.carqueryapi.com/api/0.3/?</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>stripePublicKey</param-name>
+        <param-value>pk_test_SuwtZEyLLZrYRPNMAQxPuapP</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>stripeSecretKey</param-name>
+        <param-value>sk_test_jEZJWYaMZMplFiBDgAOHEnM3</param-value>
     </context-param>
 
     <jsp-config>

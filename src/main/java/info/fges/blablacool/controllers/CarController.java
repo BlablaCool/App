@@ -48,7 +48,7 @@ public class CarController implements ServletContextAware {
 
     @RequestMapping(value = "/makes", method = RequestMethod.GET)
     public ResponseEntity<String> getCarMakes() {
-        return getApiResponse(this.servletContext.getInitParameter("carQueryApiUrl")+"&cmd=getMakes");
+        return getApiResponse(servletContext.getInitParameter("carQueryApiUrl")+"&cmd=getMakes");
     }
 
     @RequestMapping(value = "/models/{make}", method = RequestMethod.GET)
@@ -63,7 +63,7 @@ public class CarController implements ServletContextAware {
 
     public ResponseEntity<String> getApiResponse(String queryParams){
         try {
-            URL carQueryUrl = new URL(this.servletContext.getInitParameter("carQueryApiUrl")+queryParams);
+            URL carQueryUrl = new URL(servletContext.getInitParameter("carQueryApiUrl")+queryParams);
 
             InputStream in = carQueryUrl.openStream();
             try {

@@ -70,8 +70,8 @@
                     <div class="form-group">
                         <label class="col-md-4 control-label" for="fuel">Carburant</label>
                         <div class="col-md-5">
-                            <form:select path="fuel" id="fuel" name="fuel" cssClass="form-control" disabled="true">
-                            </form:select>
+                            <%--<form:select path="fuel" id="fuel" name="fuel" cssClass="form-control" disabled="true">--%>
+                            <%--</form:select>--%>
                         </div>
                     </div>
 
