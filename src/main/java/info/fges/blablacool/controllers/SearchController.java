@@ -39,7 +39,7 @@ public class SearchController
         modelAndView.addObject("trips", searchService.findTripsNearbyLocation(
                         new BigDecimal(departureLatitude),
                         new BigDecimal(departureLongitude),
-                        arrivalCity,
+                        URLDecoder.decode(arrivalCity),
                         departureTime)
         );
 
