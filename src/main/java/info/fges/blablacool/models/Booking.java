@@ -21,6 +21,7 @@ public class Booking
     private User user;
     private DateTime createdTime;
     private Review review;
+    private List<Payment> payments;
 
     public Booking()
     {
@@ -164,5 +165,14 @@ public class Booking
 
     public void setReview(Review review) {
         this.review = review;
+    }
+
+    @OneToMany(mappedBy = "booking")
+    public List<Payment> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
     }
 }
