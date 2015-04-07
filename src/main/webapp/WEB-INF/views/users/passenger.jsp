@@ -27,7 +27,6 @@
             <div class="panel panel-default">
               <div class="panel-body">
                 <h4><i class="fa fa-star"></i> &nbsp;Voyages en attente d'évaluation : </h4>
-
                 <c:choose>
                   <c:when test="${bookingWaitingReviews.size() == 0}">
                     <p class="lead text-center text-success mt20">

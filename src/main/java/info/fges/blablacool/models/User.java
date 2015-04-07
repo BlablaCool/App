@@ -397,11 +397,14 @@ public class User implements UserDetails
     {
         List<Review> reviews = new ArrayList<Review>();
 
-        for (Booking booking : this.booking)
+        for (Trip trip : this.trips)
         {
-            if (booking.getUser().getId() == this.id)
+            for (Booking booking : trip.getBooking())
             {
-                reviews.add(booking.getReview());
+                if (booking.getReview() != null)
+                {
+                    reviews.add(booking.getReview());
+                }
             }
         }
 
@@ -424,5 +427,23 @@ public class User implements UserDetails
 
     public void setReviewsGiven(List<Review> reviewsGiven) {
         this.reviewsGiven = reviewsGiven;
+    }
+
+    @Transient
+    public Double getAverageNote()
+    {
+        Double averageNote = 0.0;
+
+        if (this.getReviewsReceived().size() > 0)
+        {
+            for (Review review : this.getReviewsReceived())
+            {
+                averageNote += review.getNote().doubleValue();
+            }
+
+            averageNote = averageNote / this.getReviewsReceived().size();
+        }
+
+        return averageNote;
     }
 }

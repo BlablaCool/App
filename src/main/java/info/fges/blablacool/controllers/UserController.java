@@ -1,8 +1,6 @@
 package info.fges.blablacool.controllers;
 
-import info.fges.blablacool.models.Subscription;
-import info.fges.blablacool.models.User;
-import info.fges.blablacool.models.UserPreference;
+import info.fges.blablacool.models.*;
 import info.fges.blablacool.services.BookingService;
 import info.fges.blablacool.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 /**
  * Created by Nicolas on 3/25/2015.
@@ -114,6 +114,10 @@ public class UserController {
     public ModelAndView getPassenger(@AuthenticationPrincipal User user,
                                      ModelAndView modelAndView)
     {
+        List<Booking> bookingList = bookingService.findToReviewForUser(user.getId());
+
+        System.out.println(bookingList);
+
         modelAndView.setViewName("users/passenger");
         modelAndView.addObject("user", userService.findById(user.getId()));
         modelAndView.addObject("bookingWaitingReviews", bookingService.findToReviewForUser(user.getId()));

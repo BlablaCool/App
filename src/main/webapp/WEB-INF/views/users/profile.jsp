@@ -56,7 +56,16 @@
                             </li>
                             <li>
                                 <i class="fa fa-smile-o user-profile-statictics-icon"></i>
-                                <h5>4.5/5</h5>
+                                <h5>
+                                    <c:choose>
+                                        <c:when test="${user.averageNote == 0.0}">
+                                            --
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${user.averageNote}/5
+                                        </c:otherwise>
+                                    </c:choose>
+                                </h5>
                                 <p><strong>satisfaction</strong> des autres membres</p>
                             </li>
                             <li>
