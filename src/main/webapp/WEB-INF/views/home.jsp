@@ -1,8 +1,14 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
 <tiles:insertDefinition name="blablacoolTemplate">
-    <tiles:putAttribute name="body">
 
+    <tiles:putAttribute name="footer-custom-js">
+        <script src="//maps.googleapis.com/maps/api/js?libraries=places"></script>
+        <script src="/assets/js/jquery.geocomplete.min.js"></script>
+        <script src="/assets/js/page.home.js"></script>
+    </tiles:putAttribute>
+
+    <tiles:putAttribute name="body">
         <!-- TOP AREA -->
         <div class="top-area show-onload">
             <div class="bg-holder full">
@@ -27,21 +33,29 @@
                                     </ul>
                                     <div class="tab-content">
                                         <div class="tab-pane fade in active" id="tab-4">
-                                            <h2>N'attendez plus, covoiturez dès aujourd'hui !</h2>
-                                            <form>
-                                                <div class="row">
+                                        <h2>N'attendez plus, covoiturez dès aujourd'hui !</h2>
+                                            <div class="row">
+                                                <form id="infosForm">
                                                     <div class="col-md-9">
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon"></i>
                                                                     <label>Point de départ</label>
-                                                                    <input class="typeahead form-control" placeholder="City, Airport, U.S. Zip" type="text" />
+                                                                    <input class="form-control" type="text" id="departureAddress" name="departureAddress" />
+                                                                    <p class="help-block" style="font-weight: bold; font-size: 16px; margin-bottom: 0; margin-left: 10px;">
+                                                                        <input type="checkbox" name="enableGeolocation" id="enableGeolocation">
+                                                                        <label for="enableGeolocation" style="display: inline; font-weight: bold; cursor: pointer;"> &nbsp;Trouver un point autour de moi &nbsp;
+                                                                            <i class="fa fa-map-marker geolocationDone"></i>
+                                                                            <i class="fa fa-exclamation-triangle geolocationError"></i>
+                                                                            <i class="fa fa-refresh fa-spin geolocationWaiting"></i>
+                                                                        </label>
+                                                                    </p>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon"></i>
                                                                     <label>Point d'arrivée</label>
-                                                                    <input class="typeahead form-control" placeholder="City, Airport, U.S. Zip" type="text" />
+                                                                    <input class="form-control" type="text" id="arrivalAddress" name="arrivalAddress" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -51,13 +65,24 @@
                                                             <div class="form-group form-group-lg form-group-icon-left">
                                                                 <i class="fa fa-calendar input-icon input-icon-highlight"></i>
                                                                 <label>Date de départ</label>
-                                                                <input class="form-control" name="start" type="text" />
+                                                                <input class="form-control date-pick" name="departureTime" type="text" />
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <button class="btn btn-primary btn-lg" type="submit">C'est parti !</button>
+                                                </form>
+                                            </div>
+
+                                            <form id="departureForm" style="display: none;">
+                                                <input type="hidden" name="name"><input type="hidden" name="lat"><input type="hidden" name="lng"><input type="hidden" name="location"><input type="hidden" name="formatted_address"><input type="hidden" name="street_number"><input type="hidden" name="postal_code"><input type="hidden" name="locality"><input type="hidden" name="country"><input type="hidden" name="country_short"><input type="hidden" name="administrative_area_level_1"><input type="hidden" name="place_id">
                                             </form>
+                                            <form id="arrivalForm" style="display: none;">
+                                                <input type="hidden" name="name"><input type="hidden" name="lat"><input type="hidden" name="lng"><input type="hidden" name="location"><input type="hidden" name="formatted_address"><input type="hidden" name="street_number"><input type="hidden" name="postal_code"><input type="hidden" name="locality"><input type="hidden" name="country"><input type="hidden" name="country_short"><input type="hidden" name="administrative_area_level_1"><input type="hidden" name="place_id">
+                                            </form>
+                                            <form id="geolocationForm" style="display: none;">
+                                                <input type="hidden" name="latitude"><input type="hidden" name="longitude">
+                                            </form>
+
+                                            <button id="goSearch" class="btn btn-primary btn-lg" type="button">En avant toute !</button>
                                         </div>
                                     </div>
                                 </div>

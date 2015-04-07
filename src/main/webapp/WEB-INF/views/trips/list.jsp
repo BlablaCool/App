@@ -30,7 +30,8 @@
                     <label for="enableGeolocation" style="display: inline; font-weight: bold; cursor: pointer;"> &nbsp;Trouver un point autour de moi &nbsp;
                       <i class="fa fa-map-marker geolocationDone"></i>
                       <i class="fa fa-exclamation-triangle geolocationError"></i>
-                      <i class="fa fa-refresh fa-spin geolocationWaiting"></i></label>
+                      <i class="fa fa-refresh fa-spin geolocationWaiting"></i>
+                    </label>
                   </p>
                 </div>
               </div>
@@ -57,36 +58,13 @@
       </form>
       
       <form id="departureForm" style="display: none;">
-        <input type="hidden" name="name">
-        <input type="hidden" name="lat">
-        <input type="hidden" name="lng">
-        <input type="hidden" name="location">
-        <input type="hidden" name="formatted_address">
-        <input type="hidden" name="street_number">
-        <input type="hidden" name="postal_code">
-        <input type="hidden" name="locality">
-        <input type="hidden" name="country">
-        <input type="hidden" name="country_short">
-        <input type="hidden" name="administrative_area_level_1">
-        <input type="hidden" name="place_id">
+        <input type="hidden" name="name"><input type="hidden" name="lat"><input type="hidden" name="lng"><input type="hidden" name="location"><input type="hidden" name="formatted_address"><input type="hidden" name="street_number"><input type="hidden" name="postal_code"><input type="hidden" name="locality"><input type="hidden" name="country"><input type="hidden" name="country_short"><input type="hidden" name="administrative_area_level_1"><input type="hidden" name="place_id">
       </form>
       <form id="arrivalForm" style="display: none;">
-        <input type="hidden" name="name">
-        <input type="hidden" name="lat">
-        <input type="hidden" name="lng">
-        <input type="hidden" name="location">
-        <input type="hidden" name="formatted_address">
-        <input type="hidden" name="street_number">
-        <input type="hidden" name="postal_code">
-        <input type="hidden" name="locality">
-        <input type="hidden" name="country">
-        <input type="hidden" name="country_short">
-        <input type="hidden" name="administrative_area_level_1">
-        <input type="hidden" name="place_id">
+        <input type="hidden" name="name"><input type="hidden" name="lat"><input type="hidden" name="lng"><input type="hidden" name="location"><input type="hidden" name="formatted_address"><input type="hidden" name="street_number"><input type="hidden" name="postal_code"><input type="hidden" name="locality"><input type="hidden" name="country"><input type="hidden" name="country_short"><input type="hidden" name="administrative_area_level_1"><input type="hidden" name="place_id">
       </form>
       <form id="geolocationForm" style="display: none;">
-        <input type="hidden" name="latitude">
-        <input type="hidden" name="longitude">
+        <input type="hidden" name="latitude"><input type="hidden" name="longitude">
       </form>
       
       <div class="row">
