@@ -126,15 +126,21 @@ public class UserController {
     public String getUserUpdate(@AuthenticationPrincipal User loggedUser,@Valid @ModelAttribute("user") User user, BindingResult bindingResult,ModelAndView modelAndView)
     {
         User userToUpdate = userService.findById(loggedUser.getId());
-        user.setId(userToUpdate.getId());
-        user.setNickname(userToUpdate.getNickname());
-        user.setPassword(userToUpdate.getPassword());
-        user.setPasswordConfirmation(userToUpdate.getPassword());
-        for (int i = 0; i < userToUpdate.getAuthorities().size(); i++) {
-            user.getAuthorities().add(userToUpdate.getAuthorities().get(i));
-        }
+        userToUpdate.setFirstname(user.getFirstname());
+        userToUpdate.setLastname(user.getLastname());
+        userToUpdate.setAge(user.getAge());
+        userToUpdate.setCity(user.getCity());
+        userToUpdate.setCountry(user.getCountry());
+        userToUpdate.setEmail(user.getEmail());
+        userToUpdate.setPhoneNumber(user.getPhoneNumber());
+        userToUpdate.setState(user.getState());
+        userToUpdate.setPostcode(user.getPostcode());
+        userToUpdate.setAddress(user.getAddress());
+        userToUpdate.setRoles(user.getRoles());
+        userToUpdate.setPassword(loggedUser.getPassword());
+        userToUpdate.setPasswordConfirmation(loggedUser.getPasswordConfirmation());
         // System.out.println(userToUpdate.getPassword());
-        userService.update(user);
+        userService.update(userToUpdate);
        // Authentication authentication = new UsernamePasswordAuthenticationToken(user,user.getPassword(),user.getAuthorities());
        // SecurityContextHolder.getContext().setAuthentication(authentication);
         return "redirect:/users/me";
