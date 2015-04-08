@@ -11,12 +11,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -123,6 +122,18 @@ public class UserController {
         modelAndView.addObject("bookingWaitingReviews", bookingService.findToReviewForUser(user.getId()));
 
         return modelAndView;
+    }
+
+    @Secured("ROLE_USER")
+    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+    @ResponseBody
+    public String postUpdateUser(@AuthenticationPrincipal User authenticatedUser,
+                                 @Valid @ModelAttribute("user") User user,
+                                 BindingResult bindingResult)
+    {
+        System.out.println(user);
+
+        return "OKOK";
     }
 
 }
