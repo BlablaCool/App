@@ -10,6 +10,7 @@ import java.util.Date;
  * Created by Valentin on 06/04/15.
  */
 @Entity
+@Table(name = "review")
 public class Review
 {
     private int idReview;
