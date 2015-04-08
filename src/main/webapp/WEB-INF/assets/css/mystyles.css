@@ -9,3 +9,48 @@
 .isActivated-true {
     color: #5ebd6f !important;
 }
+#bigMapOnTripPage {
+    height: 420px;
+    background-position: center;
+    background-repeat: no-repeat;
+    /*background-size: cover;*/
+}
+#pendingBookingTable {
+    margin-bottom: 0;
+}
+#pendingBookingTable td {
+    vertical-align: middle !important;
+}
+.step-wrapper {
+    margin-top: -28px;
+}
+.geolocationWaiting, .geolocationDone, .geolocationError {
+    display: none;
+}
+#participantsList {
+    list-style-type: none;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    display: inline;
+    margin-left: 42px;
+}
+#participantsList li {
+    display: inline;
+    margin-right: 20px;
+}
+#participantsList li:last-child {
+    display: inline;
+    margin-right: 0;
+}
+#bookingReviewStarsWrapper {
+    color: rgb(255, 212, 0);
+    text-align: center;
+    cursor: pointer;
+}
+#stars-existing {
+    font-size: 34px;
+}
+.booking-item-review-person-loc {
+    margin-bottom: 5px !important;
+}

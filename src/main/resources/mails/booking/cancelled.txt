@@ -1,0 +1,9 @@
+Bonjour {{ driverNickname }},
+
+Mauvaise nouvelle... {{ passengerNickname }} a annulé sa demande de covoiturage pour le voyage {{ tripSummary }} !
+
+Pour plus de détails, n'hésitez pas à cliquer sur le lien suivant :
+<a href="{{ bookingUrl }}">voir les détails de la réservation</a>.
+
+À très bientôt !
+L'équipe BlablaCool.

@@ -10,7 +10,9 @@ import java.util.List;
  * Created by Valentin on 15/03/15.
  */
 @Entity
-public class Place {
+@Table(name = "place")
+public class Place
+{
     private int idPlace;
     private String namePublic;
     private String namePrivate;

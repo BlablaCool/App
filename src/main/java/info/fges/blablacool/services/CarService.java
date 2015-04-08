@@ -11,7 +11,8 @@ import java.util.List;
  * Created by Valentin on 15/03/15.
  */
 @Service
-public class CarService extends ServiceInterface<Car,Integer> {
+public class CarService extends ServiceInterface<Car,Integer>
+{
     @Autowired
     private CarDao carDao;
 
@@ -26,8 +27,8 @@ public class CarService extends ServiceInterface<Car,Integer> {
     }
 
     @Override
-    public void create(Car trip) {
-        carDao.create(trip);
+    public void create(Car car) {
+        carDao.create(car);
     }
 
     @Override
@@ -37,8 +38,8 @@ public class CarService extends ServiceInterface<Car,Integer> {
     }
 
     @Override
-    public void delete(Car trip) {
-        carDao.delete(trip);
+    public void delete(Car car) {
+        carDao.delete(car);
     }
 
     @Override

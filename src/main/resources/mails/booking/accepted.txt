@@ -1,0 +1,9 @@
+Bonjour {{ passengerNickname }},
+
+Bonne nouvelle ! {{ driverNickname }} a accepté votre demande de covoiturage !
+
+Pour plus de détails, n'hésitez pas à cliquer sur le lien suivant :
+<a href="{{ bookingUrl }}">voir les détails de la réservation</a>.
+
+À très bientôt !
+L'équipe BlablaCool.

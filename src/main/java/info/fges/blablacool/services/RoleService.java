@@ -27,8 +27,8 @@ public class RoleService extends ServiceInterface<Role,Integer>
     }
 
     @Override
-    public void create(Role trip) {
-        roleDao.create(trip);
+    public void create(Role role) {
+        roleDao.create(role);
     }
 
     @Override
@@ -37,8 +37,8 @@ public class RoleService extends ServiceInterface<Role,Integer>
     }
 
     @Override
-    public void delete(Role trip) {
-        roleDao.delete(trip);
+    public void delete(Role role) {
+        roleDao.delete(role);
     }
 
     @Override

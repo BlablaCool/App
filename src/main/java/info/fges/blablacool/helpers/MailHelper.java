@@ -4,8 +4,10 @@ import com.microtripit.mandrillapp.lutung.MandrillApi;
 import com.microtripit.mandrillapp.lutung.model.MandrillApiError;
 import com.microtripit.mandrillapp.lutung.view.MandrillMessage;
 import com.microtripit.mandrillapp.lutung.view.MandrillMessageStatus;
+import org.apache.commons.lang3.text.StrSubstitutor;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,7 +37,35 @@ public class MailHelper
         this.summary = summary;
     }
 
-    private void send()
+    public MailHelper(String recipientName,
+                      String recipientEmail,
+                      String mailTemplateName,
+                      HashMap<String, String> mailTemplatePlaceholders,
+                      String title,
+                      String summary)
+    {
+        properties = readProperties();
+
+        this.recipients = new HashMap<String, String>();
+        this.recipients.put(recipientName, recipientEmail);
+
+        this.title = title;
+        this.summary = summary;
+
+        try
+        {
+            String template = ReadFileHelper.readFile(MailHelper.class.getClassLoader().getResource("/mails/" + mailTemplateName + ".txt").getPath(), Charset.defaultCharset(), true);
+            StrSubstitutor strSubstitutor = new StrSubstitutor(mailTemplatePlaceholders, "{{ ", " }}");
+
+            this.content = strSubstitutor.replace(template);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void send()
     {
         MandrillApi mandrillApi = new MandrillApi(properties.get("key").toString());
 
@@ -48,8 +78,9 @@ public class MailHelper
         for (Map.Entry<String, String> recipient : this.recipients.entrySet())
         {
             MandrillMessage.Recipient recipientToAdd = new MandrillMessage.Recipient();
-            recipientToAdd.setEmail(properties.get("email").toString());
-            recipientToAdd.setName("Valentin Polo");
+            recipientToAdd.setEmail(recipient.getValue());
+            recipientToAdd.setName(recipient.getKey());
+
             allRecipients.add(recipientToAdd);
         }
 

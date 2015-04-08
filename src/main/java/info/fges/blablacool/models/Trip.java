@@ -1,6 +1,7 @@
 package info.fges.blablacool.models;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import javax.persistence.*;
@@ -11,32 +12,42 @@ import java.util.List;
  * Created by Valentin on 15/03/15.
  */
 @Entity
-public class Trip {
+@Table(name = "trip")
+public class Trip
+{
     private int idTrip;
     private Short capacity;
     private User driver;
-    private List<User> passengers;
-    private List<Step> steps;
     private boolean allowSmoking;
     private boolean allowAnimals;
     private String luggage;
     private BigDecimal price;
+    private List<Step> steps;
+    private List<Booking> booking;
+    private List<Message> messages;
 
     public Trip()
     {
-        System.out.println("here we are");
+    }
+
+    public Trip(Trip trip)
+    {
+        this.driver = trip.getDriver();
+        this.capacity = trip.getCapacity();
+        this.allowSmoking = trip.isAllowSmoking();
+        this.allowAnimals = trip.isAllowAnimals();
+        this.luggage = trip.getLuggage();
+        this.price = trip.getPrice();
     }
 
     public Trip(JSONObject jsonTrip, User user)
     {
         this.driver = user;
-        this.capacity = Short.valueOf((String) jsonTrip.get("availableSeats"));
+        this.capacity = Short.valueOf((String) jsonTrip.getOrDefault("availableSeats", "4"));
         this.allowSmoking = Boolean.parseBoolean((String) jsonTrip.getOrDefault("allowSmokers", "False"));
         this.allowAnimals = Boolean.parseBoolean((String) jsonTrip.getOrDefault("allowAnimals", "False"));
-        this.luggage = (String) jsonTrip.get("bags");
+        this.luggage = (String) jsonTrip.getOrDefault("bags", "HEAVY");
         this.price = new BigDecimal((String) jsonTrip.getOrDefault("price", 0));
-
-        System.out.println(this);
     }
 
     @Id
@@ -77,6 +88,7 @@ public class Trip {
         this.capacity = capacity;
     }
 
+    @ManyToOne
     @OneToOne
     @JoinColumn(name = "driver_id", referencedColumnName = "id_user", nullable = false)
     public User getDriver() {
@@ -87,20 +99,10 @@ public class Trip {
         this.driver = driver;
     }
 
-    @ManyToMany
-    @JoinTable(name = "trip_has_passengers", catalog = "blablacool", schema = "", joinColumns = @JoinColumn(name = "trip_id", referencedColumnName = "id_trip", nullable = false), inverseJoinColumns = @JoinColumn(name = "passenger_id", referencedColumnName = "id_user", nullable = false))
-    public List<User> getPassengers() {
-        return passengers;
-    }
-
-    public void setPassengers(List<User> passengers) {
-        this.passengers = passengers;
-    }
-
     @Transient
     public int getLeftSeats()
     {
-        return (this.capacity - this.passengers.size());
+        return (this.capacity - this.booking.size());
     }
 
     @OneToMany(mappedBy = "trip")
@@ -172,5 +174,41 @@ public class Trip {
         }
 
         return null;
+    }
+
+    @Transient
+    public JSONArray getStepsInJson()
+    {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Step step : this.steps)
+        {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("lat", step.getPlace().getLatitude());
+            jsonObject.put("lon", step.getPlace().getLongitude());
+
+            jsonArray.add(jsonObject);
+        }
+
+        return jsonArray;
+    }
+
+    @OneToMany(mappedBy = "trip")
+    public List<Booking> getBooking() {
+        return booking;
+    }
+
+    public void setBooking(List<Booking> booking) {
+        this.booking = booking;
+    }
+
+    @OneToMany(mappedBy = "trip")
+    @OrderBy("createdAt DESC")
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 }

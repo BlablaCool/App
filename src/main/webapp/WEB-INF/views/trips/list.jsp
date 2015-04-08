@@ -9,27 +9,37 @@
 <tiles:insertDefinition name="blablacoolTemplate">
 
   <tiles:putAttribute name="footer-custom-js">
+    <script src="//maps.googleapis.com/maps/api/js?libraries=places"></script>
+    <script src="/assets/js/jquery.geocomplete.min.js"></script>
     <script src="/assets/js/trips.list.js"></script>
   </tiles:putAttribute>
 
   <tiles:putAttribute name="body">
     <div class="container" style="margin-top: 42px;">
-      <form class="booking-item-dates-change mb40">
+      <form id="infosForm" class="booking-item-dates-change mb40">
         <div class="row">
           <div class="col-md-8">
             <div class="row">
               <div class="col-md-6">
-                <div class="form-group form-group-icon-left">
+                <div class="form-group form-group-icon-left" style="margin-bottom: 2px;">
                   <i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
                   <label>Départ</label>
-                  <input class="typeahead form-control" value="United States, New York" placeholder="City, Hotel Name or U.S. Zip Code" type="text"/>
+                  <input class="form-control" type="text" name="departureAddress" id="departureAddress" />
+                  <p class="help-block" style="font-weight: bold; font-size: 16px; margin-bottom: 0; margin-left: 10px;">
+                    <input type="checkbox" name="enableGeolocation" id="enableGeolocation">
+                    <label for="enableGeolocation" style="display: inline; font-weight: bold; cursor: pointer;"> &nbsp;Trouver un point autour de moi &nbsp;
+                      <i class="fa fa-map-marker geolocationDone"></i>
+                      <i class="fa fa-exclamation-triangle geolocationError"></i>
+                      <i class="fa fa-refresh fa-spin geolocationWaiting"></i>
+                    </label>
+                  </p>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group form-group-icon-left">
                   <i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
                   <label>Arrivée</label>
-                  <input class="typeahead form-control" value="United States, New York" placeholder="City, Hotel Name or U.S. Zip Code" type="text"/>
+                  <input class="form-control" type="text" name="arrivalAddress" id="arrivalAddress" />
                 </div>
               </div>
             </div>
@@ -38,48 +48,29 @@
             <div class="form-group form-group-icon-left">
               <i class="fa fa-calendar input-icon input-icon-hightlight"></i>
               <label>Date</label>
-              <input class="form-control" name="start" type="text"/>
+              <input class="form-control date-pick" name="departureTime" type="text"/>
             </div>
           </div>
-          <div class="col-md-2">
-            <div class="form-group form-group- form-group-select-plus">
-              <label>Guests</label>
-              <div class="btn-group btn-group-select-num" data-toggle="buttons">
-                <label class="btn btn-primary active">
-                  <input type="radio" name="options"/>1</label>
-                <label class="btn btn-primary">
-                  <input type="radio" name="options"/>2</label>
-                <label class="btn btn-primary">
-                  <input type="radio" name="options"/>3</label>
-                <label class="btn btn-primary">
-                  <input type="radio" name="options"/>4</label>
-                <label class="btn btn-primary">
-                  <input type="radio" name="options"/>4+</label>
-              </div>
-              <select class="form-control hidden">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option selected="selected">5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-                <option>11</option>
-                <option>12</option>
-                <option>13</option>
-                <option>14</option>
-              </select>
-            </div>
+          <div class="col-md-2 text-center" style="margin-top: 26px;">
+            <button id="goSearch" class="btn btn-success" type="button"><i class="fa fa-search"></i> Rechercher</button>
           </div>
         </div>
       </form>
+      
+      <form id="departureForm" style="display: none;">
+        <input type="hidden" name="name"><input type="hidden" name="lat"><input type="hidden" name="lng"><input type="hidden" name="location"><input type="hidden" name="formatted_address"><input type="hidden" name="street_number"><input type="hidden" name="postal_code"><input type="hidden" name="locality"><input type="hidden" name="country"><input type="hidden" name="country_short"><input type="hidden" name="administrative_area_level_1"><input type="hidden" name="place_id">
+      </form>
+      <form id="arrivalForm" style="display: none;">
+        <input type="hidden" name="name"><input type="hidden" name="lat"><input type="hidden" name="lng"><input type="hidden" name="location"><input type="hidden" name="formatted_address"><input type="hidden" name="street_number"><input type="hidden" name="postal_code"><input type="hidden" name="locality"><input type="hidden" name="country"><input type="hidden" name="country_short"><input type="hidden" name="administrative_area_level_1"><input type="hidden" name="place_id">
+      </form>
+      <form id="geolocationForm" style="display: none;">
+        <input type="hidden" name="latitude"><input type="hidden" name="longitude">
+      </form>
+      
       <div class="row">
         <div class="col-md-3">
           <aside class="booking-filters text-white">
-            <h3>Filter By:</h3>
+            <h3>Filtrer :</h3>
             <ul class="list booking-filters-list">
               <li>
                 <h5 class="booking-filters-title">Price</h5>
@@ -127,34 +118,33 @@
           </aside>
         </div>
         <div class="col-md-9">
-          <div class="nav-drop booking-sort">
-            <h5 class="booking-sort-title"><a href="rentals-search-results-3.html#">Sort: Price (low to high)<i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></a></h5>
-            <ul class="nav-drop-menu">
-              <li><a href="rentals-search-results-3.html#">Price (hight to low)</a>
-              </li>
-              <li><a href="rentals-search-results-3.html#">Ranking</a>
-              </li>
-              <li><a href="rentals-search-results-3.html#">Bedrooms (Most to Least)</a>
-              </li>
-              <li><a href="rentals-search-results-3.html#">Bedrooms (Least to Most)</a>
-              </li>
-              <li><a href="rentals-search-results-3.html#">Number of Reviews</a>
-              </li>
-              <li><a href="rentals-search-results-3.html#">Number of Photos</a>
-              </li>
-              <li><a href="rentals-search-results-3.html#">Just Added</a>
-              </li>
-            </ul>
-          </div>
+          <%--<div class="nav-drop booking-sort">--%>
+            <%--<h5 class="booking-sort-title"><a href="rentals-search-results-3.html#">Sort: Price (low to high)<i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></a></h5>--%>
+            <%--<ul class="nav-drop-menu">--%>
+              <%--<li><a href="rentals-search-results-3.html#">Price (hight to low)</a>--%>
+              <%--</li>--%>
+              <%--<li><a href="rentals-search-results-3.html#">Ranking</a>--%>
+              <%--</li>--%>
+              <%--<li><a href="rentals-search-results-3.html#">Bedrooms (Most to Least)</a>--%>
+              <%--</li>--%>
+              <%--<li><a href="rentals-search-results-3.html#">Bedrooms (Least to Most)</a>--%>
+              <%--</li>--%>
+              <%--<li><a href="rentals-search-results-3.html#">Number of Reviews</a>--%>
+              <%--</li>--%>
+              <%--<li><a href="rentals-search-results-3.html#">Number of Photos</a>--%>
+              <%--</li>--%>
+              <%--<li><a href="rentals-search-results-3.html#">Just Added</a>--%>
+              <%--</li>--%>
+            <%--</ul>--%>
+          <%--</div>--%>
           <ul class="booking-list">
-
-            <c:forEach items="${recentTrips}" var="trip">
+            <c:forEach items="${trips}" var="trip">
               <li class="trip-element" data-url="/trips/${trip.idTrip}">
                 <div class="booking-item">
                   <div class="row">
                     <div class="col-md-2">
                       <div class="booking-item-img-wrap">
-                        <img src="http://placehold.it/420x420" />
+                        <img src="http://placehold.it/420x420" class="img-rounded" style="max-width: 100%; max-height: 120px;"/>
                         <%--<div class="booking-item-img-num">--%>
                           <%--<i class="fa fa-picture-o"></i>29--%>
                         <%--</div>--%>
@@ -174,7 +164,7 @@
                       </h5>
                       <ul class="booking-item-features booking-item-features-rentals booking-item-features-sign">
                         <li rel="tooltip" data-placement="bottom" title="Places disponibles">
-                          <i class="fa fa-male"></i><span class="booking-item-feature-sign">${trip.capacity}</span>
+                          <i class="fa fa-male"></i><span class="booking-item-feature-sign">${trip.leftSeats}/${trip.capacity}</span>
                         </li>
                         <li rel="tooltip" data-placement="bottom" title="Bagages autorisés">
                           <i class="fa fa-suitcase"></i>
@@ -215,39 +205,39 @@
               </li>
             </c:forEach>
           </ul>
-          <div class="row">
-            <div class="col-md-6">
-              <p>
-                <small>320 vacation rentals found in New York. &nbsp;&nbsp;Showing 1 – 15</small>
-              </p>
-              <ul class="pagination">
-                <li class="active"><a href="rentals-search-results-3.html#">1</a>
-                </li>
-                <li><a href="rentals-search-results-3.html#">2</a>
-                </li>
-                <li><a href="rentals-search-results-3.html#">3</a>
-                </li>
-                <li><a href="rentals-search-results-3.html#">4</a>
-                </li>
-                <li><a href="rentals-search-results-3.html#">5</a>
-                </li>
-                <li><a href="rentals-search-results-3.html#">6</a>
-                </li>
-                <li><a href="rentals-search-results-3.html#">7</a>
-                </li>
-                <li class="dots">...</li>
-                <li><a href="rentals-search-results-3.html#">43</a>
-                </li>
-                <li class="next"><a href="rentals-search-results-3.html#">Next Page</a>
-                </li>
-              </ul>
-            </div>
-            <div class="col-md-6 text-right">
-              <p>
-                Not what you're looking for? <a class="popup-text" href="rentals-search-results-3.html#search-dialog" data-effect="mfp-zoom-out">Try your search again</a>
-              </p>
-            </div>
-          </div>
+          <%--<div class="row">--%>
+            <%--<div class="col-md-6">--%>
+              <%--<p>--%>
+                <%--<small>320 vacation rentals found in New York. &nbsp;&nbsp;Showing 1 – 15</small>--%>
+              <%--</p>--%>
+              <%--<ul class="pagination">--%>
+                <%--<li class="active"><a href="rentals-search-results-3.html#">1</a>--%>
+                <%--</li>--%>
+                <%--<li><a href="rentals-search-results-3.html#">2</a>--%>
+                <%--</li>--%>
+                <%--<li><a href="rentals-search-results-3.html#">3</a>--%>
+                <%--</li>--%>
+                <%--<li><a href="rentals-search-results-3.html#">4</a>--%>
+                <%--</li>--%>
+                <%--<li><a href="rentals-search-results-3.html#">5</a>--%>
+                <%--</li>--%>
+                <%--<li><a href="rentals-search-results-3.html#">6</a>--%>
+                <%--</li>--%>
+                <%--<li><a href="rentals-search-results-3.html#">7</a>--%>
+                <%--</li>--%>
+                <%--<li class="dots">...</li>--%>
+                <%--<li><a href="rentals-search-results-3.html#">43</a>--%>
+                <%--</li>--%>
+                <%--<li class="next"><a href="rentals-search-results-3.html#">Next Page</a>--%>
+                <%--</li>--%>
+              <%--</ul>--%>
+            <%--</div>--%>
+            <%--&lt;%&ndash;<div class="col-md-6 text-right">&ndash;%&gt;--%>
+              <%--&lt;%&ndash;<p>&ndash;%&gt;--%>
+                <%--&lt;%&ndash;Not what you're looking for? <a class="popup-text" href="rentals-search-results-3.html#search-dialog" data-effect="mfp-zoom-out">Try your search again</a>&ndash;%&gt;--%>
+              <%--&lt;%&ndash;</p>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
+          <%--</div>--%>
         </div>
       </div>
       <div class="gap"></div>

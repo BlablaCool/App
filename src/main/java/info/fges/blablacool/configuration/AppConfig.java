@@ -39,16 +39,18 @@ public class AppConfig extends WebMvcConfigurerAdapter
     private Properties getHibernateProperties()
     {
         Properties prop = new Properties();
-        prop.put("hibernate.format_sql", "true");
-        prop.put("hibernate.show_sql", "true");
+        prop.put("hibernate.format_sql", "false"); // TRUE DEV
+        prop.put("hibernate.show_sql", "false"); // TRUE DEV
         prop.put("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
 
         prop.put("hibernate.enable_lazy_load_no_trans", "true");
 
-        prop.put("hibernate.cache.use_second_level_cache", "false");
-        prop.put("hibernate.cache.use_query_cache", "false");
+        // prop.put("hibernate.cache.use_second_level_cache", "false"); // FALSE DEV
+        // prop.put("hibernate.cache.use_query_cache", "false"); // FALSE DEV
         prop.put("hibernate.c3p0.max_statements", "0");
         prop.put("hibernate.connection.isolation", "2");
+
+        prop.put("javax.persistence.validation.mode", "none");
 
         return prop;
     }

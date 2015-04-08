@@ -10,12 +10,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * Created by Valentin on 15/03/15.
  */
 @Entity
+@Table(name = "user")
 public class User implements UserDetails
 {
     private int id;
@@ -39,7 +41,6 @@ public class User implements UserDetails
     @NotEmpty
     private String passwordConfirmation;
 
-    private List<Trip> trips;
     private List<Car> cars;
     private List<Role> roles;
 
@@ -53,6 +54,10 @@ public class User implements UserDetails
     private String postcode;
     private String country;
     private UserPreference preferences;
+    private List<Booking> booking;
+    private List<Trip> trips;
+    private List<Message> messages;
+    private List<Review> reviewsGiven;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -105,15 +110,6 @@ public class User implements UserDetails
         result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
         result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
         return result;
-    }
-
-    @ManyToMany(mappedBy = "passengers")
-    public List<Trip> getTrips() {
-        return trips;
-    }
-
-    public void setTrips(List<Trip> trips) {
-        this.trips = trips;
     }
 
     @OneToMany(mappedBy = "owner")
@@ -340,5 +336,114 @@ public class User implements UserDetails
 
     public void setPreferences(UserPreference preferences) {
         this.preferences = preferences;
+    }
+
+    @OneToMany(mappedBy = "user")
+    public List<Booking> getBooking() {
+        return booking;
+    }
+
+    public void setBooking(List<Booking> booking) {
+        this.booking = booking;
+    }
+
+    @OneToMany(mappedBy = "driver")
+    public List<Trip> getTrips() {
+        return trips;
+    }
+
+    public void setTrips(List<Trip> trips) {
+        this.trips = trips;
+    }
+
+    @Transient
+    public List<Trip> getDriverUpcomingTrips()
+    {
+        List<Trip> tripList = new ArrayList<Trip>(this.trips);
+
+        for (Iterator<Trip> iterator = tripList.iterator(); iterator.hasNext();)
+        {
+            Trip trip = iterator.next();
+
+            if (trip.getDepartureStep().getEstimatedTime().isBeforeNow())
+            {
+                iterator.remove();
+            }
+        }
+
+        return tripList;
+    }
+
+    @Transient
+    public List<Trip> getDriverLastTrips()
+    {
+        List<Trip> tripList = new ArrayList<Trip>(this.trips);
+
+        for (Iterator<Trip> iterator = tripList.iterator(); iterator.hasNext();)
+        {
+            Trip trip = iterator.next();
+
+            if (trip.getArrivalStep().getEstimatedTime().isAfterNow())
+            {
+                iterator.remove();
+            }
+        }
+
+        return tripList;
+    }
+
+    @Transient
+    public List<Review> getReviewsReceived()
+    {
+        List<Review> reviews = new ArrayList<Review>();
+
+        for (Trip trip : this.trips)
+        {
+            for (Booking booking : trip.getBooking())
+            {
+                if (booking.getReview() != null)
+                {
+                    reviews.add(booking.getReview());
+                }
+            }
+        }
+
+        return reviews;
+    }
+
+    @OneToMany(mappedBy = "sender")
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+
+    @OneToMany(mappedBy = "reviewer")
+    public List<Review> getReviewsGiven() {
+        return reviewsGiven;
+    }
+
+    public void setReviewsGiven(List<Review> reviewsGiven) {
+        this.reviewsGiven = reviewsGiven;
+    }
+
+    @Transient
+    public Double getAverageNote()
+    {
+        Double averageNote = 0.0;
+
+        if (this.getReviewsReceived().size() > 0)
+        {
+            for (Review review : this.getReviewsReceived())
+            {
+                averageNote += review.getNote().doubleValue();
+            }
+
+            averageNote = averageNote / this.getReviewsReceived().size();
+        }
+
+        return averageNote;
     }
 }

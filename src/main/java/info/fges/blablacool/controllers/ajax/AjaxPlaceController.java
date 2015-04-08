@@ -50,8 +50,6 @@ public class AjaxPlaceController
         trip.setCapacity(Short.valueOf("5"));
         tripService.create(trip);
 
-        System.out.println(trip);
-
         JSONArray jsonPlaces = (JSONArray) JSONValue.parse(stringifiedJsonPlaces);
 
         for (int i = 0; i < jsonPlaces.size(); i++)
@@ -76,11 +74,9 @@ public class AjaxPlaceController
             place.setStreet("Street");
 
             placeService.create(place);
-            System.out.println(place);
 
             Step step = new Step(trip, place, i+1);
             stepService.create(step);
-            System.out.println(step);
         }
 
         return stringifiedJsonPlaces;

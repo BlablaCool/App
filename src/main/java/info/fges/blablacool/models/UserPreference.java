@@ -43,6 +43,38 @@ public class UserPreference
         return musicStyles;
     }
 
+    public static ArrayList<String> getTemperaments()
+    {
+        ArrayList<String> temperaments = new ArrayList<String>();
+        temperaments.add("Calme");
+        temperaments.add("Avenant");
+        temperaments.add("Décontracté");
+        temperaments.add("Sur les nerfs");
+
+        return temperaments;
+    }
+
+    public static ArrayList<String> getTalkingLevels()
+    {
+        ArrayList<String> talkingLevels = new ArrayList<String>();
+        talkingLevels.add("Pas du tout");
+        talkingLevels.add("Un peu");
+        talkingLevels.add("Ça dépend avec qui !");
+        talkingLevels.add("Je ne sais pas m'arrêter");
+
+        return talkingLevels;
+    }
+
+    public static ArrayList<String> getDrivingStyles()
+    {
+        ArrayList<String> drivingStyles = new ArrayList<String>();
+        drivingStyles.add("Calme");
+        drivingStyles.add("Sportive");
+        drivingStyles.add("Prudente");
+
+        return drivingStyles;
+    }
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_user_preference", nullable = false, insertable = false, updatable = false)

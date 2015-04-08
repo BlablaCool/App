@@ -6,7 +6,9 @@ import javax.persistence.*;
  * Created by Valentin on 15/03/15.
  */
 @Entity
-public class Car {
+@Table(name = "car")
+public class Car
+{
     private int id;
     private String type;
     private String registration;
@@ -20,6 +22,7 @@ public class Car {
     private String trim;
     private Integer horsePower;
     private Integer doors;
+//    private String fuel;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -179,4 +182,14 @@ public class Car {
     public void setDoors(Integer doors) {
         this.doors = doors;
     }
+
+//    @Basic
+//    @Column(name = "fuel", nullable = true, insertable = true, updatable = true)
+//    public String getFuel() {
+//        return fuel;
+//    }
+//
+//    public void setFuel(String fuel) {
+//        this.fuel = fuel;
+//    }
 }
