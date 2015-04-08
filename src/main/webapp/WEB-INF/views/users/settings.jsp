@@ -2,6 +2,9 @@
 <%@taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+<%--@elvariable id="user" type="info.fges.blablacool.models.User"--%>
+<%--@elvariable id="userPreferences" type="info.fges.blablacool.models.UserPreference"--%>
+
 <tiles:insertDefinition name="blablacoolTemplate">
     <tiles:putAttribute name="body">
         <div class="container">
@@ -80,82 +83,99 @@
                             </div>
                         </form:form>
                     </div>
-
-                    <div class="row">
-
+                    <div class="row" style="margin-top: 62px;">
                         <div class="col-md-6">
-                            <%--<form:form>--%>
-                                <%--<div class="gap gap-small"></div>--%>
-                                <%--<h4>Traits de caractère</h4>--%>
-                                <%--<div class="form-group">--%>
-                                    <%--<label>Possède un animal</label>--%>
-                                    <%--<div class="radio-inline">--%>
-                                        <%--<label>--%>
-                                            <%--<form:radiobutton path="preferences.likeAnimals" value="1" cssClass="i-radio" /> Oui--%>
-                                        <%--</label>--%>
-                                    <%--</div>--%>
-                                    <%--<div class="radio-inline">--%>
-                                        <%--<label>--%>
-                                            <%--<form:radiobutton path="preferences.likeAnimals" value="0" cssClass="i-radio" /> Non--%>
-                                        <%--</label>--%>
-                                    <%--</div>--%>
-                                <%--</div>--%>
-                                <%--<div class="form-group">--%>
-                                    <%--<label>Style de musique</label>--%>
-                                    <%--<form:select path="preferences.musicStyle" cssClass="form-control">--%>
-                                        <%--<form:option value="none" label="Choisir un style de musique..."/>--%>
-                                        <%--<form:options items="${musicStyles}" />--%>
-                                    <%--</form:select>--%>
-                                <%--</div>--%>
-                                <%--<div class="form-group">--%>
-                                    <%--<label>Fumeur</label>--%>
-                                    <%--<div class="radio-inline">--%>
-                                        <%--<label>--%>
-                                            <%--<form:radiobutton path="preferences.likeSmoking" value="1" cssClass="i-radio" /> Oui--%>
-                                        <%--</label>--%>
-                                    <%--</div>--%>
-                                    <%--<div class="radio-inline">--%>
-                                        <%--<label>--%>
-                                            <%--<form:radiobutton path="preferences.likeSmoking" value="0" cssClass="i-radio" /> Non--%>
-                                        <%--</label>--%>
-                                    <%--</div>--%>
-                                <%--</div>--%>
-                                <%--<div class="form-group">--%>
-                                    <%--<label>Tempérament</label>--%>
-                                    <%--<select name="personnality" class="form-control">--%>
-                                        <%--<option value="calme">Calme</option>--%>
-                                        <%--<option value="avenant">Avenant</option>--%>
-                                        <%--<option value="decontracte">Decontracté</option>--%>
-                                    <%--</select>--%>
-                                <%--</div>--%>
-                                <%--<div class="form-group">--%>
-                                    <%--<label>J'ai tendance a beaucoup parler</label>--%>
-                                    <%--<div class="radio-inline">--%>
-                                        <%--<label>--%>
-                                            <%--<input class="i-radio" type="radio" name="talkative" />Oui</label>--%>
-                                    <%--</div>--%>
-                                    <%--<div class="radio-inline">--%>
-                                        <%--<label>--%>
-                                            <%--<input class="i-radio" type="radio" name="talkative" />Non</label>--%>
-                                    <%--</div>--%>
-                                <%--</div>--%>
-                                <%--<div class="form-group">--%>
-                                    <%--<label>Style de conduite</label>--%>
-                                    <%--<select name="drivingStyle" class="form-control">--%>
-                                        <%--<option value="calme">Calme</option>--%>
-                                        <%--<option value="sprotif">Sptortif</option>--%>
-                                        <%--<option value="prudent">Prudent</option>--%>
-                                    <%--</select>--%>
-                                <%--</div>--%>
-                                <%--<div class="form-group">--%>
-                                    <%--<label>Informations supplémentaires:</label>--%>
-                                    <%--<textarea class="form-control" rows="5" name="description"></textarea>--%>
-                                <%--</div>--%>
-                                <%--<hr>--%>
-                                <%--<input type="submit" class="btn btn-primary" value="Savegarder">--%>
-                            <%--</form:form>--%>
+                            <form:form action="/users/updateUserPreferences" modelAttribute="userPreferences" cssClass="form-horizontal">
+                                <h4>Traits de caractère</h4>
+
+                                <form:hidden path="idUserPreference"></form:hidden>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Je possède un animal ?</label>
+                                            <div class="radio-inline">
+                                                <label>
+                                                    <form:radiobutton path="likeAnimals" value="1" cssClass="i-radio" /> Oui
+                                                </label>
+                                            </div>
+                                            <div class="radio-inline">
+                                                <label>
+                                                    <form:radiobutton path="likeAnimals" value="0" cssClass="i-radio" /> Non
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Je fume ?</label>
+                                            <div class="radio-inline">
+                                                <label>
+                                                    <form:radiobutton path="likeSmoking" value="1" cssClass="i-radio" /> Oui
+                                                </label>
+                                            </div>
+                                            <div class="radio-inline">
+                                                <label>
+                                                    <form:radiobutton path="likeSmoking" value="0" cssClass="i-radio" /> Non
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>Mon style de <strong>musique</strong>...</label>
+                                            <form:select path="musicStyle" cssClass="form-control">
+                                                <form:option value="none" label="Choisir......"/>
+                                                <form:options items="${musicStyles}" />
+                                            </form:select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 col-md-offset-1">
+                                        <div class="form-group">
+                                            <label>Mon style de <strong>conduite</strong>...</label>
+                                            <form:select path="drivingStyle" cssClass="form-control">
+                                                <form:option value="none" label="Choisir..."/>
+                                                <form:options items="${drivingStyles}" />
+                                            </form:select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>Mon tempérament</label>
+                                            <form:select path="temperament" cssClass="form-control">
+                                                <form:option value="none" label="Choisir un tempérament..."/>
+                                                <form:options items="${temperaments}" />
+                                            </form:select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 col-md-offset-1">
+                                        <div class="form-group">
+                                            <label>J'aime parler...</label>
+                                            <form:select path="talkingLevel" cssClass="form-control">
+                                                <form:option value="none" label="Choisir..."/>
+                                                <form:options items="${talkingLevels}" />
+                                            </form:select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Informations supplémentaires:</label>
+                                    <textarea class="form-control" rows="5" name="description"></textarea>
+                                </div>
+
+                                <p class="text-center mt20">
+                                    <input type="submit" class="btn btn-lg btn-success" value="Enregister">
+                                </p>
+                            </form:form>
                         </div>
-                        <div class="col-md-4 col-md-offset-1">
+                        <div class="col-md-5 col-md-offset-1">
                             <h4>Modifier le mot de passe</h4>
                             <form>
                                 <div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon"></i>
