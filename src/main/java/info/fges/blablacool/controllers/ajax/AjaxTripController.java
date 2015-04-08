@@ -78,6 +78,6 @@ public class AjaxTripController
             stepService.create(step);
         }
 
-        return stringifiedJsonPlaces;
+        return JSONValue.toJSONString("/trips/" + trip.getIdTrip());
     }
 }
