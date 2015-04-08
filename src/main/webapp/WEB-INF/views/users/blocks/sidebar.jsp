@@ -21,8 +21,8 @@
             <li><a href="${url_profile_cars}"><i class="fa fa-car"></i>Mes voitures</a></li>
             <s:url var="url_profile_plans" value="/users/plans"/>
             <li><a href="${url_profile_plans}"><i class="fa fa-credit-card"></i>Abonnements</a></li>
-            <s:url var="url_profile_update" value="/users/update"/>
-            <li><a href="${url_profile_update}"><i class="fa fa-cog"></i>Paramètres</a></li>
+            <s:url var="url_profile_settings" value="/users/settings"/>
+            <li><a href="${url_profile_settings}"><i class="fa fa-cog"></i>Paramètres</a></li>
         </ul>
     </aside>
 </div>

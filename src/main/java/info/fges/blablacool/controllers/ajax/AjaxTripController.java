@@ -59,8 +59,6 @@ public class AjaxTripController
         Trip trip = new Trip((JSONObject) JSONValue.parse(stringifiedJsonInfos), user);
         tripService.create(trip);
 
-        System.out.println(trip);
-
         JSONArray jsonPlaces = (JSONArray) JSONValue.parse(stringifiedJsonPlaces);
         for (int i = 0; i < jsonPlaces.size(); i++)
         {
@@ -71,7 +69,6 @@ public class AjaxTripController
              */
             Place place = new Place(jsonPlace, user);
             placeService.create(place);
-            System.out.println(place);
 
             /**
              * Creating the Step object with Place saved before...
@@ -79,9 +76,8 @@ public class AjaxTripController
             String dateTimeAsString = jsonPlace.get("date") + " " + jsonPlace.get("time");
             Step step = new Step(trip, place, i+1, DateTime.parse(dateTimeAsString, DateTimeFormat.forPattern("dd/MM/yyyy HH:mm")));
             stepService.create(step);
-            System.out.println(step);
         }
 
-        return stringifiedJsonPlaces;
+        return JSONValue.toJSONString("/trips/" + trip.getIdTrip());
     }
 }

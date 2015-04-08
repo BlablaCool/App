@@ -2,6 +2,7 @@ package info.fges.blablacool.controllers;
 
 import info.fges.blablacool.models.*;
 import info.fges.blablacool.services.BookingService;
+import info.fges.blablacool.services.UserPreferenceService;
 import info.fges.blablacool.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -11,12 +12,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -32,14 +32,23 @@ public class UserController {
     @Autowired
     private BookingService bookingService;
 
+    @Autowired
+    private UserPreferenceService userPreferenceService;
+
     @Secured("ROLE_USER")
-    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    @RequestMapping(value = "/settings", method = RequestMethod.GET)
     public ModelAndView getUserSettings(@AuthenticationPrincipal User user,
                                         ModelAndView modelAndView)
     {
+        User userToEdit = userService.findById(user.getId());
+
         modelAndView.setViewName("users/settings");
-        modelAndView.addObject("user", userService.findById(user.getId())); // We can't just use the User from Spring Security as it is not refreshed!
+        modelAndView.addObject("user", userToEdit); // We can't just use the User from Spring Security as it is not refreshed!
+        modelAndView.addObject("userPreferences", userToEdit.getPreferences());
         modelAndView.addObject("musicStyles", UserPreference.getMusicStyles());
+        modelAndView.addObject("temperaments", UserPreference.getTemperaments());
+        modelAndView.addObject("talkingLevels", UserPreference.getTalkingLevels());
+        modelAndView.addObject("drivingStyles", UserPreference.getDrivingStyles());
 
         return modelAndView;
     }
@@ -123,6 +132,52 @@ public class UserController {
         modelAndView.addObject("bookingWaitingReviews", bookingService.findToReviewForUser(user.getId()));
 
         return modelAndView;
+    }
+
+    @Secured("ROLE_USER")
+    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+    public String postUpdateUser(@AuthenticationPrincipal User authenticatedUser,
+                                 @ModelAttribute("user") User updatedUser)
+    {
+        authenticatedUser = userService.findById(authenticatedUser.getId());
+
+        authenticatedUser.setFirstname(updatedUser.getFirstname());
+        authenticatedUser.setLastname(updatedUser.getLastname());
+        authenticatedUser.setEmail(updatedUser.getEmail());
+        authenticatedUser.setPhoneNumber(updatedUser.getPhoneNumber());
+        authenticatedUser.setAddress(updatedUser.getAddress());
+        authenticatedUser.setPostcode(updatedUser.getPostcode());
+        authenticatedUser.setCity(updatedUser.getCity());
+        authenticatedUser.setState(updatedUser.getState());
+        authenticatedUser.setCountry(updatedUser.getCountry());
+
+        userService.update(authenticatedUser);
+
+        // Updating Spring Security User's Details (thanks to Nico!)
+        Authentication authentication = new UsernamePasswordAuthenticationToken(authenticatedUser, authenticatedUser.getPassword(), authenticatedUser.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        return "redirect:/users/settings";
+    }
+
+    @Secured("ROLE_USER")
+    @RequestMapping(value = "/updateUserPreferences", method = RequestMethod.POST)
+    public String postUpdateUserPreferences(@AuthenticationPrincipal User authenticatedUser,
+                                            @ModelAttribute("userPreferences") UserPreference updatedUserPreferences)
+    {
+        UserPreference originalUserPreferences = userPreferenceService.findById(updatedUserPreferences.getIdUserPreference());
+
+        originalUserPreferences.setLikeAnimals(updatedUserPreferences.getLikeAnimals());
+        originalUserPreferences.setLikeSmoking(updatedUserPreferences.getLikeSmoking());
+        originalUserPreferences.setDrivingStyle(updatedUserPreferences.getDrivingStyle());
+        originalUserPreferences.setMusicStyle(updatedUserPreferences.getMusicStyle());
+        originalUserPreferences.setOthers(updatedUserPreferences.getOthers());
+        originalUserPreferences.setTalkingLevel(updatedUserPreferences.getTalkingLevel());
+        originalUserPreferences.setTemperament(updatedUserPreferences.getTemperament());
+
+        userPreferenceService.update(originalUserPreferences);
+
+        return "redirect:/users/settings";
     }
 
 }

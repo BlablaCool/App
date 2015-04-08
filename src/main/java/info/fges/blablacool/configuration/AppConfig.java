@@ -51,6 +51,8 @@ public class AppConfig extends WebMvcConfigurerAdapter
         prop.put("hibernate.c3p0.max_statements", "0");
         prop.put("hibernate.connection.isolation", "2");
 
+        prop.put("javax.persistence.validation.mode", "none");
+
         return prop;
     }
 
