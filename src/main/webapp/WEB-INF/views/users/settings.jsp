@@ -167,7 +167,7 @@
 
                                 <div class="form-group">
                                     <label>Informations supplémentaires:</label>
-                                    <textarea class="form-control" rows="5" name="description"></textarea>
+                                    <form:textarea path="others" cssClass="form-control"></form:textarea>
                                 </div>
 
                                 <p class="text-center mt20">
