@@ -153,6 +153,10 @@ public class UserController {
 
         userService.update(authenticatedUser);
 
+        // Updating Spring Security User's Details (thanks to Nico!)
+        Authentication authentication = new UsernamePasswordAuthenticationToken(authenticatedUser, authenticatedUser.getPassword(), authenticatedUser.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
         return "redirect:/users/settings";
     }
 
