@@ -126,14 +126,24 @@ public class UserController {
 
     @Secured("ROLE_USER")
     @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
-    @ResponseBody
     public String postUpdateUser(@AuthenticationPrincipal User authenticatedUser,
-                                 @Valid @ModelAttribute("user") User user,
-                                 BindingResult bindingResult)
+                                 @ModelAttribute("user") User updatedUser)
     {
-        System.out.println(user);
+        authenticatedUser = userService.findById(authenticatedUser.getId());
 
-        return "OKOK";
+        authenticatedUser.setFirstname(updatedUser.getFirstname());
+        authenticatedUser.setLastname(updatedUser.getLastname());
+        authenticatedUser.setEmail(updatedUser.getEmail());
+        authenticatedUser.setPhoneNumber(updatedUser.getPhoneNumber());
+        authenticatedUser.setAddress(updatedUser.getAddress());
+        authenticatedUser.setPostcode(updatedUser.getPostcode());
+        authenticatedUser.setCity(updatedUser.getCity());
+        authenticatedUser.setState(updatedUser.getState());
+        authenticatedUser.setCountry(updatedUser.getCountry());
+
+        userService.update(authenticatedUser);
+
+        return "redirect:/users/update";
     }
 
 }
