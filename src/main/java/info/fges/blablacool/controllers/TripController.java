@@ -90,7 +90,7 @@ public class TripController
         {
             _message = _message.replaceAll("[\r\n]+", "\n");
             _message = _message.replaceAll("\n", "<br />");
-            System.out.println(_message);
+
             messageService.create(new Message(_message, tripService.findById(_idTrip), _user));
         }
 

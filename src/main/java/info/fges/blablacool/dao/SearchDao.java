@@ -50,10 +50,6 @@ public class SearchDao
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
-        System.out.println(_departureLatitude);
-        System.out.println(_departureLongitude);
-        System.out.println(_arrivalCity);
-
         List<Trip> tripList;
         Query query = session
                 .createSQLQuery("SELECT t.* FROM trip t INNER JOIN step s ON t.id_trip = s.trip_id INNER JOIN place p on s.place_id = p.id_place CROSS JOIN trip t2 INNER JOIN step s2 ON t2.id_trip = s2.trip_id CROSS JOIN place p2 ON s2.place_id = p2.id_place WHERE p.id_place IN ( SELECT id_place FROM ( SELECT location, id_place, name_public, latitude, longitude, distance FROM ( SELECT z.id_place, z.name_public, z.latitude, z.longitude, z.location, p.radius, p.distance_unit * DEGREES(ACOS(COS(RADIANS(p.latpoint)) * COS(RADIANS(z.latitude)) * COS(RADIANS(p.longpoint - z.longitude)) + SIN(RADIANS(p.latpoint)) * SIN(RADIANS(z.latitude)))) AS distance FROM place AS z JOIN ( SELECT :latitude AS latpoint, :longitude AS longpoint, :perimeter AS radius, 111.045 AS distance_unit ) AS p ON 1=1 WHERE z.latitude BETWEEN p.latpoint - (p.radius / p.distance_unit) AND p.latpoint + (p.radius / p.distance_unit) AND z.longitude BETWEEN p.longpoint - (p.radius / (p.distance_unit * COS(RADIANS(p.latpoint)))) AND p.longpoint + (p.radius / (p.distance_unit * COS(RADIANS(p.latpoint)))) ) AS d WHERE distance <= radius ORDER BY distance LIMIT 15 ) geo ) AND s.position = 1 AND p2.city LIKE :arrivalCity GROUP BY t.id_trip")
