@@ -4,11 +4,15 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import sun.security.provider.MD5;
 
 import javax.persistence.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -445,5 +449,22 @@ public class User implements UserDetails
         }
 
         return averageNote;
+    }
+
+    @Transient
+    public String getGravatarUrl() throws NoSuchAlgorithmException
+    {
+        String email = this.email;
+
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(email.getBytes());
+
+        byte byteData[] = md.digest();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < byteData.length; i++) {
+            sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+        }
+
+        return "https://secure.gravatar.com/avatar/" + sb.toString() + ".jpg?s=210&d=retro";
     }
 }
