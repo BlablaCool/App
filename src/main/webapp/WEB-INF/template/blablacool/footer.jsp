@@ -5,61 +5,42 @@
                 <a class="logo" href="index.html">
                     <img src="/assets/img/logo-white.png" />
                 </a>
-                <p class="mb20">Booking, reviews and advices on hotels, resorts, flights, vacation rentals, travel packages, and lots more!</p>
+                <p class="mb20">
+                    Le covoiturage facile et simple ! Planifiez vos voyages, réduisez vos coûts et laissez vous porter avec BlablaCool.
+                </p>
                 <ul class="list list-horizontal list-space">
                     <li>
-                        <a class="fa fa-facebook box-icon-normal round animate-icon-bottom-to-top" href="index-7.html#"></a>
+                        <a class="fa fa-facebook box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
                     </li>
                     <li>
-                        <a class="fa fa-twitter box-icon-normal round animate-icon-bottom-to-top" href="index-7.html#"></a>
+                        <a class="fa fa-twitter box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
                     </li>
                     <li>
-                        <a class="fa fa-google-plus box-icon-normal round animate-icon-bottom-to-top" href="index-7.html#"></a>
+                        <a class="fa fa-google-plus box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
                     </li>
                     <li>
-                        <a class="fa fa-linkedin box-icon-normal round animate-icon-bottom-to-top" href="index-7.html#"></a>
+                        <a class="fa fa-linkedin box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
                     </li>
                     <li>
-                        <a class="fa fa-pinterest box-icon-normal round animate-icon-bottom-to-top" href="index-7.html#"></a>
+                        <a class="fa fa-pinterest box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
                     </li>
                 </ul>
             </div>
-
-            <div class="col-md-3">
-                <h4>Newsletter</h4>
-                <form>
-                    <label>Enter your E-mail Address</label>
-                    <input type="text" class="form-control">
-                    <p class="mt5"><small>*We Never Send Spam</small>
-                    </p>
-                    <input type="submit" class="btn btn-primary" value="Subscribe">
-                </form>
-            </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-md-offset-3">
                 <ul class="list list-footer">
-                    <li><a href="index-7.html#">About US</a>
-                    </li>
-                    <li><a href="index-7.html#">Press Centre</a>
-                    </li>
-                    <li><a href="index-7.html#">Best Price Guarantee</a>
-                    </li>
-                    <li><a href="index-7.html#">Travel News</a>
-                    </li>
-                    <li><a href="index-7.html#">Jobs</a>
-                    </li>
-                    <li><a href="index-7.html#">Privacy Policy</a>
-                    </li>
-                    <li><a href="index-7.html#">Terms of Use</a>
-                    </li>
-                    <li><a href="index-7.html#">Feedback</a>
-                    </li>
+                    <li><a href="#">À Propos</a></li>
+                    <li><a href="#">Aide</a></li>
+                    <li><a href="#">Jobs</a></li>
+                    <li><a href="#">Nous contacter</a></li>
+                    <li><a href="#">Conditions d'utilisation</a></li>
+                    <li><a href="#">Respect de la vie privée</a></li>
+                    <li><a href="#">Avis</a></li>
                 </ul>
             </div>
             <div class="col-md-4">
-                <h4>Have Questions?</h4>
-                <h4 class="text-color">+1-202-555-0173</h4>
-                <h4><a href="index-7.html#" class="text-color">support@traveler.com</a></h4>
-                <p>24/7 Dedicated Customer Support</p>
+                <h4>Vous avez une question ?</h4>
+                <h4><a href="#" class="text-color">contact@blablacool.fges.info</a></h4>
+                <p>Assistance dédiée 24h/24, 7j/7</p>
             </div>
         </div>
     </div>
