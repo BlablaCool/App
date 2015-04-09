@@ -52,6 +52,7 @@ public class TripController
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public ModelAndView getNew(@AuthenticationPrincipal User user, ModelAndView modelAndView)
     {
+        System.out.println(user.toString());
         modelAndView.setViewName("trips/new");
         modelAndView.addObject("departureAddress", new Place());
         modelAndView.addObject("arrivalAddress", new Place());
