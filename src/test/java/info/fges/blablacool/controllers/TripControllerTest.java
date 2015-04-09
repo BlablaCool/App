@@ -17,7 +17,9 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -58,6 +60,9 @@ public class TripControllerTest {
     @Mock
     private ServletContext servletContext;
 
+    @Mock
+    SecurityContextHolder securityContextHolder;
+
     @InjectMocks
     private TripController tripController;
 
@@ -66,6 +71,7 @@ public class TripControllerTest {
     Trip trip;
     Place place1, place2;
     User user;
+    Authentication auth;
 
     @Before
     public void setup() {
@@ -76,13 +82,14 @@ public class TripControllerTest {
         place2 = new Place();
         user = new User();
         user.setId(1);
+        user.setPassword("monmdp");
+        user.setNickname("Nicolas");
 
         // Process mock annotations
         MockitoAnnotations.initMocks(this);
 
-        Authentication auth = new UsernamePasswordAuthenticationToken(user,null);
-
-        SecurityContextHolder.getContext().setAuthentication(auth);
+        auth = new UsernamePasswordAuthenticationToken(user,null, AuthorityUtils.createAuthorityList("ROLE_USER"));
+        securityContextHolder.getContext().setAuthentication(auth);
 
         // Setup Spring test in standalone mode
         mockMvc = MockMvcBuilders.standaloneSetup(tripController).build();
@@ -99,17 +106,20 @@ public class TripControllerTest {
 
     @Test
     public void testGetNew() throws Exception {
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
         mockMvc.perform(get("/trips/new"))
                 .andExpect((status().isOk()))
-                .andExpect(model().attribute("departureAddress", any(Place.class)))
-                .andExpect(model().attribute("arrivalAddress", any(Place.class)))
-                .andExpect("driver", userService.findById(user.getId()));
+                .andExpect(model().attributeExists("departureAddress"))
+                .andExpect(model().attributeExists("arrivalAddress"))
+                .andExpect(model().attributeExists("driver"));
 
     }
 
     @Test
     public void testGetTrip() throws Exception {
-
+        mockMvc.perform(get("/trips/1"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("trip"));
     }
 
     @Test
