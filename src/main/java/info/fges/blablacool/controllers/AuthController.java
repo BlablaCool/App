@@ -81,7 +81,7 @@ public class AuthController
         /**
          * Adding a trial subscription
          */
-        subscriptionService.create(new Subscription(user, 7));
+        subscriptionService.create(new Subscription(user, 7, "ESSAI"));
 
         /**
          * Adding a role...

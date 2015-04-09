@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletContext;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -34,6 +35,9 @@ public class UserController {
 
     @Autowired
     private UserPreferenceService userPreferenceService;
+
+    @Autowired
+    private ServletContext servletContext;
 
     @Secured("ROLE_USER")
     @RequestMapping(value = "/settings", method = RequestMethod.GET)
@@ -92,15 +96,11 @@ public class UserController {
     public ModelAndView getPlans(@AuthenticationPrincipal User user,
                            ModelAndView modelAndView)
     {
+        String stripeApiPublicKey = servletContext.getInitParameter("stripePublicKey");
+
         modelAndView.setViewName("users/plans");
         modelAndView.addObject("user", userService.findById(user.getId()));
-
-        System.out.println(user.hasActiveSubscription());
-
-        for(Subscription sub : user.getSubscriptions())
-        {
-            System.out.println(sub.getFrom());
-        }
+        modelAndView.addObject("stripePublicKey", stripeApiPublicKey);
 
         return modelAndView;
     }

@@ -46,6 +46,132 @@
               </c:forEach>
             </tbody>
           </table>
+
+          <h4 class="mt40">Ajouter un abonnement</h4>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">CHOCOLAT</h3>
+                </div>
+                <div class="panel-body">
+                  <p class="lead text-center mb0">
+                    1 semaine<br>
+                    <small>2,00 &euro;</small>
+                  </p>
+                </div>
+                <div class="panel-footer">
+                  <form action="/payments/charge-plan/chocolat" method="POST" style="text-align: center;">
+                    <script
+                            src="https://checkout.stripe.com/checkout.js"
+                            class="stripe-button"
+                            data-key="${stripePublicKey}"
+                            data-email="${user.email}"
+                            data-allow-remember-me="false"
+                            data-label="Payer"
+                            data-panel-label="Payer"
+                            data-currency="EUR"
+                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                            data-name="BlablaCool"
+                            data-description="Abonnement Chocolat"
+                            data-amount="200"
+                            defer>
+                    </script>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title" style="background: rgb(141, 94, 0); color: white;">BRONZE</h3>
+                </div>
+                <div class="panel-body">
+                  <p class="lead text-center mb0">1 mois<br>
+                    <small>5,90 &euro;</small></p>
+                </div>
+                <div class="panel-footer">
+                  <form action="/payments/charge-plan/bronze" method="POST" style="text-align: center;">
+                    <script
+                            src="https://checkout.stripe.com/checkout.js"
+                            class="stripe-button"
+                            data-key="${stripePublicKey}"
+                            data-email="${user.email}"
+                            data-allow-remember-me="false"
+                            data-label="Payer"
+                            data-panel-label="Payer"
+                            data-currency="EUR"
+                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                            data-name="BlablaCool"
+                            data-description="Abonnement Bronze"
+                            data-amount="590"
+                            defer>
+                    </script>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title" style="background: rgb(135, 135, 135); color: white;">SILVER</h3>
+                </div>
+                <div class="panel-body">
+                  <p class="lead text-center mb0">6 mois<br>
+                    <small>29,90 &euro;</small></p>
+                </div>
+                <div class="panel-footer">
+                  <form action="/payments/charge-plan/silver" method="POST" style="text-align: center;">
+                    <script
+                            src="https://checkout.stripe.com/checkout.js"
+                            class="stripe-button"
+                            data-key="${stripePublicKey}"
+                            data-email="${user.email}"
+                            data-allow-remember-me="false"
+                            data-label="Payer"
+                            data-panel-label="Payer"
+                            data-currency="EUR"
+                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                            data-name="BlablaCool"
+                            data-description="Abonnement Silver"
+                            data-amount="2990"
+                            defer>
+                    </script>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title" style="background: rgb(255, 221, 19);">GOLD</h3>
+                </div>
+                <div class="panel-body">
+                  <p class="lead text-center mb0">1 an<br>
+                    <small>59,90 &euro;</small></p>
+                </div>
+                <div class="panel-footer">
+                  <form action="/payments/charge-plan/gold" method="POST" style="text-align: center;">
+                    <script
+                            src="https://checkout.stripe.com/checkout.js"
+                            class="stripe-button"
+                            data-key="${stripePublicKey}"
+                            data-email="${user.email}"
+                            data-allow-remember-me="false"
+                            data-label="Payer"
+                            data-panel-label="Payer"
+                            data-currency="EUR"
+                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                            data-name="BlablaCool"
+                            data-description="Abonnement Gold"
+                            data-amount="5990"
+                            defer>
+                    </script>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

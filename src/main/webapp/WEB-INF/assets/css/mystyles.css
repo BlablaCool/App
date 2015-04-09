@@ -54,3 +54,10 @@
 .booking-item-review-person-loc {
     margin-bottom: 5px !important;
 }
+h3.panel-title {
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: rgb(238, 238, 238);
+}
