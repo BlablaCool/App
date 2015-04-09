@@ -6,6 +6,7 @@ import org.json.simple.JSONObject;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -210,5 +211,35 @@ public class Trip
 
     public void setMessages(List<Message> messages) {
         this.messages = messages;
+    }
+
+    @Transient
+    public Boolean hasAcceptedBookings()
+    {
+        for (Booking booking : this.booking)
+        {
+            if (booking.isAccepted())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Transient
+    public List<Booking> getAcceptedBookings()
+    {
+        List<Booking> bookings = new ArrayList<Booking>();
+
+        for (Booking booking : this.booking)
+        {
+            if (booking.isAccepted())
+            {
+                bookings.add(booking);
+            }
+        }
+
+        return bookings;
     }
 }

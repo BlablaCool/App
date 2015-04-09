@@ -75,10 +75,20 @@
       <div class="row" style="margin: 21px 0;">
         <div class="col-md-8 col-md-offset-2">
           <h4 style="font-weight: 600; text-transform: uppercase; display: inline;">Participants</h4>
-          <ul id="participantsList">
-            <li><img src="http://lorempixel.com/420/420/people/" class="img-circle img-thumbnail" style="max-width: 84px; max-height: 84px;"></li>
-            <li><img src="http://lorempixel.com/420/420/people/" class="img-circle img-thumbnail" style="max-width: 84px; max-height: 84px;"></li>
-          </ul>
+          
+          <c:choose>
+            <c:when test="${trip.hasAcceptedBookings()}">
+              <ul id="participantsList">
+              <c:forEach items="${trip.acceptedBookings}" var="booking">
+                <li><a href="/users/${booking.user.id}"><img src="${booking.user.gravatarUrl}" class="img-circle img-thumbnail" style="max-width: 84px; max-height: 84px;" /></a></li>
+              </c:forEach>
+              </ul>
+            </c:when>
+            <c:otherwise>
+              <p class="lead text-center;" style="display: inline; margin-left: 42px;">Aucun participant pour le moment...</p>
+            </c:otherwise>
+          </c:choose>
+
         </div>
       </div>
 
