@@ -24,6 +24,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/users")
+@SessionAttributes(value="user",types=User.class)
 public class UserController {
 
     @Autowired
@@ -72,7 +73,6 @@ public class UserController {
                                         ModelAndView modelAndView)
     {
         User user = userService.findById(principal.getId());
-
         modelAndView.setViewName("users/profile");
         modelAndView.addObject("user", user);
         modelAndView.addObject("viewedUser", user);
@@ -135,8 +135,6 @@ public class UserController {
                                      ModelAndView modelAndView)
     {
         List<Booking> bookingList = bookingService.findToReviewForUser(user.getId());
-
-        System.out.println(bookingList);
 
         modelAndView.setViewName("users/passenger");
         modelAndView.addObject("user", userService.findById(user.getId()));

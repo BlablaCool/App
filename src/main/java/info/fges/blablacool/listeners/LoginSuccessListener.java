@@ -1,9 +1,9 @@
 package info.fges.blablacool.listeners;
 
 import info.fges.blablacool.configuration.AppConfig;
+import info.fges.blablacool.models.User;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.apache.log4j.Logger;
 
@@ -18,7 +18,7 @@ public class LoginSuccessListener implements ApplicationListener<InteractiveAuth
     @Override
     public void onApplicationEvent(InteractiveAuthenticationSuccessEvent event)
     {
-        UserDetails userDetails = (UserDetails) event.getAuthentication().getPrincipal();
-        logger.warn("User : " + userDetails.getUsername() + " logged in");
+       // User user= (User) event.getAuthentication().getPrincipal();
+       // logger.warn("User : " + user.getUsername() + " logged in");
     }
 }

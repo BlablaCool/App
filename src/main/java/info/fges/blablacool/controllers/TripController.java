@@ -26,6 +26,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/trips")
+@SessionAttributes(value="user",types=User.class)
 public class TripController
 {
     @Autowired
@@ -81,10 +82,10 @@ public class TripController
     @Secured("ROLE_SUBSCRIBED")
     @RequestMapping(value = "/{id}/add-message", method = RequestMethod.POST)
     public String addMessageToTrip(@AuthenticationPrincipal User _user,
-                                         @PathVariable("id") Integer _idTrip,
-                                         @RequestParam("message") String _message,
-                                         HttpServletRequest request,
-                                         ModelAndView modelAndView)
+                                   @PathVariable("id") Integer _idTrip,
+                                   @RequestParam("message") String _message,
+                                   HttpServletRequest request,
+                                   ModelAndView modelAndView)
     {
         try {
             request.setCharacterEncoding("UTF-8");
@@ -110,12 +111,19 @@ public class TripController
                               ModelAndView modelAndView)
     {
         Trip tripToClone = tripService.findById(id);
-
         if (tripToClone.getDriver().getId() != user.getId())
         {
             throw new AccessForbiddenException();
         }
+        // Creating architecture...
+        Trip clonedTrip = new Trip(tripToClone);
+        tripService.create(clonedTrip);
 
+        // Adding Steps...
+        for (Step stepToClone : tripToClone.getSteps())
+        {
+            stepService.create(new Step(stepToClone, clonedTrip));
+        }
         modelAndView.setViewName("trips/copy");
         modelAndView.addObject("trip", tripToClone);
 

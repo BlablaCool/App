@@ -23,9 +23,8 @@ import org.springframework.security.web.context.AbstractSecurityWebApplicationIn
 @ComponentScan({"info.fges.blablacool"})
 @EnableWebMvcSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter implements ApplicationListener<AuthenticationSuccessEvent>
+public class SecurityConfig extends WebSecurityConfigurerAdapter
 {
-    private static final Logger logger = Logger.getLogger(AppConfig.class);
 
     @Autowired
     @Qualifier("customUserDetailsService")
@@ -62,8 +61,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Appl
 		return new BCryptPasswordEncoder();
 	}
 
-    @Override
-    public void onApplicationEvent(AuthenticationSuccessEvent authenticationSuccessEvent) {
-        logger.info("User LOGGED IN NDM");
-    }
 }
