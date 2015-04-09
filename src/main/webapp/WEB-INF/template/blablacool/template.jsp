@@ -3,7 +3,6 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Traveler - Index 7</title>
         <tiles:insertAttribute name="header-meta" />
         <tiles:insertAttribute name="header-custom-css" ignore="true" />
     </head>

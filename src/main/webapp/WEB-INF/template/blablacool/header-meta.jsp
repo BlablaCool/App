@@ -1,6 +1,6 @@
+<title>BlablaCool</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<meta name="keywords" content="Template, html, premium, themeforest" />
-<meta name="description" content="Traveler - Premium template for travel companies">
+<meta name="description" content="BlablaCool, carpooling made easy!">
 <meta name="author" content="BlablaCool">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href='//fonts.googleapis.com/css?family=Roboto:400,300,100,500,700' rel='stylesheet' type='text/css'>
