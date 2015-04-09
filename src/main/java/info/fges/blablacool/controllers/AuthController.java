@@ -10,6 +10,9 @@ import info.fges.blablacool.services.UserPreferenceService;
 import info.fges.blablacool.services.UserService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -89,7 +92,7 @@ public class AuthController
         /**
          * Adding a trial subscription
          */
-        subscriptionService.create(new Subscription(user, 7));
+        subscriptionService.create(new Subscription(user, 7, "ESSAI"));
 
         /**
          * Adding a role...
@@ -103,7 +106,16 @@ public class AuthController
          */
         userService.create(user);
 
-        return "redirect:/auth/registered";
+        /**
+         * Refreshing the new user
+         */
+        user = userService.findById(user.getId());
+
+        // Autoconnect (thanks to Nico!)
+        Authentication authentication = new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        return "redirect:/users/me";
     }
 
     /**

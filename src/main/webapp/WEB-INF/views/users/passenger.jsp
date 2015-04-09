@@ -77,7 +77,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                      <c:forEach items="${user.booking}" var="booking">
+                      <c:forEach items="${user.passengerUpcomingBookings}" var="booking">
                         <tr>
                           <td>
                             <joda:format value="${booking.createdTime}" pattern="dd/MM/yyyy" /><br />

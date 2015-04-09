@@ -34,6 +34,24 @@ public class Subscription
         this.user = user;
     }
 
+    public Subscription(User user, int daysToAdd, String code)
+    {
+        this.from = DateTime.now();
+        this.to = DateTime.now().plusDays(daysToAdd);
+        this.amount = new BigDecimal(0);
+        this.name = code;
+        this.user = user;
+    }
+
+    public Subscription(User user, int daysToAdd, String code, Integer amount)
+    {
+        this.from = DateTime.now();
+        this.to = DateTime.now().plusDays(daysToAdd);
+        this.amount = new BigDecimal(amount / 100);
+        this.name = code;
+        this.user = user;
+    }
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id_subscription", nullable = false, insertable = false, updatable = false)

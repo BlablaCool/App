@@ -5,9 +5,11 @@ import com.stripe.exception.*;
 import com.stripe.model.Charge;
 import info.fges.blablacool.models.Booking;
 import info.fges.blablacool.models.Payment;
+import info.fges.blablacool.models.Subscription;
 import info.fges.blablacool.models.User;
 import info.fges.blablacool.services.BookingService;
 import info.fges.blablacool.services.PaymentService;
+import info.fges.blablacool.services.SubscriptionService;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,6 +41,12 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
+    @RequestMapping("/charge-booking/{idBooking}")
+    public String postReturnFromStripe(@AuthenticationPrincipal User authenticatedUser,
+
+    @Autowired
+    private SubscriptionService subscriptionService;
+
     /**
      * uses the payment token from Strip checkout to generate a charge using the Sripe Api (using testing keys)
      * @param authenticatedUser
@@ -52,8 +60,8 @@ public class PaymentController {
      * @throws InvalidRequestException
      * @throws APIConnectionException
      */
-    @RequestMapping("/charge-booking/{idBooking}")
-    public String postReturnFromStripe(@AuthenticationPrincipal User authenticatedUser,
+    @RequestMapping(value = "/charge-booking/{idBooking}", method = RequestMethod.POST)
+    public String postChargeBooking(@AuthenticationPrincipal User authenticatedUser,
                                       @PathVariable Integer idBooking,
                                       @RequestParam String stripeToken,
                                       @RequestParam String stripeEmail)
@@ -87,6 +95,51 @@ public class PaymentController {
             paymentService.create(payment);
 
             return "redirect:/booking/" + bookingPaying.getId();
+        }
+        else
+        {
+            return "redirect:/payment/error";
+        }
+    }
+
+    @RequestMapping(value = "/charge-plan/{plan}", method = RequestMethod.POST)
+    public String postChargePlan(@AuthenticationPrincipal User authenticatedUser,
+                                 @PathVariable String plan,
+                                 @RequestParam String stripeToken)
+            throws CardException, APIException, AuthenticationException, InvalidRequestException, APIConnectionException
+    {
+        /**
+         * Amount
+         */
+        Integer amount = 0;
+        if (plan.contentEquals("chocolat")) amount = 200;
+        else if (plan.contentEquals("bronze")) amount = 590;
+        else if (plan.contentEquals("silver")) amount = 2990;
+        else if (plan.contentEquals("gold")) amount = 5990;
+
+        /**
+         * Time
+         */
+        Integer days = 0;
+        if (plan.contentEquals("chocolat")) days = 7;
+        else if (plan.contentEquals("bronze")) days = 31;
+        else if (plan.contentEquals("silver")) days = 186;
+        else if (plan.contentEquals("gold")) days = 365;
+
+        Stripe.apiKey = servletContext.getInitParameter("stripeSecretKey");
+        Map<String, Object> chargeParameters = new HashMap<String, Object>();
+        chargeParameters.put("amount", amount);
+        chargeParameters.put("currency", "EUR");
+        chargeParameters.put("source", stripeToken);
+        chargeParameters.put("description", "Abonnement " + plan.toUpperCase());
+
+        Charge charge = Charge.create(chargeParameters);
+
+        if (charge.getPaid())
+        {
+            subscriptionService.create(new Subscription(authenticatedUser, days, plan.toUpperCase(), amount));
+
+            return "redirect:/users/plans";
         }
         else
         {

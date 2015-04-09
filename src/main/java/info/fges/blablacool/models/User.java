@@ -467,4 +467,20 @@ public class User implements UserDetails
 
         return "https://secure.gravatar.com/avatar/" + sb.toString() + ".jpg?s=210&d=retro";
     }
+
+    @Transient
+    public List<Booking> getPassengerUpcomingBookings()
+    {
+        List<Booking> upcomingBookings = new ArrayList<Booking>();
+
+        for(Booking booking : this.booking)
+        {
+            if (booking.getTrip().getDepartureStep().getEstimatedTime().isAfterNow())
+            {
+                upcomingBookings.add(booking);
+            }
+        }
+
+        return upcomingBookings;
+    }
 }

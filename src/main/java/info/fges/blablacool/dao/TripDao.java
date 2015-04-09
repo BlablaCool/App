@@ -3,7 +3,9 @@ package info.fges.blablacool.dao;
 import info.fges.blablacool.models.Trip;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.MultiValueMap;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -66,6 +68,33 @@ public class TripDao extends DaoInterface<Trip, Integer>
         openCurrentSession();
         Query query = currentSession
                 .createQuery("FROM Trip ORDER BY idTrip DESC")
+                .setMaxResults(20);
+        tripList = query.list();
+        closeCurrentSession();
+
+        return tripList;
+    }
+
+    public List<Trip> findRecentsWithFilters(HashMap<String, String> filters)
+    {
+        List<Trip> tripList;
+
+        openCurrentSession();
+
+        String sqlQuery = "FROM Trip trip ";
+        if (filters.containsKey("price"))
+        {
+            String[] numbers = filters.get("price").split(";");
+            Integer minPrice = Integer.valueOf(numbers[0]);
+            Integer maxPrice = Integer.valueOf(numbers[1]);
+
+            sqlQuery += " WHERE trip.price >= " + minPrice + " AND trip.price <= " + maxPrice + " ";
+        }
+
+        sqlQuery += " ORDER BY idTrip DESC ";
+
+        Query query = currentSession
+                .createQuery(sqlQuery)
                 .setMaxResults(20);
         tripList = query.list();
         closeCurrentSession();

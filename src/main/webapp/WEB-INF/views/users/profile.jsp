@@ -111,46 +111,52 @@
                     <div class="gap gap-small"></div>
 
                     <h3 class="mb20">Avis des membres</h3>
-
                     <div class="row row-wrap">
                         <div class="col-md-12">
-                            <ul class="booking-item-reviews list">
-                                <c:forEach items="${user.reviewsReceived}" var="review">
-                                    <li>
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                <div class="booking-item-review-person">
-                                                    <p class="booking-item-review-person-name"><a href="/users/${review.reviewer.id}">${review.reviewer.nickname}</a></p>
-                                                    <p class="booking-item-review-person-loc"><i class="fa fa-car"> ${review.reviewer.trips.size()} voyage(s) </i></p>
-                                                    <p class="booking-item-review-person-loc"><i class="fa fa-users"> ${review.reviewer.booking.size()} voyage(s)</i></p>
-                                                    <p class="booking-item-review-person-loc"><i class="fa fa-star"> ${review.reviewer.reviewsReceived.size()} avis reçu(s)</i></p>
-                                                    <small><joda:format value="${review.createdAt}" pattern="dd/MM/yyyy à HH:mm" /></small>
+                            <c:choose>
+                                <c:when test="${user.reviewsReceived.size() == 0}">
+                                    <p class="lead text-center">Aucun avis laissé !</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <ul class="booking-item-reviews list">
+                                        <c:forEach items="${user.reviewsReceived}" var="review">
+                                            <li>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <div class="booking-item-review-person">
+                                                            <p class="booking-item-review-person-name"><a href="/users/${review.reviewer.id}">${review.reviewer.nickname}</a></p>
+                                                            <p class="booking-item-review-person-loc"><i class="fa fa-car"> ${review.reviewer.trips.size()} voyage(s) </i></p>
+                                                            <p class="booking-item-review-person-loc"><i class="fa fa-users"> ${review.reviewer.booking.size()} voyage(s)</i></p>
+                                                            <p class="booking-item-review-person-loc"><i class="fa fa-star"> ${review.reviewer.reviewsReceived.size()} avis reçu(s)</i></p>
+                                                            <small><joda:format value="${review.createdAt}" pattern="dd/MM/yyyy à HH:mm" /></small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <div class="booking-item-review-content">
+                                                            <h5>${review.booking.trip.departureStep.place.city} <em> vers</em> ${review.booking.trip.arrivalStep.place.city}</h5>
+                                                            <ul class="icon-group booking-item-rating-stars">
+                                                                <c:forEach begin="1" end="5" varStatus="loop">
+                                                                    <c:choose>
+                                                                        <c:when test="${review.note >= loop.count}">
+                                                                            <li><i class="fa fa-star"></i></li>
+                                                                        </c:when>
+                                                                        <c:otherwise>
+                                                                            <li><i class="fa fa-star-o"></i></li>
+                                                                        </c:otherwise>
+                                                                    </c:choose>
+                                                                </c:forEach>
+                                                            </ul>
+                                                            <p>
+                                                                    ${review.comment}
+                                                            </p>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-10">
-                                                <div class="booking-item-review-content">
-                                                    <h5>${review.booking.trip.departureStep.place.city} <em> vers</em> ${review.booking.trip.arrivalStep.place.city}</h5>
-                                                    <ul class="icon-group booking-item-rating-stars">
-                                                        <c:forEach begin="1" end="5" varStatus="loop">
-                                                            <c:choose>
-                                                                <c:when test="${review.note >= loop.count}">
-                                                                    <li><i class="fa fa-star"></i></li>
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <li><i class="fa fa-star-o"></i></li>
-                                                                </c:otherwise>
-                                                            </c:choose>
-                                                        </c:forEach>
-                                                    </ul>
-                                                    <p>
-                                                        ${review.comment}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </c:forEach>
-                            </ul>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>

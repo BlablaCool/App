@@ -113,4 +113,23 @@ $(function()
             $('#departureAddress').removeAttr('readonly');
         }
     });
+
+    $("#price-filter").ionRangeSlider({
+        min: 0,
+        max: 300,
+        from: (typeof filterMinPrice === 'undefined') ? 0 : filterMinPrice,
+        to: (typeof filterMaxPrice === 'undefined') ? 300 : filterMaxPrice,
+        type: 'double',
+        postfix: " &euro;",
+        values_separtor: "-",
+        prettify: false,
+        hasGrid: true
+    });
+
+    $(document).on('mouseup', '.irs-slider', function()
+    {
+        console.log($('#price-filter').val());
+
+        $('#filterForm').submit();
+    })
 })

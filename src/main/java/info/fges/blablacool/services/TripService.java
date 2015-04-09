@@ -4,7 +4,9 @@ import info.fges.blablacool.dao.TripDao;
 import info.fges.blablacool.models.Trip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -48,5 +50,10 @@ public class TripService extends ServiceInterface<Trip,Integer> {
     public List<Trip> findRecents()
     {
         return tripDao.findRecents();
+    }
+
+    public List<Trip> findRecentsWithFilters(HashMap<String, String> filters)
+    {
+        return tripDao.findRecentsWithFilters(filters);
     }
 }
