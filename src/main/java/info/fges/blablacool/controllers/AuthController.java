@@ -8,6 +8,7 @@ import info.fges.blablacool.services.RoleService;
 import info.fges.blablacool.services.SubscriptionService;
 import info.fges.blablacool.services.UserPreferenceService;
 import info.fges.blablacool.services.UserService;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -48,7 +49,6 @@ public class AuthController
     {
         modelAndView.setViewName("auth/login-register");
         modelAndView.addObject("newUser", new User());
-
         return modelAndView;
     }
 

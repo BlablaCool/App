@@ -2,7 +2,11 @@ package info.fges.blablacool.services;
 
 import info.fges.blablacool.dao.UserDao;
 import info.fges.blablacool.models.User;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
+import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
