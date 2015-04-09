@@ -11,7 +11,7 @@
         <div class="global-wrap">
             <header id="main-header">
                 <tiles:insertAttribute name="header" />
-                <tiles:insertAttribute name="top-menu" />
+                <%--<tiles:insertAttribute name="top-menu" />--%>
             </header>
             <tiles:insertAttribute name="body" />
             <tiles:insertAttribute name="footer" />

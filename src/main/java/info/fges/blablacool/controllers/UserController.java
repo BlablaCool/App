@@ -106,6 +106,17 @@ public class UserController {
     }
 
     @Secured("ROLE_USER")
+    @RequestMapping(value = "/cars", method = RequestMethod.GET)
+    public ModelAndView getCars(@AuthenticationPrincipal User user,
+                                ModelAndView modelAndView)
+    {
+        modelAndView.setViewName("users/cars");
+        modelAndView.addObject("user", userService.findById(user.getId()));
+
+        return modelAndView;
+    }
+
+    @Secured("ROLE_USER")
     @RequestMapping(value = "/driver", method = RequestMethod.GET)
     public ModelAndView getDriver(@AuthenticationPrincipal User user,
                                           ModelAndView modelAndView)

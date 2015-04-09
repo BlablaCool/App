@@ -44,7 +44,7 @@ public class BookingService extends ServiceInterface<Booking, Integer>
         mailPlaceholders.put("passengerNickname", booking.getUser().getNickname());
         mailPlaceholders.put("driverNickname", booking.getTrip().getDriver().getNickname());
         mailPlaceholders.put("tripSummary", booking.getTrip().getDepartureStep().getPlace().getCity() + " > " + booking.getTrip().getArrivalStep().getPlace().getCity());
-        mailPlaceholders.put("adminBookingUrl", "http://localhost:8080/users/driver");
+        mailPlaceholders.put("adminBookingUrl", "https://blablacool.fges.info/users/driver");
 
         MailHelper mailHelper = new MailHelper(booking.getTrip().getDriver().getNickname(),
                 booking.getTrip().getDriver().getEmail(),
@@ -90,7 +90,7 @@ public class BookingService extends ServiceInterface<Booking, Integer>
         HashMap<String, String> mailPlaceholders = new HashMap<String, String>();
         mailPlaceholders.put("passengerNickname", booking.getUser().getNickname());
         mailPlaceholders.put("driverNickname", booking.getTrip().getDriver().getNickname());
-        mailPlaceholders.put("bookingUrl", "http://localhost:8080/booking/" + booking.getId());
+        mailPlaceholders.put("bookingUrl", "https://blablacool.fges.info/booking/" + booking.getId());
 
         MailHelper mailHelper = new MailHelper(booking.getUser().getNickname(),
                 booking.getUser().getEmail(),
@@ -111,7 +111,7 @@ public class BookingService extends ServiceInterface<Booking, Integer>
         mailPlaceholders.put("passengerNickname", booking.getUser().getNickname());
         mailPlaceholders.put("driverNickname", booking.getTrip().getDriver().getNickname());
         mailPlaceholders.put("tripSummary", booking.getTrip().getDepartureStep().getPlace().getCity() + " > " + booking.getTrip().getArrivalStep().getPlace().getCity());
-        mailPlaceholders.put("bookingUrl", "http://localhost:8080/booking/" + booking.getId());
+        mailPlaceholders.put("bookingUrl", "https://blablacool.fges.info/booking/" + booking.getId());
 
         MailHelper mailHelper = new MailHelper(booking.getTrip().getDriver().getNickname(),
                 booking.getTrip().getDriver().getEmail(),
@@ -132,7 +132,7 @@ public class BookingService extends ServiceInterface<Booking, Integer>
         mailPlaceholders.put("passengerNickname", booking.getUser().getNickname());
         mailPlaceholders.put("driverNickname", booking.getTrip().getDriver().getNickname());
         mailPlaceholders.put("tripSummary", booking.getTrip().getDepartureStep().getPlace().getCity() + " > " + booking.getTrip().getArrivalStep().getPlace().getCity());
-        mailPlaceholders.put("bookingUrl", "http://localhost:8080/booking/" + booking.getId());
+        mailPlaceholders.put("bookingUrl", "https://blablacool.fges.info/booking/" + booking.getId());
 
         MailHelper mailHelper = new MailHelper(booking.getTrip().getDriver().getNickname(),
                 booking.getTrip().getDriver().getEmail(),

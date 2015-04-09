@@ -18,16 +18,17 @@
           <i class="fa fa-thumbs-up round box-icon-large box-icon-center box-icon-success mb30"></i>
           <h2 class="text-center">Bienvenue à bord ${user.firstname} !</h2>
           <h5 class="text-center mb30">Votre demande de réservation a été validée par <em>${booking.trip.driver.nickname}</em>, en avant toute !</h5>
+
+          <p class="lead text-center mb30">
+            Montant estimé : <fmt:formatNumber value="${booking.trip.price}" type="currency"/>
+          </p>
+
           <ul class="order-payment-list list mb30">
             <li>
               <div class="row">
                 <div class="col-xs-9">
                   <h5><i class="fa fa-car"></i> Départ de ${booking.step.place.city}</h5>
                   <p><small>le <joda:format value="${booking.step.estimatedTime}" pattern="dd/MM/yy" /> à <joda:format value="${booking.step.estimatedTime}" pattern="HH:mm" /></small>
-                  </p>
-                </div>
-                <div class="col-xs-3">
-                  <p class="text-right"><span class="text-lg">$150</span>
                   </p>
                 </div>
               </div>
@@ -39,14 +40,10 @@
                   <p><small>le <joda:format value="${booking.trip.arrivalStep.estimatedTime}" pattern="dd/MM/yy" /> à <joda:format value="${booking.trip.arrivalStep.estimatedTime}" pattern="HH:mm" /></small>
                   </p>
                 </div>
-                <div class="col-xs-3">
-                  <p class="text-right"><span class="text-lg">$187</span>
-                  </p>
-                </div>
               </div>
             </li>
           </ul>
-          <%--<h4 class="text-center">Vous avez un regret ?</h4>--%>
+
           <ul class="list list-inline list-center">
             <li>
               <form name="cancelBooking" method="POST" action="/booking/${booking.id}/delete">

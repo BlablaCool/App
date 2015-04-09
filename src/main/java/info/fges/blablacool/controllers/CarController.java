@@ -80,7 +80,7 @@ public class CarController implements ServletContextAware {
     public String create(@Valid @ModelAttribute("newCar") Car car, BindingResult bindingResult, @AuthenticationPrincipal User user,ModelAndView modelAndView){
         car.setOwner(user);
         carService.create(car);
-        return "redirect:/";
+        return "redirect:/users/cars";
     }
 
     @Override
