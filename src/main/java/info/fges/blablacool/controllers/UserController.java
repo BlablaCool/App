@@ -24,6 +24,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/users")
+@SessionAttributes(value="user",types=User.class)
 public class UserController {
 
     @Autowired
@@ -72,7 +73,7 @@ public class UserController {
                                         ModelAndView modelAndView)
     {
         User user = userService.findById(principal.getId());
-
+        System.out.println(user.getId() == principal.getId());
         modelAndView.setViewName("users/profile");
         modelAndView.addObject("user", user);
         modelAndView.addObject("viewedUser", user);

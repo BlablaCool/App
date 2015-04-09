@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,6 +29,7 @@ import javax.servlet.ServletContext;
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -56,6 +58,9 @@ public class UserControllerTest {
     @InjectMocks
     private UserController userController;
 
+    @Mock
+    MockHttpSession session;
+
     private MockMvc mockMvc;
 
     User user;
@@ -63,18 +68,17 @@ public class UserControllerTest {
 
     @Before
     public void setup() {
-
         user = new User();
         userPreference = new UserPreference();
         user.setId(1);
         user.setNickname("Nicolas");
         user.setPreferences(userPreference);
+        user.setEmail("nducom@gmail.com");
 
         // Process mock annotations
         MockitoAnnotations.initMocks(this);
 
-        Authentication auth = new UsernamePasswordAuthenticationToken(user,null);
-        SecurityContextHolder.getContext().setAuthentication(auth);
+        session.setAttribute("user", user);
 
         // Setup Spring test in standalone mode
         mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
@@ -84,9 +88,9 @@ public class UserControllerTest {
 
     @Test
     public void testGetUserSettings() throws Exception {
-        User userToEdit = userService.findById(1);
-        mockMvc.perform(get("/users/settings"))
-                .andExpect(model().attribute("user", any(User.class)));
+        mockMvc.perform(get("/users/settings")
+                .session(session))
+                .andExpect(model().attribute("user", user));
                // .andExpect(status().isOk())
 //                .andExpect(model().attribute("user", any(User.class)));
 
@@ -102,16 +106,20 @@ public class UserControllerTest {
     @Test
     public void testGetUser() throws Exception {
 
-        mockMvc.perform(get("users/1"))
+        mockMvc.perform(get("/users/1"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("user"))
-                .andExpect(model().attribute("viewedUser",user.getId()));
+                .andExpect(model().attribute("viewedUser",user));
 
     }
 
     @Test
     public void testGetLoggedInUser() throws Exception {
-
+        mockMvc.perform(get("/users/me")
+                .session(session));
+               // .andExpect(status().isOk());
+                //.andExpect(model().attribute("user", user))
+               // .andExpect(model().attribute("viewedUser", user))
     }
 
     @Test

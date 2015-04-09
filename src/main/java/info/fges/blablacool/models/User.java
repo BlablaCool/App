@@ -447,8 +447,4 @@ public class User implements UserDetails
         return averageNote;
     }
 
-    @Override
-    public String toString(){
-        return this.getNickname();
-    }
 }

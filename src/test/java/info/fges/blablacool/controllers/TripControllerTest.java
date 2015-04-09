@@ -1,6 +1,7 @@
 package info.fges.blablacool.controllers;
 
 import info.fges.blablacool.models.Place;
+import info.fges.blablacool.models.Step;
 import info.fges.blablacool.models.Trip;
 import info.fges.blablacool.models.User;
 import info.fges.blablacool.services.MessageService;
@@ -33,6 +34,9 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
@@ -76,26 +80,30 @@ public class TripControllerTest {
     private MockMvc mockMvc;
 
     Trip trip;
-    Place place1, place2;
+    Step step1,step2;
     User user;
-    TestingAuthenticationToken auth;
+    List<Step> steps;
 
     @Before
     public void setup() {
 
         trip = new Trip();
-        trip.setIdTrip(1);
-        place1 = new Place();
-        place2 = new Place();
         user = new User();
+        session = new MockHttpSession();
+        trip.setIdTrip(1);
         user.setId(1);
         user.setPassword("monmdp");
         user.setNickname("Nicolas");
         user.setEmail("nducom@gmail.com");
 
+        steps = Arrays.asList(step1,step2);
+        trip.setSteps(steps);
+
         // Process mock annotations
         MockitoAnnotations.initMocks(this);
-        session = new MockHttpSession();
+
+        session.setAttribute("user", user);
+
 
         // Setup Spring test in standalone mode
         mockMvc = MockMvcBuilders.standaloneSetup(tripController).build();
@@ -106,21 +114,21 @@ public class TripControllerTest {
     @Test
     public void testGetIndex() throws Exception {
         mockMvc.perform(get("/trips/"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("trips"));
+
 
     }
 
     @Test
     public void testGetNew() throws Exception {
-        session.setAttribute("user", user);
-
         mockMvc.perform(get("/trips/new")
                 .session(session))
                 .andExpect((status().isOk()))
                 .andExpect(model().attributeExists("departureAddress"))
                 .andExpect(model().attributeExists("arrivalAddress"))
                 .andExpect(model().attributeExists("driver"))
-                .andExpect(model().attribute("driver",user));
+                .andExpect(model().attribute("driver", user));
 
     }
 
@@ -139,6 +147,9 @@ public class TripControllerTest {
 
     @Test
     public void testGetCopyTrip() throws Exception {
-
+        mockMvc.perform(get("/trips/copy/1"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("trip"))
+                .andReturn();
     }
 }
