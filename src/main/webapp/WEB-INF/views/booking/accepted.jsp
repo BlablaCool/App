@@ -23,23 +23,30 @@
             Montant estimé : <fmt:formatNumber value="${booking.trip.price}" type="currency"/>
           </p>
 
-          <form action="/payments/charge-booking/${booking.id}" method="POST" class="mb50" style="text-align: center;">
-            <script
-                    src="https://checkout.stripe.com/checkout.js"
-                    class="stripe-button"
-                    data-key="${stripePublicKey}"
-                    data-email="${booking.user.email}"
-                    data-allow-remember-me="false"
-                    data-label="Payer mon trajet en avance"
-                    data-panel-label="Payer"
-                    data-currency="EUR"
-                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                    data-name="BlablaCool"
-                    data-description="Covoiturage ${booking.trip.departureStep.place.city} > ${booking.trip.arrivalStep.place.city}"
-                    data-amount="${booking.trip.price.multiply(100)}"
-                    defer>
-            </script>
-          </form>
+          <c:choose>
+            <c:when test="${booking.payments.size() > 0}">
+              <p class="lead text-center text-success mb50"><strong>Vous avez payé votre voyage.</strong></p>
+            </c:when>
+            <c:otherwise>
+              <form action="/payments/charge-booking/${booking.id}" method="POST" class="mb50" style="text-align: center;">
+                <script
+                        src="https://checkout.stripe.com/checkout.js"
+                        class="stripe-button"
+                        data-key="${stripePublicKey}"
+                        data-email="${booking.user.email}"
+                        data-allow-remember-me="false"
+                        data-label="Payer mon trajet en avance"
+                        data-panel-label="Payer"
+                        data-currency="EUR"
+                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                        data-name="BlablaCool"
+                        data-description="Covoiturage ${booking.trip.departureStep.place.city} > ${booking.trip.arrivalStep.place.city}"
+                        data-amount="${booking.trip.price.multiply(100)}"
+                        defer>
+                </script>
+              </form>
+            </c:otherwise>
+          </c:choose>
 
           <ul class="order-payment-list list mb30">
             <li>
