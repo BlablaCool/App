@@ -105,7 +105,7 @@ public class TripController
 
     @Secured("ROLE_SUBSCRIBED")
     @RequestMapping(value = "/copy/{id}", method = RequestMethod.GET)
-    public String getCopyTrip(@AuthenticationPrincipal User user,
+    public ModelAndView getCopyTrip(@AuthenticationPrincipal User user,
                               @PathVariable("id") Integer id,
                               ModelAndView modelAndView)
     {
@@ -116,16 +116,9 @@ public class TripController
             throw new AccessForbiddenException();
         }
 
-        // Creating architecture...
-        Trip clonedTrip = new Trip(tripToClone);
-        tripService.create(clonedTrip);
+        modelAndView.setViewName("trips/copy");
+        modelAndView.addObject("trip", tripToClone);
 
-        // Adding Steps...
-        for (Step stepToClone : tripToClone.getSteps())
-        {
-            stepService.create(new Step(stepToClone, clonedTrip));
-        }
-
-        return "redirect:/trips/" + clonedTrip.getIdTrip() + "/edit";
+        return modelAndView;
     }
 }

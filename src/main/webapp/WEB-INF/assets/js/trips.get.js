@@ -37,4 +37,48 @@ $(function()
             dataType: 'json'
         });
     });
+
+    /**
+     * Helper to serialize a form to JSON
+     */
+    $.fn.serializeObject = function()
+    {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function() {
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+
+    $(document).on('click', '#createCopy', function()
+    {
+        var steps = [];
+        $('.stepContainer').each(function() {
+            steps.push($(this).serializeObject());
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "/ajax/trips/copy/" + idTripToCopy,
+            context: this,
+            data: {
+                steps: JSON.stringify(steps)
+            },
+            success: function(response) {
+                window.location.href = "/trips/" + response
+            },
+            error: function() {
+                alert('Une erreur est survenue pendant la copie de l\'itinéraire...');
+            },
+            dataType: 'json'
+        });
+    });
 })
