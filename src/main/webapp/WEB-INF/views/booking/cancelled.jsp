@@ -18,20 +18,16 @@
           <i class="fa fa-exclamation round box-icon-large box-icon-center box-icon-danger mb30"></i>
           <h2 class="text-center">Réservation annulée !</h2>
           <h5 class="text-center mb30">Vous avez choisi d'annuler cette réservation et celle-ci n'est donc plus disponible.</h5>
-          <ul class="order-payment-list list mb30">
+          <ul class="order-payment-list list" style="margin-bottom: 60px;">
             <li>
               <div class="row">
-                <div class="col-xs-9">
-                  <h5><i class="fa fa-car"></i> Départ de ${booking.step.place.city}</h5>
+                <div class="col-md-6">
+                  <h5><i class="fa fa-flag"></i> Départ de ${booking.step.place.city}</h5>
                   <p><small>le <joda:format value="${booking.step.estimatedTime}" pattern="dd/MM/yy" /> à <joda:format value="${booking.step.estimatedTime}" pattern="HH:mm" /></small>
                   </p>
                 </div>
-              </div>
-            </li>
-            <li>
-              <div class="row">
-                <div class="col-xs-9">
-                  <h5><i class="fa fa-car"></i> Arrivée à ${booking.trip.arrivalStep.place.city}</h5>
+                <div class="col-md-6">
+                  <h5><i class="fa fa-flag-checkered"></i> Arrivée à ${booking.trip.arrivalStep.place.city}</h5>
                   <p><small>le <joda:format value="${booking.trip.arrivalStep.estimatedTime}" pattern="dd/MM/yy" /> à <joda:format value="${booking.trip.arrivalStep.estimatedTime}" pattern="HH:mm" /></small>
                   </p>
                 </div>
