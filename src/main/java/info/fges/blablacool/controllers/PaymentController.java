@@ -3,16 +3,23 @@ package info.fges.blablacool.controllers;
 import com.stripe.Stripe;
 import com.stripe.exception.*;
 import com.stripe.model.Charge;
+import info.fges.blablacool.models.Booking;
+import info.fges.blablacool.models.Payment;
+import info.fges.blablacool.models.User;
+import info.fges.blablacool.services.BookingService;
+import info.fges.blablacool.services.PaymentService;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,23 +33,52 @@ public class PaymentController {
     @Autowired
     ServletContext servletContext;
 
-    @RequestMapping(value = "/charge", method=RequestMethod.POST,
-            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<String> setPayment(HttpServletRequest request) throws CardException, APIException, AuthenticationException, InvalidRequestException, APIConnectionException {
+    @Autowired
+    private BookingService bookingService;
+
+    @Autowired
+    private PaymentService paymentService;
+
+    @RequestMapping("/charge-booking/{idBooking}")
+    public String postReturnFromStrip(@AuthenticationPrincipal User authenticatedUser,
+                                      @PathVariable Integer idBooking,
+                                      @RequestParam String stripeToken,
+                                      @RequestParam String stripeEmail)
+            throws CardException, APIException, AuthenticationException, InvalidRequestException, APIConnectionException
+    {
+        Booking bookingPaying = bookingService.findById(idBooking);
+
         Stripe.apiKey = servletContext.getInitParameter("stripeSecretKey");
+        Map<String, Object> chargeParameters = new HashMap<String, Object>();
+        chargeParameters.put("amount", bookingPaying.getTrip().getPrice().multiply(new BigDecimal(100)).intValue());
+        chargeParameters.put("currency", "EUR");
+        chargeParameters.put("source", stripeToken);
+        chargeParameters.put("description", "Covoiturage " + bookingPaying.getTrip().getDepartureStep().getPlace().getCity() + " > " + bookingPaying.getTrip().getArrivalStep().getPlace().getCity());
 
-        Map<String, String[]> parameterMap = request.getParameterMap();
-        Map<String, Object> chargeParams = new HashMap<String, Object>();
-        chargeParams.put("amount", 400);
-        chargeParams.put("currency", "usd");
-        chargeParams.put("source", parameterMap.get("stripeToken")[0]);
-        chargeParams.put("description", "Charge for test@example.com");
-        Map<String, String> initialMetadata = new HashMap<String, String>();
-        initialMetadata.put("order_id", "6735");
-        chargeParams.put("metadata", initialMetadata);
+        Map<String, Object> initialMetadata = new HashMap<String, Object>();
+        initialMetadata.put("idBooking", bookingPaying.getId());
 
-        Charge.create(chargeParams);
-        return new ResponseEntity<String>(HttpStatus.OK);
+        chargeParameters.put("metadata", initialMetadata);
+
+        Charge charge = Charge.create(chargeParameters);
+
+        if (charge.getPaid())
+        {
+            Payment payment = new Payment();
+            payment.setAmount(bookingPaying.getTrip().getPrice());
+            payment.setBooking(bookingPaying);
+            payment.setPaymentMethod("STRIPE");
+            payment.setCreatedAt(DateTime.now());
+            payment.setReceipt(charge.toString());
+
+            paymentService.create(payment);
+
+            return "redirect:/booking/" + bookingPaying.getId();
+        }
+        else
+        {
+            return "redirect:/payment/error";
+        }
     }
 
 

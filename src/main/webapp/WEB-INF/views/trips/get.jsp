@@ -32,17 +32,6 @@
             <span class="pull-right">
               <%--<fmt:formatNumber value="${trip.price}" type="currency"/>--%>
               <button class="btn btn-lg btn-primary" data-toggle="modal" data-target="#bookingModal">Réserver</button>
-            <form action="/payments/charge" method="POST">
-                <script
-                        src="https://checkout.stripe.com/checkout.js"
-                        class="stripe-button"
-                        data-key="${stripePublicKey}"
-                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                        data-name="Blablacool"
-                        data-description="Paiement pour le trajet"
-                        data-amount="${trip.price}">
-                </script>
-            </form>
             </span>
           </h1>
         </div>

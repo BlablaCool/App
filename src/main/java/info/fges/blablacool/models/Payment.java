@@ -18,6 +18,7 @@ public class Payment
     private BigDecimal amount;
     private DateTime createdAt;
     private Booking booking;
+    private String receipt;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -94,5 +95,15 @@ public class Payment
 
     public void setBooking(Booking booking) {
         this.booking = booking;
+    }
+
+    @Basic
+    @Column(name = "receipt", nullable = true, insertable = true, updatable = true, length = 16777215)
+    public String getReceipt() {
+        return receipt;
+    }
+
+    public void setReceipt(String receipt) {
+        this.receipt = receipt;
     }
 }

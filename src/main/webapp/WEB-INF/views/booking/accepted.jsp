@@ -19,9 +19,27 @@
           <h2 class="text-center">Bienvenue à bord ${user.firstname} !</h2>
           <h5 class="text-center mb30">Votre demande de réservation a été validée par <em>${booking.trip.driver.nickname}</em>, en avant toute !</h5>
 
-          <p class="lead text-center mb30">
+          <p class="lead text-center mb10">
             Montant estimé : <fmt:formatNumber value="${booking.trip.price}" type="currency"/>
           </p>
+
+          <form action="/payments/charge-booking/${booking.id}" method="POST" class="mb50" style="text-align: center;">
+            <script
+                    src="https://checkout.stripe.com/checkout.js"
+                    class="stripe-button"
+                    data-key="${stripePublicKey}"
+                    data-email="${booking.user.email}"
+                    data-allow-remember-me="false"
+                    data-label="Payer mon trajet en avance"
+                    data-panel-label="Payer"
+                    data-currency="EUR"
+                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                    data-name="BlablaCool"
+                    data-description="Covoiturage ${booking.trip.departureStep.place.city} > ${booking.trip.arrivalStep.place.city}"
+                    data-amount="${booking.trip.price.multiply(100)}"
+                    defer>
+            </script>
+          </form>
 
           <ul class="order-payment-list list mb30">
             <li>
