@@ -44,6 +44,15 @@
                 <div class="row">
                   <div class="col-md-4">
                     <h4 style="text-align: center; font-weight: 600; text-transform: uppercase;">Le Conducteur</h4>
+
+                    <img src="${trip.driver.gravatarUrl}" class="img-rounded img-thumbnail" style="max-height: 100px; float: left;" />
+                    <p class="lead text-center" style="margin-top: 45px;">
+                      <a href="/users/${trip.driver.id}">${trip.driver.nickname}</a>
+                    </p>
+                    <div style="clear: both;"></div>
+
+
+
                   </div>
                   <div class="col-md-8">
                     <h4 style="text-align: center; font-weight: 600; text-transform: uppercase;">Le Voyage</h4>

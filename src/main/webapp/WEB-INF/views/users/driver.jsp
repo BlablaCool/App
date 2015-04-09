@@ -71,6 +71,9 @@
                     </c:forEach>
                     </tbody>
                   </table>
+                  <p class="text-center">
+                    <a href="/trips/new" class="btn btm-lg btn-success">Créer un voyage !</a>
+                  </p>
                 </c:when>
                 <c:otherwise>
                   <p class="lead text-center" style="margin-top: 42px;">
@@ -96,7 +99,7 @@
                   </table>
                 </c:when>
                 <c:otherwise>
-                  <p class="lead text-center" style="margin-top: 42px;">
+                  <p class="lead text-center" style="margin-top: 10px;">
                     Aucun voyage réalisé !
                 </c:otherwise>
               </c:choose>
