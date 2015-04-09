@@ -78,6 +78,16 @@
         <param-value>sk_test_jEZJWYaMZMplFiBDgAOHEnM3</param-value>
     </context-param>
 
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/views/errors/404.jsp</location>
+    </error-page>
+
+    <error-page>
+        <error-code>403</error-code>
+        <location>/WEB-INF/views/errors/403.jsp</location>
+    </error-page>
+
     <jsp-config>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>

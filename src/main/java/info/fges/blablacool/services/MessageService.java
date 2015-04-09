@@ -38,7 +38,7 @@ public class MessageService extends ServiceInterface<Message,Integer>
         mailPlaceholders.put("passengerNickname", message.getSender().getNickname());
         mailPlaceholders.put("driverNickname", message.getTrip().getDriver().getNickname());
         mailPlaceholders.put("tripSummary", message.getTrip().getDepartureStep().getPlace().getCity() + " > " + message.getTrip().getArrivalStep().getPlace().getCity());
-        mailPlaceholders.put("messagesTripUrl", "http://localhost:8080/trips/" + message.getTrip().getIdTrip() + "#messagesList");
+        mailPlaceholders.put("messagesTripUrl", "https://blablacool.fges.info/trips/" + message.getTrip().getIdTrip() + "#messagesList");
 
         MailHelper mailHelper = new MailHelper(message.getTrip().getDriver().getNickname(),
                 message.getTrip().getDriver().getEmail(),

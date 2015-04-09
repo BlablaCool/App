@@ -23,6 +23,13 @@
     </tiles:putAttribute>
 
     <tiles:putAttribute name="body">
+
+        <div class="bg-img" style="background-image:url('/assets/img/background-full-2.jpg');"></div>
+        <div class="bg-holder-content full text-white">
+        <a class="logo-holder" href="/">
+            <img src="/assets/img/logo-white.png" />
+        </a>
+
         <div class="full-center">
             <div class="container">
                 <div class="row row-wrap" data-gutter="60">
