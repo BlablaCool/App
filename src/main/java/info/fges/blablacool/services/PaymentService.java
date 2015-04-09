@@ -1,10 +1,12 @@
 package info.fges.blablacool.services;
 
 import info.fges.blablacool.dao.PaymentDao;
+import info.fges.blablacool.helpers.MailHelper;
 import info.fges.blablacool.models.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -28,8 +30,23 @@ public class PaymentService extends ServiceInterface<Payment, Integer>
     }
 
     @Override
-    public void create(Payment payment) {
+    public void create(Payment payment)
+    {
         paymentDao.create(payment);
+
+        // Sending the notification...
+        HashMap<String, String> mailPlaceholders = new HashMap<String, String>();
+        mailPlaceholders.put("passengerNickname", payment.getBooking().getUser().getNickname());
+        mailPlaceholders.put("driverNickname", payment.getBooking().getTrip().getDriver().getNickname());
+        mailPlaceholders.put("tripSummary", payment.getBooking().getTrip().getDepartureStep().getPlace().getCity() + " > " + payment.getBooking().getTrip().getArrivalStep().getPlace().getCity());
+
+        MailHelper mailHelper = new MailHelper(payment.getBooking().getTrip().getDriver().getNickname(),
+                payment.getBooking().getTrip().getDriver().getEmail(),
+                "payments/new",
+                mailPlaceholders,
+                "Voyage payé",
+                "Un passager a payé son voyage");
+        mailHelper.send();
     }
 
     @Override
