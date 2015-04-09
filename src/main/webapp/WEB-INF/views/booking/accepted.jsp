@@ -25,7 +25,7 @@
 
           <c:choose>
             <c:when test="${booking.payments.size() > 0}">
-              <p class="lead text-center text-success mb50"><strong>Vous avez payé votre voyage.</strong></p>
+              <p class="lead text-center text-success mb50"><strong>Vous avez payé votre voyage !</strong></p>
             </c:when>
             <c:otherwise>
               <form action="/payments/charge-booking/${booking.id}" method="POST" class="mb50" style="text-align: center;">
@@ -48,20 +48,16 @@
             </c:otherwise>
           </c:choose>
 
-          <ul class="order-payment-list list mb30">
+          <ul class="order-payment-list list" style="margin-bottom: 60px;">
             <li>
               <div class="row">
-                <div class="col-xs-9">
-                  <h5><i class="fa fa-car"></i> Départ de ${booking.step.place.city}</h5>
+                <div class="col-md-6">
+                  <h5><i class="fa fa-flag"></i> Départ de ${booking.step.place.city}</h5>
                   <p><small>le <joda:format value="${booking.step.estimatedTime}" pattern="dd/MM/yy" /> à <joda:format value="${booking.step.estimatedTime}" pattern="HH:mm" /></small>
                   </p>
                 </div>
-              </div>
-            </li>
-            <li>
-              <div class="row">
-                <div class="col-xs-9">
-                  <h5><i class="fa fa-car"></i> Arrivée à ${booking.trip.arrivalStep.place.city}</h5>
+                <div class="col-md-6">
+                  <h5><i class="fa fa-flag-checkered"></i> Arrivée à ${booking.trip.arrivalStep.place.city}</h5>
                   <p><small>le <joda:format value="${booking.trip.arrivalStep.estimatedTime}" pattern="dd/MM/yy" /> à <joda:format value="${booking.trip.arrivalStep.estimatedTime}" pattern="HH:mm" /></small>
                   </p>
                 </div>
@@ -72,7 +68,7 @@
           <ul class="list list-inline list-center">
             <li>
               <form name="cancelBooking" method="POST" action="/booking/${booking.id}/delete">
-                <button type="submit" id="cancelBooking" class="btn btn-danger" name="cancelBooking" value="yes" data-booking="${booking.id}" ><i class="fa fa-times"></i> Annuler ma réservation</button>
+                <button type="submit" id="cancelBooking" class="btn btn-danger btn-sm" name="cancelBooking" value="yes" data-booking="${booking.id}" ><i class="fa fa-times"></i> Annuler ma réservation</button>
               </form>
               <p class="text-center lh1em mt5"><small>possible jusqu'à deux heures<br>avant l'heure de départ</small></p>
             </li>
