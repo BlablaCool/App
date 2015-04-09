@@ -17,16 +17,17 @@
           <i class="fa fa-ticket round box-icon-large box-icon-center box-icon-warning mb30"></i>
           <h2 class="text-center">C'est enregistré, ${user.firstname} !</h2>
           <h5 class="text-center mb30">Vous serez prévenu par email dès que votre réservation sera validée par <em>${booking.trip.driver.nickname}</em>.</h5>
+
+          <p class="lead text-center mb30">
+            Montant estimé : <fmt:formatNumber value="${booking.trip.price}" type="currency"/>
+          </p>
+
           <ul class="order-payment-list list mb30">
             <li>
               <div class="row">
                 <div class="col-xs-9">
                   <h5><i class="fa fa-car"></i> Départ de ${booking.step.place.city}</h5>
                   <p><small>le <joda:format value="${booking.step.estimatedTime}" pattern="dd/MM/yy" /> à <joda:format value="${booking.step.estimatedTime}" pattern="HH:mm" /></small>
-                  </p>
-                </div>
-                <div class="col-xs-3">
-                  <p class="text-right"><span class="text-lg">$150</span>
                   </p>
                 </div>
               </div>
@@ -36,10 +37,6 @@
                 <div class="col-xs-9">
                   <h5><i class="fa fa-car"></i> Arrivée à ${booking.trip.arrivalStep.place.city}</h5>
                   <p><small>le <joda:format value="${booking.trip.arrivalStep.estimatedTime}" pattern="dd/MM/yy" /> à <joda:format value="${booking.trip.arrivalStep.estimatedTime}" pattern="HH:mm" /></small>
-                  </p>
-                </div>
-                <div class="col-xs-3">
-                  <p class="text-right"><span class="text-lg">$187</span>
                   </p>
                 </div>
               </div>

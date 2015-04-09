@@ -12,33 +12,13 @@
         <div class="full-page">
             <div class="bg-holder full">
                 <div class="bg-mask"></div>
-                <div class="bg-img" style="background-image:url('/assets/img/background-full-2.jpg');"></div>
-                <div class="bg-holder-content full text-white">
-                    <a class="logo-holder" href="/">
-                        <img src="/assets/img/logo-white.png" />
-                    </a>
 
                     <tiles:insertAttribute name="body" />
 
                     <ul class="footer-links">
-                        <li><a href="login-register.html#">About</a>
-                        </li>
-                        <li><a href="login-register.html#">Help</a>
-                        </li>
-                        <li><a href="login-register.html#">Hot Deals</a>
-                        </li>
-                        <li><a href="login-register.html#">Popular Locations</a>
-                        </li>
-                        <li><a href="login-register.html#">Cheap Flights</a>
-                        </li>
-                        <li><a href="login-register.html#">Business</a>
-                        </li>
-                        <li><a href="login-register.html#">Media</a>
-                        </li>
-                        <li><a href="login-register.html#">Developers</a>
-                        </li>
-                        <li><a href="login-register.html#">Advertise</a>
-                        </li>
+                        <li><a href="/about">Á Propos</a></li>
+                        <li><a href="/help">Aide</a></li>
+                        <li><a href="/contact">Nous contacter</a></li>
                     </ul>
                 </div>
             </div>
