@@ -9,6 +9,14 @@
 <tiles:insertDefinition name="blablacoolTemplate">
 
   <tiles:putAttribute name="footer-custom-js">
+    <script>
+      <c:if test="${filterMinPrice != null}">
+        var filterMinPrice = ${filterMinPrice};
+      </c:if>
+      <c:if test="${filterMaxPrice != null}">
+        var filterMaxPrice = ${filterMaxPrice};
+      </c:if>
+    </script>
     <script src="//maps.googleapis.com/maps/api/js?libraries=places"></script>
     <script src="/assets/js/jquery.geocomplete.min.js"></script>
     <script src="/assets/js/trips.list.js"></script>
@@ -71,72 +79,59 @@
         <div class="col-md-3">
           <aside class="booking-filters text-white">
             <h3>Filtrer :</h3>
-            <ul class="list booking-filters-list">
-              <li>
-                <h5 class="booking-filters-title">Price</h5>
-                <input type="text" id="price-slider">
-              </li>
-              <li>
-                <h5 class="booking-filters-title">Star Rating</h5>
-                <div class="checkbox">
-                  <label>
-                    <input class="i-check" type="checkbox"/>5 star (220)</label>
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input class="i-check" type="checkbox"/>4 star (112)</label>
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input class="i-check" type="checkbox"/>3 star (75)</label>
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input class="i-check" type="checkbox"/>2 star (60)</label>
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input class="i-check" type="checkbox"/>1 star (20)</label>
-                </div>
-              </li>
-              <li>
-                <h5 class="booking-filters-title">Bedrooms</h5>
-                <div class="checkbox">
-                  <label>
-                    <input class="i-check" type="checkbox"/>1 Bedroom (100)</label>
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input class="i-check" type="checkbox"/>2 Bedrooms (112)</label>
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input class="i-check" type="checkbox"/>2+ Bedrooms (75)</label>
-                </div>
-              </li>
-            </ul>
+
+            <form id="filterForm">
+              <input type="hidden" name="filters" value="1">
+              <ul class="list booking-filters-list">
+                <li>
+                  <h5 class="booking-filters-title">Prix</h5>
+                  <input type="text" id="price-filter" name="price">
+                </li>
+                <%--<li>--%>
+                  <%--<h5 class="booking-filters-title">Star Rating</h5>--%>
+                  <%--<div class="checkbox">--%>
+                    <%--<label>--%>
+                      <%--<input class="i-check" type="checkbox"/>5 star (220)</label>--%>
+                  <%--</div>--%>
+                  <%--<div class="checkbox">--%>
+                    <%--<label>--%>
+                      <%--<input class="i-check" type="checkbox"/>4 star (112)</label>--%>
+                  <%--</div>--%>
+                  <%--<div class="checkbox">--%>
+                    <%--<label>--%>
+                      <%--<input class="i-check" type="checkbox"/>3 star (75)</label>--%>
+                  <%--</div>--%>
+                  <%--<div class="checkbox">--%>
+                    <%--<label>--%>
+                      <%--<input class="i-check" type="checkbox"/>2 star (60)</label>--%>
+                  <%--</div>--%>
+                  <%--<div class="checkbox">--%>
+                    <%--<label>--%>
+                      <%--<input class="i-check" type="checkbox"/>1 star (20)</label>--%>
+                  <%--</div>--%>
+                <%--</li>--%>
+                <%--<li>--%>
+                  <%--<h5 class="booking-filters-title">Bedrooms</h5>--%>
+                  <%--<div class="checkbox">--%>
+                    <%--<label>--%>
+                      <%--<input class="i-check" type="checkbox"/>1 Bedroom (100)</label>--%>
+                  <%--</div>--%>
+                  <%--<div class="checkbox">--%>
+                    <%--<label>--%>
+                      <%--<input class="i-check" type="checkbox"/>2 Bedrooms (112)</label>--%>
+                  <%--</div>--%>
+                  <%--<div class="checkbox">--%>
+                    <%--<label>--%>
+                      <%--<input class="i-check" type="checkbox"/>2+ Bedrooms (75)</label>--%>
+                  <%--</div>--%>
+                <%--</li>--%>
+              </ul>
+            </form>
+
+
           </aside>
         </div>
         <div class="col-md-9">
-          <%--<div class="nav-drop booking-sort">--%>
-            <%--<h5 class="booking-sort-title"><a href="rentals-search-results-3.html#">Sort: Price (low to high)<i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></a></h5>--%>
-            <%--<ul class="nav-drop-menu">--%>
-              <%--<li><a href="rentals-search-results-3.html#">Price (hight to low)</a>--%>
-              <%--</li>--%>
-              <%--<li><a href="rentals-search-results-3.html#">Ranking</a>--%>
-              <%--</li>--%>
-              <%--<li><a href="rentals-search-results-3.html#">Bedrooms (Most to Least)</a>--%>
-              <%--</li>--%>
-              <%--<li><a href="rentals-search-results-3.html#">Bedrooms (Least to Most)</a>--%>
-              <%--</li>--%>
-              <%--<li><a href="rentals-search-results-3.html#">Number of Reviews</a>--%>
-              <%--</li>--%>
-              <%--<li><a href="rentals-search-results-3.html#">Number of Photos</a>--%>
-              <%--</li>--%>
-              <%--<li><a href="rentals-search-results-3.html#">Just Added</a>--%>
-              <%--</li>--%>
-            <%--</ul>--%>
-          <%--</div>--%>
           <ul class="booking-list">
             <c:forEach items="${trips}" var="trip">
               <li class="trip-element" data-url="/trips/${trip.idTrip}">
@@ -145,9 +140,6 @@
                     <div class="col-md-2">
                       <div class="booking-item-img-wrap">
                         <img src="${trip.driver.gravatarUrl}" class="img-rounded" style="max-width: 100%; max-height: 120px;"/>
-                        <%--<div class="booking-item-img-num">--%>
-                          <%--<i class="fa fa-picture-o"></i>29--%>
-                        <%--</div>--%>
                       </div>
                     </div>
                     <div class="col-md-7">

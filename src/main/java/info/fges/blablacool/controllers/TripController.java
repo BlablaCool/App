@@ -10,6 +10,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,6 +20,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -44,10 +46,28 @@ public class TripController
     private MessageService messageService;
 
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
-    public ModelAndView getIndex(ModelAndView modelAndView)
+    public ModelAndView getIndex(@RequestParam(value = "filters", required = false) boolean hasFilters,
+                                 @RequestParam HashMap<String, String> filters,
+                                 ModelAndView modelAndView)
     {
         modelAndView.setViewName("trips/list");
-        modelAndView.addObject("trips", tripService.findRecents());
+
+        if (hasFilters)
+        {
+            modelAndView.addObject("trips", tripService.findRecentsWithFilters(filters));
+
+            if (filters.containsKey("price"))
+            {
+                String[] numbers = filters.get("price").split(";");
+
+                modelAndView.addObject("filterMinPrice", Integer.valueOf(numbers[0]));
+                modelAndView.addObject("filterMaxPrice", Integer.valueOf(numbers[1]));
+            }
+        }
+        else
+        {
+            modelAndView.addObject("trips", tripService.findRecents());
+        }
 
         return modelAndView;
     }
