@@ -24,7 +24,6 @@
                 <div class="col-md-8 col-md-offset-2">
                     <form:form action="${addCarUrl}" method="POST" modelAttribute="newCar" class="" id="carForm">
                         <fieldset>
-
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -48,7 +47,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="form-group">
@@ -93,7 +91,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row mt20 mb20">
                                 <div class="col-md-6 col-md-offset-3">
                                     <div class="form-group form-group-lg">
@@ -102,14 +99,11 @@
                                     </div>
                                 </div>
                             </div>
-
                             <form:hidden path="apiId" id="apiId" cssClass="form-control" disabled="true"></form:hidden>
-
                             <div class="form-group text-center">
                                 <label class="control-label"></label>
                                 <input class="btn btn-lg btn-success" type="submit" value="Ajouter une voiture" />
                             </div>
-
                         </fieldset>
                     </form:form>
                     <div class="spinner sk-spinner sk-spinner-wandering-cubes" id="spinner">
