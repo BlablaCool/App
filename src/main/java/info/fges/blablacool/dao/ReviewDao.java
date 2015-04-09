@@ -12,6 +12,11 @@ import java.util.List;
 @Repository
 public class ReviewDao extends DaoInterface<Review, Integer>
 {
+    /**
+     * Finds review by id
+     * @param integer
+     * @return
+     */
     @Override
     public Review findById(Integer integer)
     {
@@ -22,6 +27,10 @@ public class ReviewDao extends DaoInterface<Review, Integer>
         return review;
     }
 
+    /**
+     * Finds all reviews
+     * @return
+     */
     @Override
     public List<Review> findAll()
     {
@@ -33,6 +42,10 @@ public class ReviewDao extends DaoInterface<Review, Integer>
         return list;
     }
 
+    /**
+     * Deletes review by id
+     * @param integer
+     */
     @Override
     public void deleteById(Integer integer)
     {

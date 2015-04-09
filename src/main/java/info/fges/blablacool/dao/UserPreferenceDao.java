@@ -12,6 +12,11 @@ import java.util.List;
 @Repository
 public class UserPreferenceDao extends DaoInterface<UserPreference, Integer>
 {
+    /**
+     * Finds user preference by id
+     * @param integer
+     * @return
+     */
     @Override
     public UserPreference findById(Integer integer)
     {
@@ -22,6 +27,10 @@ public class UserPreferenceDao extends DaoInterface<UserPreference, Integer>
         return userPreference;
     }
 
+    /**
+     * Finds all user preferences
+     * @return
+     */
     @Override
     public List<UserPreference> findAll()
     {
@@ -33,6 +42,10 @@ public class UserPreferenceDao extends DaoInterface<UserPreference, Integer>
         return list;
     }
 
+    /**
+     * Deletes user preference by id
+     * @param integer
+     */
     @Override
     public void deleteById(Integer integer)
     {

@@ -12,6 +12,11 @@ import java.util.List;
 @Repository
 public class SubscriptionDao extends DaoInterface<Subscription, Integer>
 {
+    /**
+     * Finds subscription by id
+     * @param integer
+     * @return
+     */
     @Override
     public Subscription findById(Integer integer)
     {
@@ -22,6 +27,10 @@ public class SubscriptionDao extends DaoInterface<Subscription, Integer>
         return subscription;
     }
 
+    /**
+     * Finds all subscriptions
+     * @return
+     */
     @Override
     public List<Subscription> findAll()
     {
@@ -33,6 +42,10 @@ public class SubscriptionDao extends DaoInterface<Subscription, Integer>
         return list;
     }
 
+    /**
+     * Deletes subscription by id
+     * @param integer
+     */
     @Override
     public void deleteById(Integer integer)
     {

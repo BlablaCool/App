@@ -12,6 +12,11 @@ import java.util.List;
 @Repository
 public class MessageDao extends DaoInterface<Message, Integer>
 {
+    /**
+     * Finds message by id
+     * @param integer
+     * @return
+     */
     @Override
     public Message findById(Integer integer)
     {
@@ -22,6 +27,10 @@ public class MessageDao extends DaoInterface<Message, Integer>
         return message;
     }
 
+    /**
+     * Finds all messages
+     * @return
+     */
     @Override
     public List<Message> findAll()
     {
@@ -33,6 +42,10 @@ public class MessageDao extends DaoInterface<Message, Integer>
         return list;
     }
 
+    /**
+     * Deletes message by id
+     * @param integer
+     */
     @Override
     public void deleteById(Integer integer)
     {

@@ -12,6 +12,11 @@ import java.util.List;
 @Repository
 public class PlaceDao extends DaoInterface<Place, Integer>
 {
+    /**
+     * Finds place by id
+     * @param integer
+     * @return
+     */
     @Override
     public Place findById(Integer integer)
     {
@@ -22,6 +27,10 @@ public class PlaceDao extends DaoInterface<Place, Integer>
         return place;
     }
 
+    /**
+     * Finds all places
+     * @return
+     */
     @Override
     public List<Place> findAll()
     {
@@ -33,6 +42,10 @@ public class PlaceDao extends DaoInterface<Place, Integer>
         return list;
     }
 
+    /**
+     * Deletes place by id
+     * @param integer
+     */
     @Override
     public void deleteById(Integer integer)
     {

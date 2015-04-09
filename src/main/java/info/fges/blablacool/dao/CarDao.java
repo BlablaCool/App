@@ -14,6 +14,11 @@ import java.util.List;
 @Repository
 public class CarDao extends DaoInterface<Car, Integer>
 {
+    /**
+     * Finds car by id
+     * @param integer
+     * @return
+     */
     @Override
     public Car findById(Integer integer)
     {
@@ -24,6 +29,10 @@ public class CarDao extends DaoInterface<Car, Integer>
         return car;
     }
 
+    /**
+     * Finds all cars
+     * @return
+     */
     @Override
     public List<Car> findAll()
     {
@@ -35,6 +44,10 @@ public class CarDao extends DaoInterface<Car, Integer>
         return list;
     }
 
+    /**
+     * Deletes car by id
+     * @param integer
+     */
     @Override
     public void deleteById(Integer integer)
     {

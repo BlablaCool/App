@@ -21,6 +21,13 @@ public class SearchDao
     @Autowired
     private SessionFactory sessionFactory;
 
+    /**
+     * Finds trip according to cities and departure time
+     * @param _departureCity
+     * @param _arrivalCity
+     * @param _departureTime
+     * @return
+     */
     public List<Trip> findTripsWithAddresses(String _departureCity, String _arrivalCity, DateTime _departureTime)
     {
         Session session = sessionFactory.openSession();
@@ -45,6 +52,14 @@ public class SearchDao
         return tripList;
     }
 
+    /**
+     * finds trips by location
+     * @param _departureLatitude
+     * @param _departureLongitude
+     * @param _arrivalCity
+     * @param _departureTime
+     * @return
+     */
     public List<Trip> findTripsNearbyLocation(BigDecimal _departureLatitude, BigDecimal _departureLongitude, String _arrivalCity, DateTime _departureTime)
     {
         Session session = sessionFactory.openSession();

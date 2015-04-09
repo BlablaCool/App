@@ -12,6 +12,11 @@ import java.util.List;
 @Repository
 public class StepDao extends DaoInterface<Step, Integer>
 {
+    /**
+     * Finds step by id
+     * @param integer
+     * @return
+     */
     @Override
     public Step findById(Integer integer)
     {
@@ -22,6 +27,10 @@ public class StepDao extends DaoInterface<Step, Integer>
         return step;
     }
 
+    /**
+     * Finds all steps
+     * @return
+     */
     @Override
     public List<Step> findAll()
     {
@@ -33,6 +42,10 @@ public class StepDao extends DaoInterface<Step, Integer>
         return list;
     }
 
+    /**
+     * Deletes step by id
+     * @param integer
+     */
     @Override
     public void deleteById(Integer integer)
     {

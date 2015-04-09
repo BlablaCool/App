@@ -12,6 +12,11 @@ import java.util.List;
 @Repository
 public class UserDao extends DaoInterface<User, Integer>
 {
+    /**
+     * Finds user by email
+     * @param email
+     * @return
+     */
     public User findByEmail(String email)
     {
         User user = null;
@@ -29,6 +34,11 @@ public class UserDao extends DaoInterface<User, Integer>
         return user;
     }
 
+    /**
+     * Finds user by id
+     * @param integer
+     * @return
+     */
     @Override
     public User findById(Integer integer)
     {
@@ -39,6 +49,10 @@ public class UserDao extends DaoInterface<User, Integer>
         return user;
     }
 
+    /**
+     * Finds all users
+     * @return
+     */
     @Override
     public List<User> findAll()
     {
@@ -50,6 +64,10 @@ public class UserDao extends DaoInterface<User, Integer>
         return list;
     }
 
+    /**
+     * 
+     * @param integer
+     */
     @Override
     public void deleteById(Integer integer)
     {
@@ -59,6 +77,11 @@ public class UserDao extends DaoInterface<User, Integer>
         closeCurrentSessionWithTransaction();
     }
 
+    /**
+     * searches nickname and return true if exists
+     * @param nickname
+     * @return
+     */
     public boolean nicknameAlreadyExists(String nickname)
     {
         boolean nicknameExists = false;
@@ -78,6 +101,11 @@ public class UserDao extends DaoInterface<User, Integer>
         return nicknameExists;
     }
 
+    /**
+     * searches email and return true if exists
+     * @param email
+     * @return
+     */
     public boolean emailAlreadyExists(String email)
     {
         boolean emailExists = false;

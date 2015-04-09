@@ -12,6 +12,11 @@ import java.util.List;
 @Repository
 public class TripDao extends DaoInterface<Trip, Integer>
 {
+    /**
+     * Finds trip by id
+     * @param integer
+     * @return
+     */
     @Override
     public Trip findById(Integer integer)
     {
@@ -22,6 +27,10 @@ public class TripDao extends DaoInterface<Trip, Integer>
         return trip;
     }
 
+    /**
+     * Finds all trips
+     * @return
+     */
     @Override
     public List<Trip> findAll()
     {
@@ -33,6 +42,10 @@ public class TripDao extends DaoInterface<Trip, Integer>
         return list;
     }
 
+    /**
+     * Deletes trip by id
+     * @param integer
+     */
     @Override
     public void deleteById(Integer integer)
     {
@@ -42,6 +55,10 @@ public class TripDao extends DaoInterface<Trip, Integer>
         closeCurrentSessionWithTransaction();
     }
 
+    /**
+     * finds last trips
+     * @return
+     */
     public List<Trip> findRecents()
     {
         List<Trip> tripList;

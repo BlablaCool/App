@@ -12,6 +12,11 @@ import java.util.List;
 @Repository
 public class PaymentDao extends DaoInterface<Payment, Integer>
 {
+    /**
+     * Finds payment by id
+     * @param integer
+     * @return
+     */
     @Override
     public Payment findById(Integer integer)
     {
@@ -22,6 +27,10 @@ public class PaymentDao extends DaoInterface<Payment, Integer>
         return payment;
     }
 
+    /**
+     * Finds all payments
+     * @return
+     */
     @Override
     public List<Payment> findAll()
     {
@@ -33,6 +42,10 @@ public class PaymentDao extends DaoInterface<Payment, Integer>
         return list;
     }
 
+    /**
+     * Deletes payment by id
+     * @param integer
+     */
     @Override
     public void deleteById(Integer integer)
     {

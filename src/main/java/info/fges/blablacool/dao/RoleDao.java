@@ -12,6 +12,11 @@ import java.util.List;
 @Repository
 public class RoleDao extends DaoInterface<Role, Integer>
 {
+    /**
+     * Finds role by id
+     * @param integer
+     * @return
+     */
     @Override
     public Role findById(Integer integer)
     {
@@ -22,6 +27,10 @@ public class RoleDao extends DaoInterface<Role, Integer>
         return role;
     }
 
+    /**
+     * Finds all roles
+     * @return
+     */
     @Override
     public List<Role> findAll()
     {
@@ -33,6 +42,10 @@ public class RoleDao extends DaoInterface<Role, Integer>
         return list;
     }
 
+    /**
+     * Deletes role by id
+     * @param integer
+     */
     @Override
     public void deleteById(Integer integer)
     {

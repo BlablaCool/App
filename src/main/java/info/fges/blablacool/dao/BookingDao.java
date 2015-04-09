@@ -12,6 +12,11 @@ import java.util.List;
 @Repository
 public class BookingDao extends DaoInterface<Booking, Integer>
 {
+    /**
+     * Finds object by id
+     * @param integer
+     * @return
+     */
     @Override
     public Booking findById(Integer integer)
     {
@@ -22,6 +27,10 @@ public class BookingDao extends DaoInterface<Booking, Integer>
         return booking;
     }
 
+    /**
+     * Finds all bookings
+     * @return
+     */
     @Override
     public List<Booking> findAll()
     {
@@ -33,6 +42,10 @@ public class BookingDao extends DaoInterface<Booking, Integer>
         return list;
     }
 
+    /**
+     * Deletes booking by id
+     * @param integer
+     */
     @Override
     public void deleteById(Integer integer)
     {
@@ -42,6 +55,12 @@ public class BookingDao extends DaoInterface<Booking, Integer>
         closeCurrentSessionWithTransaction();
     }
 
+    /**
+     *
+     * @param idTrip
+     * @param idUser
+     * @return
+     */
     public boolean alreadyExists(Integer idTrip, Integer idUser)
     {
         openCurrentSession();
@@ -55,6 +74,11 @@ public class BookingDao extends DaoInterface<Booking, Integer>
         return !list.isEmpty();
     }
 
+    /**
+     *
+     * @param idUser
+     * @return
+     */
     public List<Booking> findPendingForUser(Integer idUser)
     {
         openCurrentSession();
@@ -68,6 +92,11 @@ public class BookingDao extends DaoInterface<Booking, Integer>
         return list;
     }
 
+    /**
+     *
+     * @param idUser
+     * @return
+     */
     public List<Booking> findToReviewForUser(Integer idUser)
     {
         openCurrentSession();
