@@ -16,6 +16,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -31,9 +32,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -63,11 +66,12 @@ public class TripControllerTest {
     @Mock
     private ServletContext servletContext;
 
-    @Mock
-    SecurityContextHolder securityContextHolder;
-
     @InjectMocks
     private TripController tripController;
+
+    @Mock
+    MockHttpSession session;
+
 
     private MockMvc mockMvc;
 
@@ -91,9 +95,7 @@ public class TripControllerTest {
 
         // Process mock annotations
         MockitoAnnotations.initMocks(this);
-
-        auth = new TestingAuthenticationToken(user,"", AuthorityUtils.createAuthorityList("ROLE_USER","ROLE_SUBSCRIBED"));
-        securityContextHolder.getContext().setAuthentication(auth);
+        session = new MockHttpSession();
 
         // Setup Spring test in standalone mode
         mockMvc = MockMvcBuilders.standaloneSetup(tripController).build();
@@ -110,14 +112,15 @@ public class TripControllerTest {
 
     @Test
     public void testGetNew() throws Exception {
-        Mockito.when(userService.findById(1)).thenReturn(user);
+        session.setAttribute("user", user);
+
         mockMvc.perform(get("/trips/new")
-                .principal(auth))
+                .session(session))
                 .andExpect((status().isOk()))
                 .andExpect(model().attributeExists("departureAddress"))
                 .andExpect(model().attributeExists("arrivalAddress"))
                 .andExpect(model().attributeExists("driver"))
-                .andDo(print());
+                .andExpect(model().attribute("driver",user));
 
     }
 
