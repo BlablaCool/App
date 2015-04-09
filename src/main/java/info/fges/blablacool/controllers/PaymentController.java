@@ -39,8 +39,21 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
+    /**
+     * uses the payment token from Strip checkout to generate a charge using the Sripe Api (using testing keys)
+     * @param authenticatedUser
+     * @param idBooking
+     * @param stripeToken
+     * @param stripeEmail
+     * @return the booking page
+     * @throws CardException
+     * @throws APIException
+     * @throws AuthenticationException
+     * @throws InvalidRequestException
+     * @throws APIConnectionException
+     */
     @RequestMapping("/charge-booking/{idBooking}")
-    public String postReturnFromStrip(@AuthenticationPrincipal User authenticatedUser,
+    public String postReturnFromStripe(@AuthenticationPrincipal User authenticatedUser,
                                       @PathVariable Integer idBooking,
                                       @RequestParam String stripeToken,
                                       @RequestParam String stripeEmail)

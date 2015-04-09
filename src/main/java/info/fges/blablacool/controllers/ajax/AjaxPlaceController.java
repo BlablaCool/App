@@ -39,6 +39,11 @@ public class AjaxPlaceController
     @Autowired
     private StepService stepService;
 
+    /**
+     * Search for places
+     * @param stringifiedJsonPlaces
+     * @return JSON places list
+     */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public String postAdd(@RequestParam(value = "places", required = true) String stringifiedJsonPlaces)

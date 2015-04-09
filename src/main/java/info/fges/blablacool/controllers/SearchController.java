@@ -28,6 +28,15 @@ public class SearchController
     @Autowired
     private SearchService searchService;
 
+    /**
+     *
+     * @param departureLatitude
+     * @param departureLongitude
+     * @param arrivalCity
+     * @param departureTime
+     * @param modelAndView
+     * @return the trips list, filtered by geolocation
+     */
     @RequestMapping("/{departureLatitude}/{departureLongitude}/{arrivalCity}/{departureTime}")
     public ModelAndView getSearchWithGeolocation(@PathVariable String departureLatitude,
                                                  @PathVariable String departureLongitude,
@@ -46,6 +55,14 @@ public class SearchController
         return modelAndView;
     }
 
+    /**
+     *
+     * @param departureCity
+     * @param arrivalCity
+     * @param departureTime
+     * @param modelAndView
+     * @return the trips list, filtered by address
+     */
     @RequestMapping("/{departureCity}/{arrivalCity}/{departureTime}")
     public ModelAndView getSearchWithAddresses(@PathVariable String departureCity,
                                          @PathVariable String arrivalCity,

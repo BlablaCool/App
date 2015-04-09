@@ -38,6 +38,11 @@ public class CarController implements ServletContextAware {
     private CarService carService;
     private ServletContext servletContext;
 
+    /**
+     *
+     * @param modelAndView
+     * @return the view used to create a new car
+     */
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public ModelAndView getNew(ModelAndView modelAndView)
     {
@@ -46,21 +51,41 @@ public class CarController implements ServletContextAware {
         return modelAndView;
     }
 
+    /**
+     * Uses CarQuery Api to return a list of car Makes
+     * @return a JSON list of car makes
+     */
     @RequestMapping(value = "/makes", method = RequestMethod.GET)
     public ResponseEntity<String> getCarMakes() {
         return getApiResponse(servletContext.getInitParameter("carQueryApiUrl")+"&cmd=getMakes");
     }
 
+    /**
+     * Uses CarQuery Api to return a list of models belonging to a car make
+     * @param make
+     * @return a JSON list of car Models
+     */
     @RequestMapping(value = "/models/{make}", method = RequestMethod.GET)
     public ResponseEntity<String> getCarsByMake(@PathVariable("make") String make) {
         return getApiResponse("&cmd=getModels&make="+make);
     }
 
+    /**
+     * Uses carQuery Api to return a list of trims belonging to a car model
+     * @param make
+     * @param model
+     * @return a JSON list of car Trims
+     */
     @RequestMapping(value = "/model/{make}/{model}", method = RequestMethod.GET)
     public ResponseEntity<String> getCarTrims(@PathVariable("make") String make, @PathVariable("model") String model) {
         return getApiResponse("&cmd=getTrims&make="+make+"&model="+model);
     }
 
+    /**
+     * Calls the CarQuery Api using params
+     * @param queryParams
+     * @return the Api's response
+     */
     public ResponseEntity<String> getApiResponse(String queryParams){
         try {
             URL carQueryUrl = new URL(servletContext.getInitParameter("carQueryApiUrl")+queryParams);
@@ -76,6 +101,14 @@ public class CarController implements ServletContextAware {
         }
     }
 
+    /**
+     * Creates a new car
+     * @param car
+     * @param bindingResult
+     * @param user
+     * @param modelAndView
+     * @return the page listing the authenticated user's cars
+     */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(@Valid @ModelAttribute("newCar") Car car, BindingResult bindingResult, @AuthenticationPrincipal User user,ModelAndView modelAndView){
         car.setOwner(user);

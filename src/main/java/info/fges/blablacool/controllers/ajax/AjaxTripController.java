@@ -44,6 +44,13 @@ public class AjaxTripController
         return "test";
     }
 
+    /**
+     * Creates a trip from a JSON structure
+     * @param stringifiedJsonInfos
+     * @param stringifiedJsonPlaces
+     * @param user
+     * @return the url of a created trip
+     */
     @Secured("ROLE_USER")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
@@ -79,6 +86,13 @@ public class AjaxTripController
         return JSONValue.toJSONString("/trips/" + trip.getIdTrip());
     }
 
+    /**
+     * Creates a copied trip from an existent one
+     * @param idTripToCopy
+     * @param stringifiedJsonSteps
+     * @param user
+     * @return the url of the new trip
+     */
     @Secured("ROLE_USER")
     @RequestMapping(value = "/copy/{idTripToCopy}", method = RequestMethod.POST)
     @ResponseBody

@@ -38,6 +38,12 @@ public class AjaxBookingController
     @Autowired
     private UserService userService;
 
+    /**
+     * Creates a booking
+     * @param idTrip
+     * @param loggedUser
+     * @return the JSON object corresponding to the new booking
+     */
     @Secured("ROLE_SUBSCRIBED")
     @RequestMapping(value = "/new/{id}")
     @ResponseBody
@@ -61,6 +67,12 @@ public class AjaxBookingController
         return new ResponseEntity<String>(JSONObject.toString("created", false), HttpStatus.CONFLICT);
     }
 
+    /**
+     * Accepts a booking
+     * @param idBooking
+     * @param loggedUser
+     * @return success
+     */
     @Secured("ROLE_SUBSCRIBED")
     @RequestMapping(value = "/{id}/accept")
     @ResponseBody
@@ -83,6 +95,12 @@ public class AjaxBookingController
         return "UPDATED";
     }
 
+    /**
+     * Declines booking
+     * @param idBooking
+     * @param loggedUser
+     * @return success
+     */
     @Secured("ROLE_SUBSCRIBED")
     @RequestMapping(value = "/{id}/decline")
     @ResponseBody

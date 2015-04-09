@@ -36,6 +36,12 @@ public class UserController {
     @Autowired
     private UserPreferenceService userPreferenceService;
 
+    /**
+     *
+     * @param user 
+     * @param modelAndView 
+     * @return the user profile edit page
+     */
     @Secured("ROLE_USER")
     @RequestMapping(value = "/settings", method = RequestMethod.GET)
     public ModelAndView getUserSettings(@AuthenticationPrincipal User user,
@@ -54,6 +60,13 @@ public class UserController {
         return modelAndView;
     }
 
+    /**
+     *
+     * @param user 
+     * @param id 
+     * @param modelAndView 
+     * @return the user profile page
+     */
     @Secured("ROLE_USER")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ModelAndView getUser(@AuthenticationPrincipal User user,
@@ -67,6 +80,12 @@ public class UserController {
         return modelAndView;
     }
 
+    /**
+     *
+     * @param principal 
+     * @param modelAndView 
+     * @return the 's own profile page
+     */
     @Secured("ROLE_USER")
     @RequestMapping(value = "/me", method = RequestMethod.GET)
     public ModelAndView getLoggedInUser(@AuthenticationPrincipal User principal,
@@ -80,6 +99,12 @@ public class UserController {
         return modelAndView;
     }
 
+    /**
+     *
+     * @param modelAndView 
+     * @param id 
+     * @return the page containing a user's past trips
+     */
     @RequestMapping(value = "/{id}/history", method = RequestMethod.GET)
     public ModelAndView getUserPastTrips(ModelAndView modelAndView , @PathVariable("id") Integer id )
     {
@@ -87,6 +112,12 @@ public class UserController {
         return modelAndView;
     }
 
+    /**
+     *
+     * @param user 
+     * @param modelAndView
+     * @return the page listing the 's subscriptions
+     */
     @Secured("ROLE_USER")
     @RequestMapping(value = "/plans", method = RequestMethod.GET)
     public ModelAndView getPlans(@AuthenticationPrincipal User user,
@@ -105,6 +136,12 @@ public class UserController {
         return modelAndView;
     }
 
+    /**
+     *
+     * @param user 
+     * @param modelAndView
+     * @return the page listing the authenticated user's cars
+     */
     @Secured("ROLE_USER")
     @RequestMapping(value = "/cars", method = RequestMethod.GET)
     public ModelAndView getCars(@AuthenticationPrincipal User user,
@@ -116,6 +153,12 @@ public class UserController {
         return modelAndView;
     }
 
+    /**
+     *
+     * @param user 
+     * @param modelAndView
+     * @return the page
+     */
     @Secured("ROLE_USER")
     @RequestMapping(value = "/driver", method = RequestMethod.GET)
     public ModelAndView getDriver(@AuthenticationPrincipal User user,
@@ -129,6 +172,12 @@ public class UserController {
     }
 
 
+    /**
+     *
+     * @param user 
+     * @param modelAndView
+     * @return
+     */
     @Secured("ROLE_USER")
     @RequestMapping(value = "/passenger", method = RequestMethod.GET)
     public ModelAndView getPassenger(@AuthenticationPrincipal User user,
@@ -143,6 +192,12 @@ public class UserController {
         return modelAndView;
     }
 
+    /**
+     * Updates a user, we can't user the form's user object since it is missing some parameters
+     * @param authenticatedUser 
+     * @param updatedUser
+     * @return the user's settings page
+     */
     @Secured("ROLE_USER")
     @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
     public String postUpdateUser(@AuthenticationPrincipal User authenticatedUser,
@@ -169,6 +224,12 @@ public class UserController {
         return "redirect:/users/settings";
     }
 
+    /**
+     * Updates a user's preferences, we can't user the form's user object since it is missing some parameters
+     * @param authenticatedUser 
+     * @param updatedUserPreferences
+     * @return the user's settings page
+     */
     @Secured("ROLE_USER")
     @RequestMapping(value = "/updateUserPreferences", method = RequestMethod.POST)
     public String postUpdateUserPreferences(@AuthenticationPrincipal User authenticatedUser,

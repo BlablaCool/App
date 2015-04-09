@@ -28,6 +28,14 @@ public class AjaxSearchController
     @Autowired
     private SearchService searchService;
 
+    /**
+     * Creates a search from addresses and geolocation
+     * @param stringifiedJsonInfos
+     * @param stringifiedJsonDeparture
+     * @param stringifiedJsonArrival
+     * @param stringifiedJsonGeolocation
+     * @return JSON list of trips
+     */
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
     @ResponseBody
     public String postSearch(@RequestParam(value = "infos", required = true) String stringifiedJsonInfos,

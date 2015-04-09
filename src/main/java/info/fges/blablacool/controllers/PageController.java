@@ -27,6 +27,11 @@ public class PageController
 	@Autowired
 	SearchService searchService;
 
+    /**
+     *
+     * @param modelAndView
+     * @return the index page
+     */
     @RequestMapping(method = RequestMethod.GET)
 	public ModelAndView getIndex(ModelAndView modelAndView)
     {
@@ -35,12 +40,5 @@ public class PageController
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "test", method = RequestMethod.GET)
-	@ResponseBody
-	public String getIndex2()
-	{
-
-		return "home";
-	}
 
 }

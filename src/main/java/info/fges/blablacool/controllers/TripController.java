@@ -44,6 +44,11 @@ public class TripController
     @Autowired
     private MessageService messageService;
 
+    /**
+     *
+     * @param modelAndView
+     * @return the view containing all the unfiltered trips
+     */
     @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
     public ModelAndView getIndex(ModelAndView modelAndView)
     {
@@ -53,6 +58,12 @@ public class TripController
         return modelAndView;
     }
 
+    /**
+     *
+     * @param user
+     * @param modelAndView
+     * @return the view used to create a new trip
+     */
     @Secured("ROLE_SUBSCRIBED")
     @RequestMapping(value = "/new", method = RequestMethod.GET)
     public ModelAndView getNew(@AuthenticationPrincipal User user, ModelAndView modelAndView)
@@ -65,6 +76,13 @@ public class TripController
         return modelAndView;
     }
 
+    /**
+     *
+     * @param user
+     * @param id
+     * @param modelAndView
+     * @return the trip page
+     */
     @Secured("ROLE_SUBSCRIBED")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ModelAndView getTrip(@AuthenticationPrincipal User user,
@@ -79,6 +97,15 @@ public class TripController
         return modelAndView;
     }
 
+    /**
+     * Adds a message to a trip and sends mail to creator
+     * @param _user
+     * @param _idTrip
+     * @param _message
+     * @param request
+     * @param modelAndView
+     * @return the trip page  with new messages
+     */
     @Secured("ROLE_SUBSCRIBED")
     @RequestMapping(value = "/{id}/add-message", method = RequestMethod.POST)
     public String addMessageToTrip(@AuthenticationPrincipal User _user,
@@ -104,6 +131,13 @@ public class TripController
         return "redirect:/trips/" + _idTrip + "#messagesList";
     }
 
+    /**
+     *
+     * @param user
+     * @param id
+     * @param modelAndView
+     * @return the new trip page, copied from a previously created trip
+     */
     @Secured("ROLE_SUBSCRIBED")
     @RequestMapping(value = "/copy/{id}", method = RequestMethod.GET)
     public ModelAndView getCopyTrip(@AuthenticationPrincipal User user,

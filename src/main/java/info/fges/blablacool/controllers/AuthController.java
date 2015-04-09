@@ -41,6 +41,11 @@ public class AuthController
     @Autowired
     private SubscriptionService subscriptionService;
 
+    /**
+     *
+     * @param modelAndView
+     * @return the login/register page
+     */
     @RequestMapping(value = "/login-register", method = RequestMethod.GET)
     public ModelAndView getLoginRegister(ModelAndView modelAndView)
     {
@@ -49,6 +54,12 @@ public class AuthController
         return modelAndView;
     }
 
+    /**
+     * Creates a user
+     * @param user
+     * @param bindingResult
+     * @return the registered page
+     */
     @RequestMapping(value = "/login-register", method = RequestMethod.POST)
     public String postRegister(@Valid @ModelAttribute("newUser") User user,
                                      BindingResult bindingResult)
@@ -95,6 +106,10 @@ public class AuthController
         return "redirect:/auth/registered";
     }
 
+    /**
+     *
+     * @return the registered page
+     */
     @RequestMapping("/registered")
     public String getRegistered()
     {

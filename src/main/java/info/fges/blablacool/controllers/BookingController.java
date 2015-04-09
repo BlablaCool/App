@@ -39,6 +39,14 @@ public class BookingController
     @Autowired
     private ServletContext servletContext;
 
+    /**+
+     *
+     * @param principal
+     * @param idBooking
+     * @param modelAndView
+     * @return the booking confirmation page
+     * @throws ResourceNotFoundException
+     */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ModelAndView getConfirmationPage(@AuthenticationPrincipal User principal,
                                             @PathVariable("id") Integer idBooking,
@@ -79,6 +87,15 @@ public class BookingController
         return modelAndView;
     }
 
+    /**
+     * deletes a booking
+     * @param principal
+     * @param idBooking
+     * @param cancelBooking
+     * @param modelAndView
+     * @return the booking page
+     * @throws ResourceNotFoundException
+     */
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.POST)
     public String postDeleteBooking(@AuthenticationPrincipal User principal,
                                     @PathVariable("id") Integer idBooking,
@@ -101,6 +118,13 @@ public class BookingController
         return "redirect:/booking/" + booking.getId();
     }
 
+    /**
+     *
+     * @param user
+     * @param idBooking
+     * @param modelAndView
+     * @return the review page for a booking
+     */
     @RequestMapping(value = "/{id}/review", method = RequestMethod.GET)
     public ModelAndView getReview(@AuthenticationPrincipal User user,
                                   @PathVariable("id") Integer idBooking,
@@ -119,6 +143,15 @@ public class BookingController
         return modelAndView;
     }
 
+    /**
+     * Create a review for a booking
+     * @param user
+     * @param idBooking
+     * @param rating
+     * @param comment
+     * @param modelAndView
+     * @return the review success page
+     */
     @RequestMapping(value = "/{id}/review", method = RequestMethod.POST)
     public ModelAndView postReview(@AuthenticationPrincipal User user,
                                    @PathVariable("id") Integer idBooking,
