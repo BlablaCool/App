@@ -78,6 +78,11 @@
         <param-value>http://www.carqueryapi.com/api/0.3/?</param-value>
     </context-param>
 
+    <context-param>
+        <param-name>websiteUrl</param-name>
+        <param-value>https://blablacool.fges.info/</param-value>
+    </context-param>
+
     <jsp-config>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>
