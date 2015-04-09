@@ -102,7 +102,7 @@
               <li>
                 <div class="article comment" inline_comment="comment">
                   <div class="comment-author">
-                    <img src="http://lorempixel.com/420/420/people/" style="max-width: 42px; max-height: 42px;" />
+                    <img src="${message.sender.gravatarUrl}" style="max-width: 42px; max-height: 42px;" />
                   </div>
                   <div class="comment-inner">
                     <span class="comment-author-name">${message.sender.nickname}</span>

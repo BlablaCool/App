@@ -144,7 +144,7 @@
                   <div class="row">
                     <div class="col-md-2">
                       <div class="booking-item-img-wrap">
-                        <img src="http://placehold.it/420x420" class="img-rounded" style="max-width: 100%; max-height: 120px;"/>
+                        <img src="${trip.driver.gravatarUrl}" class="img-rounded" style="max-width: 100%; max-height: 120px;"/>
                         <%--<div class="booking-item-img-num">--%>
                           <%--<i class="fa fa-picture-o"></i>29--%>
                         <%--</div>--%>
