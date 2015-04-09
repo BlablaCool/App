@@ -26,10 +26,6 @@
                   <p><small>le <joda:format value="${booking.step.estimatedTime}" pattern="dd/MM/yy" /> à <joda:format value="${booking.step.estimatedTime}" pattern="HH:mm" /></small>
                   </p>
                 </div>
-                <div class="col-xs-3">
-                  <p class="text-right"><span class="text-lg">$150</span>
-                  </p>
-                </div>
               </div>
             </li>
             <li>
@@ -37,10 +33,6 @@
                 <div class="col-xs-9">
                   <h5><i class="fa fa-car"></i> Arrivée à ${booking.trip.arrivalStep.place.city}</h5>
                   <p><small>le <joda:format value="${booking.trip.arrivalStep.estimatedTime}" pattern="dd/MM/yy" /> à <joda:format value="${booking.trip.arrivalStep.estimatedTime}" pattern="HH:mm" /></small>
-                  </p>
-                </div>
-                <div class="col-xs-3">
-                  <p class="text-right"><span class="text-lg">$187</span>
                   </p>
                 </div>
               </div>

@@ -61,6 +61,56 @@
               </div>
             </div>
             <hr>
+
+            <div class="row mt40">
+              <div class="col-md-10 col-md-offset-1">
+                <h3><i class="fa fa-smile-o"></i> Réservations à venir</h3>
+                <c:choose>
+                  <c:when test="${user.booking.size() > 0}">
+                    <table class="table">
+                      <tbody>
+                      <c:forEach items="${user.booking}" var="booking">
+                        <tr>
+                          <td style="width: 10%;">
+                            <joda:format value="${booking.createdTime}" pattern="dd/MM/yyyy" /><br />
+                            à <joda:format value="${booking.createdTime}" pattern="HH:mm:ss" /><br />
+                          </td>
+                          <td style="vertical-align: middle; text-align: center; font-weight: bold;">
+                            ${booking.trip.departureStep.place.city}<i class="fa fa-angle-right fa-fw"></i>${booking.trip.arrivalStep.place.city}
+                          </td>
+                          <td style="vertical-align: middle;">
+                            <c:choose>
+                              <c:when test="${booking.status == 'PENDING'}">
+                                <a href="/booking/${booking.id}" class="btn btn-warning btn-xs">EN ATTENTE DE VALIDATION</a>
+                              </c:when>
+                              <c:when test="${booking.status == 'ACCEPTED'}">
+                                <a href="/booking/${booking.id}" class="btn btn-success btn-xs">CONFIRMÉE</a>
+                              </c:when>
+                              <c:when test="${booking.status == 'DECLINED'}">
+                                <a href="/booking/${booking.id}" class="btn btn-danger btn-xs">REFUSÉE</a>
+                              </c:when>
+                              <c:when test="${booking.status == 'PAID'}">
+                                <a href="/booking/${booking.id}" class="btn btn-primary btn-xs">PAYÉE</a>
+                              </c:when>
+                              <c:when test="${booking.status == 'CANCELLED'}">
+                                <a href="/booking/${booking.id}" class="btn btn-default btn-xs">ANNULÉE</a>
+                              </c:when>
+                            </c:choose>
+                          </td>
+                        </tr>
+                      </c:forEach>
+                      </tbody>
+                    </table>
+                  </c:when>
+                  <c:otherwise>
+                    <p class="lead text-center" style="margin-top: 42px;">
+                      Aucune réservation !<br /><br />
+                      <a href="/trips/" class="btn btm-lg btn-success">Parcourir les voyages disponibles !</a> </p>
+                  </c:otherwise>
+                </c:choose>
+              </div>
+            </div>
+
         </div>
       </div>
     </div>
