@@ -78,6 +78,7 @@ public class UserControllerTest {
         // Process mock annotations
         MockitoAnnotations.initMocks(this);
 
+        session = new MockHttpSession();
         session.setAttribute("user", user);
 
         // Setup Spring test in standalone mode
@@ -90,17 +91,16 @@ public class UserControllerTest {
     public void testGetUserSettings() throws Exception {
         mockMvc.perform(get("/users/settings")
                 .session(session))
-                .andExpect(model().attribute("user", user));
-               // .andExpect(status().isOk())
-//                .andExpect(model().attribute("user", any(User.class)));
-
-/*                .andExpect(view().name("users/settings"))
+                .andExpect(model().attribute("user", user))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("user", user))
+                .andExpect(view().name("users/settings"))
                 .andExpect(model().attributeExists("user"))
                 .andExpect(model().attributeExists("userPreferences"))
                 .andExpect(model().attributeExists("musicStyles"))
                 .andExpect(model().attributeExists( "temperaments"))
                 .andExpect(model().attributeExists("talkingLevels"))
-                .andExpect(model().attributeExists("drivingStyles"));*/
+                .andExpect(model().attributeExists("drivingStyles"));
     }
 
     @Test
@@ -116,10 +116,10 @@ public class UserControllerTest {
     @Test
     public void testGetLoggedInUser() throws Exception {
         mockMvc.perform(get("/users/me")
-                .session(session));
-               // .andExpect(status().isOk());
-                //.andExpect(model().attribute("user", user))
-               // .andExpect(model().attribute("viewedUser", user))
+                .session(session))
+                  .andExpect(status().isOk())
+                  .andExpect(model().attribute("user", user))
+                  .andExpect(model().attribute("viewedUser", user));
     }
 
     @Test
