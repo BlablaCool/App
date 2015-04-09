@@ -64,18 +64,26 @@
 
             <div class="row mt40">
               <div class="col-md-10 col-md-offset-1">
-                <h3><i class="fa fa-smile-o"></i> Réservations à venir</h3>
+                <h3>Réservations à venir</h3>
                 <c:choose>
                   <c:when test="${user.booking.size() > 0}">
                     <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Heure</th>
+                          <th>Trajet</th>
+                          <th>État</th>
+                          <th style="text-align: center;">Paiement</th>
+                        </tr>
+                      </thead>
                       <tbody>
                       <c:forEach items="${user.booking}" var="booking">
                         <tr>
-                          <td style="width: 10%;">
+                          <td>
                             <joda:format value="${booking.createdTime}" pattern="dd/MM/yyyy" /><br />
                             à <joda:format value="${booking.createdTime}" pattern="HH:mm:ss" /><br />
                           </td>
-                          <td style="vertical-align: middle; text-align: center; font-weight: bold;">
+                          <td style="vertical-align: middle; font-weight: bold;">
                             ${booking.trip.departureStep.place.city}<i class="fa fa-angle-right fa-fw"></i>${booking.trip.arrivalStep.place.city}
                           </td>
                           <td style="vertical-align: middle;">
@@ -96,6 +104,11 @@
                                 <a href="/booking/${booking.id}" class="btn btn-default btn-xs">ANNULÉE</a>
                               </c:when>
                             </c:choose>
+                          </td>
+                          <td style="vertical-align: middle; text-align: center;">
+                            <c:if test="${booking.payments.size() == 1}">
+                              <i class="fa fa-check-square-o fa-2x text-success"></i>
+                            </c:if>
                           </td>
                         </tr>
                       </c:forEach>

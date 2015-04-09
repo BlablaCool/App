@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
@@ -36,6 +37,9 @@ public class TripController
 
     @Autowired
     private StepService stepService;
+
+    @Autowired
+    private ServletContext servletContext;
 
     @Autowired
     private MessageService messageService;
@@ -67,7 +71,9 @@ public class TripController
                                 @PathVariable("id") Integer id,
                                 ModelAndView modelAndView)
     {
+        String stripeApiPublicKey = servletContext.getInitParameter("stripePublicKey");
         modelAndView.setViewName("trips/get");
+        modelAndView.addObject("stripePublicKey",stripeApiPublicKey);
         modelAndView.addObject("trip", tripService.findById(id));
 
         return modelAndView;
@@ -100,7 +106,7 @@ public class TripController
 
     @Secured("ROLE_SUBSCRIBED")
     @RequestMapping(value = "/copy/{id}", method = RequestMethod.GET)
-    public String getCopyTrip(@AuthenticationPrincipal User user,
+    public ModelAndView getCopyTrip(@AuthenticationPrincipal User user,
                               @PathVariable("id") Integer id,
                               ModelAndView modelAndView)
     {
@@ -109,18 +115,18 @@ public class TripController
         {
             throw new AccessForbiddenException();
         }
-
         // Creating architecture...
         Trip clonedTrip = new Trip(tripToClone);
         tripService.create(clonedTrip);
-
 
         // Adding Steps...
         for (Step stepToClone : tripToClone.getSteps())
         {
             stepService.create(new Step(stepToClone, clonedTrip));
         }
+        modelAndView.setViewName("trips/copy");
+        modelAndView.addObject("trip", tripToClone);
 
-        return "redirect:/trips/" + clonedTrip.getIdTrip() + "/edit";
+        return modelAndView;
     }
 }

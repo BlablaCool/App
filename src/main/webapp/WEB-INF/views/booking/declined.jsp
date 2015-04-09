@@ -18,20 +18,16 @@
           <i class="fa fa-times round box-icon-large box-icon-center box-icon-black mb30"></i>
           <h2 class="text-center">Demande déclinée</h2>
           <h5 class="text-center mb30"><em>${booking.trip.driver.nickname}</em> ne souhaite pas donner suite à votre demande de réservation.<br>Ne vous en faites pas, nous on vous aime quand même !</h5>
-          <ul class="order-payment-list list mb30">
+          <ul class="order-payment-list list" style="margin-bottom: 60px; margin-top: 60px;">
             <li>
               <div class="row">
-                <div class="col-xs-9">
-                  <h5><i class="fa fa-car"></i> Départ de ${booking.step.place.city}</h5>
+                <div class="col-md-6">
+                  <h5><i class="fa fa-flag"></i> Départ de ${booking.step.place.city}</h5>
                   <p><small>le <joda:format value="${booking.step.estimatedTime}" pattern="dd/MM/yy" /> à <joda:format value="${booking.step.estimatedTime}" pattern="HH:mm" /></small>
                   </p>
                 </div>
-              </div>
-            </li>
-            <li>
-              <div class="row">
-                <div class="col-xs-9">
-                  <h5><i class="fa fa-car"></i> Arrivée à ${booking.trip.arrivalStep.place.city}</h5>
+                <div class="col-md-6">
+                  <h5><i class="fa fa-flag-checkered"></i> Arrivée à ${booking.trip.arrivalStep.place.city}</h5>
                   <p><small>le <joda:format value="${booking.trip.arrivalStep.estimatedTime}" pattern="dd/MM/yy" /> à <joda:format value="${booking.trip.arrivalStep.estimatedTime}" pattern="HH:mm" /></small>
                   </p>
                 </div>

@@ -39,6 +39,8 @@ public class PageController
 	@ResponseBody
 	public String getIndex2()
 	{
+
 		return "home";
 	}
+
 }

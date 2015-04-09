@@ -1,0 +1,6 @@
+Bonjour {{ driverNickname }},
+
+Bonne nouvelle : {{ passengerNickname }} vient de régler sa participation pour le voyage {{ tripSummary }} !
+
+À très bientôt !
+L'équipe BlablaCool.

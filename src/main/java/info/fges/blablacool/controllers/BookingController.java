@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletContext;
 import java.awt.print.Book;
 
 /**
@@ -34,6 +35,9 @@ public class BookingController
 
     @Autowired
     private ReviewService reviewService;
+
+    @Autowired
+    private ServletContext servletContext;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ModelAndView getConfirmationPage(@AuthenticationPrincipal User principal,
@@ -70,6 +74,7 @@ public class BookingController
 
         modelAndView.addObject("booking", booking);
         modelAndView.addObject("user", user);
+        modelAndView.addObject("stripePublicKey", servletContext.getInitParameter("stripePublicKey"));
 
         return modelAndView;
     }
