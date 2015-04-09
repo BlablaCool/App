@@ -136,8 +136,6 @@ public class UserController {
     {
         List<Booking> bookingList = bookingService.findToReviewForUser(user.getId());
 
-        System.out.println(bookingList);
-
         modelAndView.setViewName("users/passenger");
         modelAndView.addObject("user", userService.findById(user.getId()));
         modelAndView.addObject("bookingWaitingReviews", bookingService.findToReviewForUser(user.getId()));

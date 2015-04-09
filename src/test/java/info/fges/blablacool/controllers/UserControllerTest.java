@@ -98,7 +98,7 @@ public class UserControllerTest {
                 .andExpect(model().attributeExists("user"))
                 .andExpect(model().attributeExists("userPreferences"))
                 .andExpect(model().attributeExists("musicStyles"))
-                .andExpect(model().attributeExists( "temperaments"))
+                .andExpect(model().attributeExists("temperaments"))
                 .andExpect(model().attributeExists("talkingLevels"))
                 .andExpect(model().attributeExists("drivingStyles"));
     }
@@ -134,12 +134,20 @@ public class UserControllerTest {
 
     @Test
     public void testGetDriver() throws Exception {
-
+        mockMvc.perform(get("/users/driver")
+                .session(session))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("user", user))
+                .andExpect(model().attributeExists("pendingBooking"));
     }
 
     @Test
     public void testGetPassenger() throws Exception {
-
+        mockMvc.perform(get("/users/passenger")
+                .session(session))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("user", user))
+                .andExpect(model().attributeExists("bookingWaitingReviews"));
     }
 
     @Test
