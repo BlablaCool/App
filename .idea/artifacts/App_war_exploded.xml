@@ -35,6 +35,7 @@
           <element id="library" level="project" name="Maven: org.jadira.usertype:usertype.core:3.2.0.GA" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.6" />
           <element id="library" level="project" name="Maven: org.jadira.usertype:usertype.spi:3.2.0.GA" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:3.2.6.RELEASE" />
           <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:3.2.6.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:3.2.6.RELEASE" />
