@@ -87,9 +87,9 @@
                     <tbody>
                     <c:forEach items="${user.driverLastTrips}" var="trip">
                       <tr>
-                        <td><joda:format value="${trip.departureStep.estimatedTime}" pattern="dd/MM/yyyy" /></td>
-                        <td>${trip.departureStep.place.city}<i class="fa fa-angle-right fa-fw"></i>${trip.arrivalStep.place.city}</td>
-                        <td><a href="/trips/copy/${trip.idTrip}" class="btn btn-success btn-xs">Copier</a></td>
+                        <td style="vertical-align: middle;"><joda:format value="${trip.departureStep.estimatedTime}" pattern="dd/MM/yyyy" /></td>
+                        <td style="vertical-align: middle;">${trip.departureStep.place.city}<i class="fa fa-angle-right fa-fw"></i>${trip.arrivalStep.place.city}</td>
+                        <td style="vertical-align: middle;"><a href="/trips/copy/${trip.idTrip}" class="btn btn-success btn-sm  ">Copier...</a></td>
                       </tr>
                     </c:forEach>
                     </tbody>
